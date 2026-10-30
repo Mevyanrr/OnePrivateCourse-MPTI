@@ -1,59 +1,54 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# One Private Course — Laravel 12 + Supabase (PostgreSQL)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Desain dari Stitch/Figma (HTML) sudah diubah jadi Blade **tanpa mengubah tampilan**, dan semua tombol/form dihubungkan ke database Supabase.
 
-## About Laravel
+## Struktur Blade
+```
+resources/views/
+├── auth/            login.blade.php, register.blade.php
+├── admin/           dashboard, jadwal, jadwal_baru, presensi, pembayaran, konfirmasi, tutor, akun, kuitansi
+│   └── siswa/       index, baru, ubah, detail
+└── siswa/           (portal siswa / orang tua) beranda, jadwal, presensi, tagihan
+```
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Cara menjalankan
+1. Butuh PHP >= 8.2 dengan ekstensi `pdo_pgsql`, plus Composer.
+2. Install dependency:
+   ```bash
+   composer install
+   ```
+3. Buka file `.env`, isi koneksi Supabase (Dashboard > Project Settings > Database > Connection string):
+   ```
+   DB_CONNECTION=pgsql
+   DB_HOST=aws-0-ap-southeast-1.pooler.supabase.com   # atau db.<ref>.supabase.co
+   DB_PORT=5432                                       # pakai port 5432 (Session pooler / Direct), BUKAN 6543
+   DB_DATABASE=postgres
+   DB_USERNAME=postgres.<project-ref>                 # untuk Direct: postgres
+   DB_PASSWORD=<password database>
+   DB_SSLMODE=require
+   ```
+   (`APP_KEY` sudah terisi. Kalau perlu baru: `php artisan key:generate`.)
+4. Buat tabel + isi data demo ke Supabase:
+   ```bash
+   php artisan migrate:fresh --seed
+   ```
+5. Jalankan:
+   ```bash
+   php artisan serve
+   ```
+   Buka http://127.0.0.1:8000
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Akun demo (password semua: `password123`)
+| Peran | Login | Halaman |
+|---|---|---|
+| Admin | `admin.jaksel@oneprivate.com` (pilih Admin) | /admin/dashboard |
+| Tutor | `rina.tutor@oneprivate.com` (pilih Tutor) | /admin/jadwal |
+| Wali murid / siswa | `wali.demo@oneprivate.com` (pilih peran apa saja) | /portal/beranda |
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Tombol "Demo Admin / Demo Tutor" di halaman login mengisi form otomatis.
+Klik nama/avatar pengguna di header untuk **keluar** (logout).
 
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Catatan
+- Tailwind, font, dan ikon diambil dari CDN (sama seperti desain asli) — butuh internet.
+- Zona waktu default `Asia/Jakarta` (`APP_TIMEZONE`).
+- Tabel: users, tutors, students, schedule_slots, lesson_sessions, attendances, payments.
