@@ -1,3 +1,4 @@
+```php
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -8,29 +9,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $t) {
-            $t->id();
-            $t->string('code')->nullable()->unique();
-            $t->string('name');
-            $t->string('email')->nullable()->unique();
-            $t->string('phone')->nullable()->unique();
-            $t->string('username')->nullable()->unique();
-            $t->string('role')->default('admin');      // admin | tutor | wali
-            $t->string('role_label')->nullable();      // Super Admin / Admin Keuangan / ...
-            $t->string('status')->default('aktif');    // aktif | nonaktif
-            $t->string('branch')->default('Tebet');
-            $t->timestamp('email_verified_at')->nullable();
-            $t->string('password');
-            $t->rememberToken();
-            $t->timestamps();
-        });
-
-        Schema::create('password_reset_tokens', function (Blueprint $t) {
-            $t->string('email')->primary();
-            $t->string('token');
-            $t->timestamp('created_at')->nullable();
-        });
-
+        // Tabel tutor
         Schema::create('tutors', function (Blueprint $t) {
             $t->id();
             $t->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
@@ -42,7 +21,7 @@ return new class extends Migration
             $t->string('email')->nullable();
             $t->decimal('rating', 2, 1)->default(4.8);
             $t->unsignedInteger('reviews')->default(0);
-            $t->text('subjects')->nullable();           // dipisah koma
+            $t->text('subjects')->nullable();
             $t->string('area')->nullable();
             $t->string('methods')->default('home_visit,online');
             $t->unsignedInteger('max_sessions')->default(20);
@@ -50,6 +29,7 @@ return new class extends Migration
             $t->timestamps();
         });
 
+        // Tabel siswa
         Schema::create('students', function (Blueprint $t) {
             $t->id();
             $t->string('code')->unique();
@@ -62,7 +42,7 @@ return new class extends Migration
             $t->string('guardian_relation')->nullable();
             $t->string('guardian_name')->nullable();
             $t->string('guardian_phone')->nullable();
-            $t->string('method')->default('home_visit'); // home_visit | online | studio
+            $t->string('method')->default('home_visit');
             $t->text('address')->nullable();
             $t->string('area')->nullable();
             $t->text('address_note')->nullable();
@@ -70,7 +50,7 @@ return new class extends Migration
             $t->foreignId('tutor_id')->nullable()->constrained()->nullOnDelete();
             $t->unsignedInteger('duration')->default(90);
             $t->string('package')->nullable();
-            $t->string('billing_scheme')->default('monthly'); // monthly | per_session
+            $t->string('billing_scheme')->default('monthly');
             $t->unsignedBigInteger('price')->default(0);
             $t->text('goals')->nullable();
             $t->string('status')->default('aktif');
@@ -79,16 +59,18 @@ return new class extends Migration
             $t->timestamps();
         });
 
+        // Tabel jadwal
         Schema::create('schedule_slots', function (Blueprint $t) {
             $t->id();
             $t->foreignId('student_id')->constrained()->cascadeOnDelete();
             $t->foreignId('tutor_id')->nullable()->constrained()->nullOnDelete();
-            $t->string('day');            // Senin..Minggu
+            $t->string('day');
             $t->time('start_time');
             $t->time('end_time');
             $t->timestamps();
         });
 
+        // Tabel sesi pembelajaran
         Schema::create('lesson_sessions', function (Blueprint $t) {
             $t->id();
             $t->foreignId('student_id')->constrained()->cascadeOnDelete();
@@ -100,7 +82,7 @@ return new class extends Migration
             $t->time('end_time');
             $t->string('method')->default('home_visit');
             $t->string('location')->nullable();
-            $t->string('status')->default('terjadwal'); // terjadwal | berjalan | selesai | batal
+            $t->string('status')->default('terjadwal');
             $t->boolean('tutor_confirmed')->default(false);
             $t->boolean('parent_confirmed')->default(false);
             $t->unsignedInteger('session_no')->nullable();
@@ -110,25 +92,29 @@ return new class extends Migration
             $t->index(['date', 'tutor_id']);
         });
 
+        // Tabel absensi
         Schema::create('attendances', function (Blueprint $t) {
             $t->id();
-            $t->foreignId('lesson_session_id')->constrained('lesson_sessions')->cascadeOnDelete();
-            $t->string('status')->default('belum');   // belum | hadir | izin | sakit
+            $t->foreignId('lesson_session_id')
+                ->constrained('lesson_sessions')
+                ->cascadeOnDelete();
+            $t->string('status')->default('belum');
             $t->unsignedTinyInteger('understanding')->nullable();
-            $t->text('journal')->nullable();          // catatan tutor
-            $t->text('note')->nullable();             // catatan wali
+            $t->text('journal')->nullable();
+            $t->text('note')->nullable();
             $t->string('submitted_by')->nullable();
             $t->timestamp('submitted_at')->nullable();
             $t->timestamps();
         });
 
+        // Tabel pembayaran
         Schema::create('payments', function (Blueprint $t) {
             $t->id();
             $t->foreignId('student_id')->constrained()->cascadeOnDelete();
             $t->string('invoice_no')->nullable();
-            $t->string('period');                    // contoh: Oktober 2026
+            $t->string('period');
             $t->unsignedBigInteger('amount');
-            $t->string('status')->default('belum');  // belum | lunas
+            $t->string('status')->default('belum');
             $t->string('method')->nullable();
             $t->date('due_date')->nullable();
             $t->date('paid_at')->nullable();
@@ -140,8 +126,11 @@ return new class extends Migration
 
     public function down(): void
     {
-        foreach (['payments', 'attendances', 'lesson_sessions', 'schedule_slots', 'students', 'tutors', 'password_reset_tokens', 'users'] as $tbl) {
-            Schema::dropIfExists($tbl);
-        }
+        Schema::dropIfExists('payments');
+        Schema::dropIfExists('attendances');
+        Schema::dropIfExists('lesson_sessions');
+        Schema::dropIfExists('schedule_slots');
+        Schema::dropIfExists('students');
+        Schema::dropIfExists('tutors');
     }
 };

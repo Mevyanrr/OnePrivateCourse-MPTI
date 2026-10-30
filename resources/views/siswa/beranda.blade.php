@@ -1,68 +1,274 @@
-<!DOCTYPE html><html lang="id"><head><meta name="csrf-token" content="{{ csrf_token() }}"><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_dashboard" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-tertiary-fixed-variant":"#2f2ebe","on-error-container":"#93000a","on-secondary-fixed":"#00201d","tertiary-fixed":"#e1e0ff","surface-container-highest":"#dae2fd","surface-container-low":"#f2f3ff","secondary":"#006a61","inverse-surface":"#283044","error":"#ba1a1a","secondary-fixed-dim":"#6bd8cb","surface-bright":"#faf8ff","error-container":"#ffdad6","tertiary-container":"#585be6","on-primary":"#ffffff","on-secondary-fixed-variant":"#005049","on-error":"#ffffff","primary":"#004ac6","surface-container":"#eaedff","surface-variant":"#dae2fd","on-surface-variant":"#434655","outline":"#737686","tertiary":"#3e3fcc","surface-tint":"#0053db","background":"#faf8ff","on-tertiary":"#ffffff","surface-container-lowest":"#ffffff","secondary-fixed":"#89f5e7","primary-fixed-dim":"#b4c5ff","primary-container":"#2563eb","on-primary-fixed":"#00174b","outline-variant":"#c3c6d7","inverse-primary":"#b4c5ff","surface-dim":"#d2d9f4","on-primary-fixed-variant":"#003ea8","on-background":"#131b2e","primary-fixed":"#dbe1ff","on-primary-container":"#eeefff","on-tertiary-fixed":"#07006c","surface-container-high":"#e2e7ff","on-tertiary-container":"#f1eeff","inverse-on-surface":"#eef0ff","on-secondary":"#ffffff","tertiary-fixed-dim":"#c0c1ff","on-surface":"#131b2e","surface":"#faf8ff","secondary-container":"#86f2e4","on-secondary-container":"#006f66"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{"space-sm":"0.5rem","space-md":"1rem","space-lg":"1.5rem","space-xl":"2rem","gutter-mobile":"1rem","margin-mobile":"1rem",gutter:"1.5rem","space-xs":"0.25rem",margin:"2rem"},fontFamily:{"headline-sm":["Plus Jakarta Sans"],"headline-md":["Plus Jakarta Sans"],"headline-xl":["Plus Jakarta Sans"],"body-lg":["Plus Jakarta Sans"],"body-md":["Plus Jakarta Sans"],"display-lg-mobile":["Plus Jakarta Sans"],"display-lg":["Plus Jakarta Sans"],"body-sm":["Plus Jakarta Sans"],"headline-xl-mobile":["Plus Jakarta Sans"],"headline-lg":["Plus Jakarta Sans"],"label-lg":["Plus Jakarta Sans"],"label-sm":["Plus Jakarta Sans"],"label-md":["Plus Jakarta Sans"]},fontSize:{"headline-sm":["18px",{lineHeight:"26px",fontWeight:"600"}],"headline-md":["20px",{lineHeight:"28px",fontWeight:"600"}],"headline-xl":["32px",{lineHeight:"40px",letterSpacing:"-0.015em",fontWeight:"700"}],"body-lg":["16px",{lineHeight:"24px",fontWeight:"400"}],"body-md":["14px",{lineHeight:"20px",fontWeight:"400"}],"display-lg-mobile":["30px",{lineHeight:"38px",letterSpacing:"-0.02em",fontWeight:"700"}],"display-lg":["40px",{lineHeight:"48px",letterSpacing:"-0.02em",fontWeight:"700"}],"body-sm":["13px",{lineHeight:"18px",fontWeight:"400"}],"headline-xl-mobile":["24px",{lineHeight:"32px",letterSpacing:"-0.015em",fontWeight:"700"}],"headline-lg":["24px",{lineHeight:"32px",letterSpacing:"-0.01em",fontWeight:"600"}],"label-lg":["14px",{lineHeight:"20px",letterSpacing:"0.01em",fontWeight:"600"}],"label-sm":["11px",{lineHeight:"14px",letterSpacing:"0.03em",fontWeight:"600"}],"label-md":["12px",{lineHeight:"16px",letterSpacing:"0.02em",fontWeight:"600"}]}}}};</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-50 flex flex-col justify-between py-space-lg"><div class="flex flex-col gap-space-lg"><div class="px-space-lg flex items-center gap-space-sm"><div class="w-9 h-9 rounded-xl bg-primary flex items-center justify-center text-on-primary shadow-sm"><span class="material-symbols-outlined text-[22px]">auto_stories</span></div><div><div class="font-headline-sm text-headline-sm text-primary tracking-tight">One Private</div><div class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Portal Edukasi</div></div></div><div class="px-space-md"><div class="px-space-sm py-space-xs mb-space-xs font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Menu Utama</div><nav class="flex flex-col gap-1" data-active-classes="bg-primary-container text-on-primary-container font-headline-sm"><a aria-current="page" class="flex items-center gap-3 px-space-md py-2.5 rounded-xl transition-all bg-primary-container text-on-primary-container font-headline-sm" data-path="beranda" href="{{ route('portal.beranda') }}"><span class="material-symbols-outlined text-[20px]">grid_view</span><span class="font-label-lg text-label-lg">Beranda</span></a><a class="flex items-center gap-3 px-space-md py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="jadwal-les" href="{{ route('portal.jadwal') }}"><span class="material-symbols-outlined text-[20px]">calendar_today</span><span class="font-label-lg text-label-lg">Jadwal Les</span></a><a class="flex items-center gap-3 px-space-md py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="presensi-dan-catatan" href="{{ route('portal.presensi') }}"><span class="material-symbols-outlined text-[20px]">history_edu</span><span class="font-label-lg text-label-lg">Presensi &amp; Catatan</span></a><a class="flex items-center gap-3 px-space-md py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="riwayat-tagihan" href="{{ route('portal.tagihan') }}"><span class="material-symbols-outlined text-[20px]">receipt_long</span><span class="font-label-lg text-label-lg">Riwayat Tagihan</span></a><a class="flex items-center gap-3 px-space-md py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="profil-siswa" href="#"><span class="material-symbols-outlined text-[20px]">badge</span><span class="font-label-lg text-label-lg">Profil Siswa</span></a></nav></div></div><div class="px-space-lg flex flex-col gap-space-sm"><div class="p-space-md bg-surface-container-low rounded-xl flex items-center gap-3"><span class="material-symbols-outlined text-secondary text-[22px]">support_agent</span><div><div class="font-label-md text-label-md text-on-surface">Bantuan Admin</div><div class="font-body-sm text-body-sm text-on-surface-variant">WhatsApp Konsultasi</div></div></div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40"><div class="h-16 w-full px-8 flex items-center justify-between border-b border-surface-container-high/60"><div class="flex items-center gap-space-md"><div class="text-xs text-on-surface-variant font-medium tracking-tight">Portal Orang Tua &amp; Siswa</div><span class="text-outline-variant">•</span><div class="flex items-center gap-2 px-3.5 py-1.5 bg-surface-container-low hover:bg-surface-container-high rounded-full cursor-pointer transition-colors shadow-xs"><span class="material-symbols-outlined text-primary text-[18px]">school</span><span class="font-label-md text-label-md text-on-surface">Profil Aktif: <strong class="text-primary font-bold">{{ $child->name }}</strong> ({{ $child->grade }})</span><span class="material-symbols-outlined text-on-surface-variant text-[16px]">expand_more</span></div></div><div class="flex items-center gap-4"><button aria-label="Pemberitahuan" class="relative p-2.5 rounded-xl text-on-surface-variant bg-surface-container-low hover:bg-surface-container hover:text-on-surface transition-colors shadow-xs" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-error ring-2 ring-surface"></span></button><div class="flex items-center gap-space-sm pl-2 border-l border-surface-container-high"><div class="text-right hidden sm:block"><div class="font-label-lg text-label-lg text-on-surface font-semibold leading-none">{{ \App\Support\Fmt::shortName(auth()->user()->name) !== "" ? preg_replace("/\s+(Kusumawardhani|Syakieb)$/", "", auth()->user()->name) : "" }}</div><div class="font-label-sm text-label-sm text-on-surface-variant mt-1">Wali Murid • {{ auth()->user()->branch }}</div></div><div class="w-9 h-9 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-sm shadow-xs"><span class="material-symbols-outlined text-[20px]">person</span></div></div></div></div></header><main class="relative w-full pt-16 bg-surface min-h-screen"><div class="flex flex-col w-full">
-<div class="px-8 py-8 flex flex-col gap-8 max-w-[1440px] mx-auto w-full">
-<!-- Section 1: Greeting & Child Selector -->
-<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-2"><div class="flex flex-col gap-1"><div class="flex items-center gap-2.5"><h1 class="text-2xl font-bold tracking-tight text-on-surface">Selamat Datang, {{ $greet }}</h1><span class="inline-block animate-bounce text-2xl">👋</span></div><p class="text-xs text-on-surface-variant leading-relaxed">Pantau perkembangan belajar, kehadiran, dan jadwal les privat putra-putri Anda secara real-time.</p></div><div class="flex items-center flex-wrap gap-2 p-1.5 bg-surface-container-low rounded-2xl border border-surface-container-high/60 shadow-xs"><button class="flex items-center gap-2.5 px-4 py-2 rounded-xl bg-primary text-on-primary shadow-sm transition-all hover:bg-primary-container" type="button"><div class="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center text-[12px]">🌟</div><div class="text-left"><div class="font-label-md text-label-md font-bold leading-tight">Aisyah Putri</div><div class="font-label-sm text-label-sm text-on-primary/80 leading-tight text-[11px]">Kelas 8 SMP • Reguler</div></div><span class="w-1.5 h-1.5 rounded-full bg-emerald-300 ml-1"></span></button><button class="flex items-center gap-2.5 px-4 py-2 rounded-xl bg-surface-container-lowest text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all shadow-xs" type="button"><div class="w-6 h-6 rounded-full bg-surface-container flex items-center justify-center text-[12px]">👦</div><div class="text-left"><div class="font-label-md text-label-md font-semibold leading-tight">Farhan Nugraha</div><div class="font-label-sm text-label-sm text-on-surface-variant leading-tight text-[11px]">Kelas 12 SMA • UTBK</div></div></button><button class="flex items-center gap-1.5 px-3 py-2 rounded-xl text-primary hover:bg-surface-container-high transition-colors font-label-md text-label-md font-semibold" type="button"><span class="material-symbols-outlined text-[18px]">add_circle</span><span class="">Tambah Anak</span></button></div></div>
+@extends('layouts.portal', ['role' => 'siswa', 'active' => 'beranda'])
 
-@if($next)
-<!-- Section 2: High-Priority Alert Banner -->
-<div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-amber-50 via-amber-100/60 to-orange-50 p-5 shadow-sm border border-amber-200/80"><div class="absolute -right-6 -bottom-6 w-36 h-36 rounded-full bg-amber-200/50 blur-2xl pointer-events-none"></div><div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 relative z-10"><div class="flex items-start gap-4"><div class="w-11 h-11 rounded-2xl bg-amber-500/20 text-amber-800 flex items-center justify-center shrink-0 mt-0.5 shadow-xs"><span class="material-symbols-outlined text-[24px]">event_available</span></div><div class="flex flex-col gap-1"><div class="flex items-center gap-2 flex-wrap"><span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-200/90 text-amber-900 tracking-wider uppercase"><span class="w-1.5 h-1.5 rounded-full bg-amber-600"></span>Tindakan Diperlukan</span><span class="font-label-md text-label-md text-amber-900 font-bold">{{ $pendingCount }} Jadwal Sesi Menunggu Konfirmasi Anda</span></div><p class="font-body-sm text-body-sm text-amber-900/90 leading-relaxed">Sesi Les Privat: <strong class="text-amber-900">{{ \App\Support\Fmt::dateShort($next->date) }} ({{ \App\Support\Fmt::hhmm($next->start_time) }} – {{ \App\Support\Fmt::hhmm($next->end_time) }} WIB)</strong> • Bersama <strong class="text-amber-900">{{ $next->tutor->name ?? "-" }}</strong> ({{ $next->subject }} - {{ \App\Support\Fmt::method($next->method) }}).</p></div></div><div class="flex items-center gap-2.5 flex-wrap shrink-0"><button class="px-4 py-2 rounded-xl bg-primary text-white text-xs font-semibold hover:bg-primary-container transition-all shadow-sm flex items-center gap-2" type="button" data-act="confirm"><span class="material-symbols-outlined text-[16px]">check_circle</span><span class="">Konfirmasi Jadwal</span></button><button class="px-4 py-2 rounded-xl bg-surface-container-lowest text-on-surface text-xs font-semibold hover:bg-surface-container transition-all shadow-xs flex items-center gap-1.5 border border-amber-200" type="button" data-act="resched"><span class="material-symbols-outlined text-[16px] text-on-surface-variant">calendar_clock</span><span class="">Ajukan Reschedule</span></button><a class="px-3.5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-semibold flex items-center gap-1.5 transition-all shadow-xs" href="{{ \App\Support\Fmt::waLink($next->tutor->phone ?? "") }}" rel="noopener noreferrer" target="_blank"><span class="material-symbols-outlined text-[16px]">chat</span><span class="">Chat Tutor</span></a></div></div></div>
+@section('title', 'Beranda')
 
-@endif
-<!-- Section 3: Two Column Main Workspace -->
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-<!-- LEFT COLUMN: Hero Session & Learning Records (~65% -> 8 cols) -->
-<div class="lg:col-span-8 flex flex-col gap-8">
-<!-- Hero Session Card: Sedang Berlangsung / Sesi Terdekat -->
-<div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary-container to-tertiary text-on-primary p-7 lg:p-8 shadow-xl"><div class="absolute -right-16 -top-16 w-72 h-72 rounded-full bg-white/10 blur-3xl pointer-events-none"></div><div class="absolute right-32 bottom-0 w-56 h-56 rounded-full bg-secondary-fixed/20 blur-2xl pointer-events-none"></div><div class="relative z-10 flex flex-col gap-6"><div class="flex flex-wrap items-center justify-between gap-3"><div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/15 backdrop-blur-md shadow-xs"><span class="relative flex h-2.5 w-2.5"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary-fixed opacity-75"></span><span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-secondary-fixed"></span></span><span class="font-label-sm text-label-sm tracking-wider text-on-primary uppercase font-bold">{{ $hero ? ($hero->liveStatus() === "berjalan" ? "Sesi Sedang Berlangsung • Hari Ini" : "Sesi Terdekat • " . \App\Support\Fmt::dateShort($hero->date)) : "Belum ada sesi terjadwal" }}</span></div><div class="flex items-center gap-2 font-label-md text-label-md text-primary-fixed bg-black/25 px-3.5 py-1.5 rounded-full backdrop-blur-md"><span class="material-symbols-outlined text-[16px]">schedule</span><span class="font-semibold">{{ $hero ? \App\Support\Fmt::hhmm($hero->start_time) . " – " . \App\Support\Fmt::hhmm($hero->end_time) . " WIB" : "-" }}</span></div></div><div class="flex flex-col gap-2"><div class="flex items-center gap-2 text-primary-fixed font-label-sm text-label-sm tracking-wider uppercase font-semibold"><span class="material-symbols-outlined text-[16px]">menu_book</span><span class="">{{ $child->program }}</span></div><h2 class="font-headline-xl text-headline-xl text-on-primary tracking-tight font-bold">{{ $hero->subject ?? "-" }}</h2><p class="font-body-md text-body-md text-on-primary-container max-w-2xl leading-relaxed">Fokus Pembelajaran: <strong class="text-white font-semibold">{{ $hero->topic ?? ($hero->subject ?? "-") }}</strong>. Target evaluasi kelancaran makharijul huruf dan tajwid mad thabi'i dengan metode talaqqi.</p></div><div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/10 shadow-sm"><div class="flex items-center gap-3.5"><div class="relative w-12 h-12 rounded-full overflow-hidden shadow-inner bg-surface-container-high shrink-0 ring-2 ring-white/30"><img class="w-full h-full object-cover" data-alt="Portrait photo of Kak Rina, a warm and professional Indonesian female Islamic tutor wearing a soft pastel blue hijab, smiling warmly in a bright modern educational setting, high quality studio lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdZejFctdCYFtYXleV6gj9H7uLterX6WD5db-5bnG4LbD7z_7Y4f-HpWCy5M2vLsCi8xfIGDQSnL9nKvOmG74mUF1ljOYzviPa3Qf_TPnaPo9TWZU4yIM1uZQse1xpiuVtiyB9zUC-ZCLujnOecTNpCn2Lnce2e1dfYLLL5YM5jRv07C1yBDw2lz3ZhOJKBypCnGJW0bP3R76XcqX431jlxryq7X-1w-oYUnPEZZyozSjNublVq0nkAA"></div><div class="flex flex-col"><div class="flex items-center gap-2"><span class="font-label-lg text-label-lg text-on-primary font-bold">{{ $child->tutor->name ?? "-" }}</span><span class="flex items-center gap-0.5 text-amber-300 text-xs font-bold bg-black/20 px-2 py-0.5 rounded-full"><span class="material-symbols-outlined text-[13px]" style="font-variation-settings: 'FILL' 1;">star</span><span class="">{{ $child->tutor->rating ?? "4.9" }}</span></span></div><div class="flex items-center gap-2 text-on-primary/90 font-body-sm text-body-sm mt-0.5"><span class="">{{ $child->tutor->headline ?? "-" }}</span><span class="">•</span><span class="inline-flex items-center gap-1 text-secondary-fixed font-semibold"><span class="material-symbols-outlined text-[14px]">home_pin</span><span class="">{{ $hero ? \App\Support\Fmt::method($hero->method) . ($hero->location ? " (" . $hero->location . ")" : "") : "-" }}</span></span></div></div></div><div class="flex items-center gap-2 text-xs text-on-primary font-semibold bg-white/15 px-3.5 py-2 rounded-xl self-start sm:self-center backdrop-blur-md"><span class="material-symbols-outlined text-[16px] text-secondary-fixed">verified</span><span class="">Tutor Terverifikasi BSNP</span></div></div><div class="flex flex-wrap items-center gap-3 pt-1"><button class="px-4 py-2.5 rounded-xl bg-primary text-white text-xs font-semibold hover:bg-primary-container transition-all shadow-md flex items-center gap-2 border border-white/20" type="button" data-go="{{ route('portal.presensi') }}"><span class="material-symbols-outlined text-[18px]">fact_check</span><span class="">Isi Presensi &amp; Catatan Belajar</span></button><a class="px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-semibold transition-all flex items-center gap-2 shadow-sm" href="{{ \App\Support\Fmt::waLink($child->tutor->phone ?? "") }}" rel="noopener noreferrer" target="_blank"><span class="material-symbols-outlined text-[18px]">chat</span><span class="">Chat WhatsApp Tutor</span></a><button class="px-4 py-2.5 rounded-xl text-primary-fixed hover:text-white text-xs font-semibold transition-colors flex items-center gap-1.5 ml-auto" type="button"><span class="material-symbols-outlined text-[16px]">menu_book</span><span class="">Lihat Silabus</span></button></div></div></div>
-<!-- Section: Riwayat Pertemuan & Evaluasi Belajar Terkini -->
-<div class="flex flex-col gap-5"><div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3"><div class="flex flex-col gap-0.5"><div class="flex items-center gap-2.5"><h3 class="font-headline-md text-headline-md text-on-surface font-bold">Riwayat &amp; Catatan Belajar Terkini</h3><span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-primary-fixed text-on-primary-fixed">{{ $histTotal }} Pertemuan</span></div><p class="font-body-sm text-body-sm text-on-surface-variant">Jurnal evaluasi akademik, keaktifan, dan absensi {{ $child->name }}</p></div><div class="flex items-center gap-1 p-1 bg-surface-container rounded-xl shadow-xs"><button class="px-3.5 py-1.5 rounded-lg bg-surface-container-lowest text-primary font-label-sm text-label-sm shadow-xs font-bold" type="button">Semua Sesi</button><button class="px-3.5 py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm font-semibold transition-colors" type="button">Tuntas ({{ $hist["hadir"] }})</button><button class="px-3.5 py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm font-semibold transition-colors" type="button">Perlu Evaluasi ({{ $hist["lain"] }})</button></div></div><div class="flex flex-col gap-3.5">
-@forelse($history as $a)
+@php
+    /*
+     * Data DEFAULT/DUMMY. Timpa dari controller dengan variabel bernama sama.
+     */
+    $wali = $wali ?? ['nama' => 'Ibu Nabila', 'peran' => 'Wali Murid • Tebet'];
 
-@if($a->status === 'hadir')
-<div data-st="{{ $a->status === "hadir" ? "hadir" : "lain" }}" data-journal="{{ $a->journal }}" data-title="{{ $a->session->topic ?: $a->session->subject }}" class="group p-5 rounded-2xl bg-surface-container-lowest hover:bg-surface-container-low transition-all shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4 border border-surface-container-high/40"><div class="flex items-start gap-4"><div class="w-11 h-11 rounded-xl bg-secondary-fixed/50 text-secondary flex items-center justify-center shrink-0 mt-0.5 shadow-xs"><span class="material-symbols-outlined text-[22px]">menu_book</span></div><div class="flex flex-col gap-1.5"><div class="flex items-center gap-2 flex-wrap"><span class="font-headline-sm text-headline-sm text-on-surface font-bold">{{ $a->session->topic ?: $a->session->subject }}</span><span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>{{ $a->label }}</span><span class="px-2 py-0.5 rounded-md text-xs font-bold bg-secondary-fixed/30 text-secondary">{{ \App\Support\Fmt::method($a->session->method) }}</span></div><div class="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm"><span class="text-on-surface font-semibold">{{ $a->session->tutor->name ?? "-" }}</span><span class="">•</span><span class="">{{ \App\Support\Fmt::dateShort($a->session->date) }}</span><span class="">•</span><span class="flex items-center gap-1 text-amber-700 font-semibold"><span class="material-symbols-outlined text-[14px] text-amber-600" style="font-variation-settings: 'FILL' 1;">star</span><span class="">{{ $a->extra }}</span></span></div><p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed line-clamp-1">Catatan Tutor: “{{ $a->journal ?: "-" }}”</p></div></div><div class="flex items-center gap-2 shrink-0 self-end md:self-center"><button class="px-4 py-2 rounded-xl bg-surface-container hover:bg-surface-container-high text-primary font-label-md text-label-md font-semibold transition-colors flex items-center gap-1.5" type="button"><span class="">Lihat Jurnal &amp; Nilai</span><span class="material-symbols-outlined text-[16px]">arrow_forward</span></button></div></div>
-@else
-<div data-st="{{ $a->status === "hadir" ? "hadir" : "lain" }}" data-journal="{{ $a->journal }}" data-title="{{ $a->session->topic ?: $a->session->subject }}" class="group p-5 rounded-2xl bg-surface-container-lowest hover:bg-surface-container-low transition-all shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4 border border-surface-container-high/40"><div class="flex items-start gap-4"><div class="w-11 h-11 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center shrink-0 mt-0.5 shadow-xs"><span class="material-symbols-outlined text-[22px]">translate</span></div><div class="flex flex-col gap-1.5"><div class="flex items-center gap-2 flex-wrap"><span class="font-headline-sm text-headline-sm text-on-surface font-bold">{{ $a->session->topic ?: $a->session->subject }}</span><span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-50 text-amber-800"><span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>{{ $a->label }}</span></div><div class="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm"><span class="text-on-surface font-semibold">{{ $a->session->tutor->name ?? "-" }}</span><span class="">•</span><span class="">{{ \App\Support\Fmt::dateShort($a->session->date) }}</span><span class="">•</span><span class="text-secondary font-semibold">{{ $a->extra }}</span></div><p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed line-clamp-1">{{ $a->journal ?: "Status: sesi diizinkan dan dijadwalkan ulang oleh cabang." }}</p></div></div><div class="flex items-center gap-2 shrink-0 self-end md:self-center"><button class="px-4 py-2 rounded-xl bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md font-semibold transition-colors flex items-center gap-1.5" type="button"><span class="">Detail Jadwal</span><span class="material-symbols-outlined text-[16px]">chevron_right</span></button></div></div>
-@endif
+    $anak = $anak ?? [
+        ['nama' => 'Aisyah Putri',   'info' => 'Kelas 8 SMP • Reguler',  'emoji' => '⭐', 'aktif' => true],
+        ['nama' => 'Farhan Nugraha', 'info' => 'Kelas 12 SMA • UTBK',    'emoji' => '😎', 'aktif' => false],
+    ];
+    $aktif = collect($anak)->firstWhere('aktif', true) ?? $anak[0];
 
-@empty
-<div class="text-xs text-slate-400 p-4">Belum ada riwayat pertemuan.</div>
-@endforelse
-</div><div class="pt-2 text-center"><a class="inline-flex items-center gap-2 font-label-lg text-label-lg font-bold text-primary hover:text-primary-container transition-colors py-2.5 px-5 rounded-xl hover:bg-surface-container" href="#"><span class="">Lihat Semua Catatan Pembelajaran (Total {{ $histTotal }} Pertemuan)</span><span class="material-symbols-outlined text-[18px]">east</span></a></div></div>
-</div>
-<!-- RIGHT COLUMN: Widgets & Student Overview (~35% -> 4 cols) -->
-<div class="lg:col-span-4 flex flex-col gap-6"><div class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-1 gap-4"><div class="p-5 rounded-2xl bg-surface-container-lowest shadow-xs border border-surface-container-high/40 flex flex-col justify-between gap-3"><div class="flex items-center justify-between"><span class="font-label-md text-label-md text-on-surface-variant font-medium">Jadwal Minggu Ini</span><div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary"><span class="material-symbols-outlined text-[18px]">calendar_view_week</span></div></div><div class="flex items-baseline gap-2"><span class="font-headline-xl text-headline-xl text-on-surface font-bold">{{ $week["total"] }} Sesi</span><span class="font-body-sm text-body-sm text-on-surface-variant font-medium">/ 7 Hari</span></div><div class="flex items-center gap-2 text-xs font-label-md text-on-surface-variant"><span class="inline-flex items-center gap-1 text-emerald-700 font-semibold"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>{{ $week["done"] }} Selesai</span><span class="">•</span><span class="text-primary font-semibold">{{ $week["plan"] }} Terjadwal</span></div></div><div class="p-5 rounded-2xl bg-surface-container-lowest shadow-xs border border-surface-container-high/40 flex flex-col justify-between gap-3"><div class="flex items-center justify-between"><span class="font-label-md text-label-md text-on-surface-variant font-medium">Presensi {{ \App\Support\Fmt::period() }}</span><div class="w-8 h-8 rounded-lg bg-secondary-fixed/40 flex items-center justify-center text-secondary"><span class="material-symbols-outlined text-[18px]">how_to_reg</span></div></div><div class="flex items-baseline justify-between"><div class="flex items-baseline gap-2"><span class="font-headline-xl text-headline-xl text-on-surface font-bold">{{ $att["pct"] }}%</span><span class="font-body-sm text-body-sm text-emerald-700 font-bold">{{ $att["label"] }}</span></div><span class="font-label-sm text-label-sm text-on-surface-variant font-medium">{{ $att["hadir"] }} dari {{ $att["total"] }} Sesi</span></div><div class="w-full bg-surface-container rounded-full h-2 overflow-hidden"><div class="bg-secondary h-2 rounded-full" style="width: {{ $att["pct"] }}%;"></div></div></div><div class="p-5 rounded-2xl bg-surface-container-lowest shadow-xs border border-surface-container-high/40 flex flex-col justify-between gap-3"><div class="flex items-center justify-between"><span class="font-label-md text-label-md text-on-surface-variant font-medium">Status Tagihan Periode Ini</span><span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800"><span class="material-symbols-outlined text-[14px]">check_circle</span><span class="">{{ $pay && $pay->status === "lunas" ? "LUNAS" : "BELUM LUNAS" }}</span></span></div><div><div class="font-headline-sm text-headline-sm text-on-surface font-bold">{{ \App\Support\Fmt::rupiah($pay->amount ?? $child->price) }}</div><div class="font-body-sm text-body-sm text-on-surface-variant">{{ $child->package ?: "Paket Reguler" }}</div></div><div class="pt-1 flex items-center justify-between border-t border-surface-container-high/40"><span class="font-label-sm text-label-sm text-on-surface-variant">Jatuh tempo: {{ $pay && $pay->due_date ? \App\Support\Fmt::dateLong($pay->due_date) : "-" }}</span><a class="p-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white transition-colors shadow-xs" href="{{ \App\Support\Fmt::waLink($child->tutor->phone ?? "") }}" title="Chat WhatsApp Tutor"><span class="material-symbols-outlined text-[18px]">chat</span></a></div></div></div><div class="p-6 rounded-3xl bg-surface-container-lowest shadow-xs border border-surface-container-high/40 flex flex-col gap-5"><div class="flex items-center justify-between pb-1"><h4 class="font-headline-sm text-headline-sm text-on-surface font-bold">Paket &amp; Tutor Pendamping</h4><span class="material-symbols-outlined text-primary text-[20px]">school</span></div><div class="p-4 rounded-2xl bg-surface-container-low flex flex-col gap-2.5 border border-surface-container-high/50"><div class="flex items-center justify-between"><span class="font-label-md text-label-md text-on-surface font-bold">Paket Bulanan 8 Sesi</span><span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-primary text-on-primary">Sisa {{ max(0, $quota["total"] - $quota["used"]) }} Sesi</span></div><p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Telah digunakan {{ $quota["used"] }} sesi dalam siklus {{ \App\Support\Fmt::period() }}. Kuota baru diperbarui otomatis tanggal 1 setiap bulan.</p><div class="flex items-center justify-between text-xs font-medium text-on-surface-variant mt-0.5"><span class="">Penggunaan Kuota</span><span class="font-bold text-primary">{{ $quota["used"] }} / {{ $quota["total"] }} Sesi ({{ $quota["pct"] }}%)</span></div><div class="w-full bg-surface-container-high rounded-full h-2 overflow-hidden"><div class="bg-primary h-2 rounded-full" style="width: {{ $quota["pct"] }}%;"></div></div></div><div class="flex flex-col gap-3"><div class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">Tutor Pendamping Aisyah</div><div class="flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-surface-container transition-colors border border-transparent hover:border-surface-container-high"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container shrink-0 ring-1 ring-surface-container-high"><img class="w-full h-full object-cover" data-alt="Kak Rina" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIBDQzTtbwL9W1VH7SfqhCNJDcfzVKp-BEti54jNutV91dOBtTADJ7rT4-iBBgt_BJa3Wt-bHBpiPFhqI8sRyud-4yHjv5SSYOgbUmWvEHmhQC7GQvbippyGoI63fhl9ZhEQhDoVHVZ2AIclRFh6Gz97TffQ7jNebKHHdIH7zm8P6srabJ86tpyADJhNZUNGBDKnhGweNU9fIBjKPWVn2MSk213N10UV9aqxkKcno6akv-XR-2qqIRCQ"></div><div><div class="font-label-md text-label-md text-on-surface font-bold">{{ $child->tutor->name ?? "-" }}</div><div class="font-body-sm text-body-sm text-on-surface-variant">{{ $child->tutor->headline ?? "-" }}</div></div></div><a class="p-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white transition-colors shadow-xs" href="{{ \App\Support\Fmt::waLink($child->tutor->phone ?? "") }}" title="Chat WhatsApp Tutor"><span class="material-symbols-outlined text-[18px]">chat</span></a></div><div class="flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-surface-container transition-colors border border-transparent hover:border-surface-container-high"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container shrink-0 ring-1 ring-surface-container-high"><img class="w-full h-full object-cover" data-alt="Sir Danu" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYEzaIcDfj4I-7dYw7_RFn5K8cvsQ4_x17HMWez_B6MTg1EzgsLCYR3SzLQPHN9xatYRusD_-FulTM-n7iOY0Wf2zQCIk0BR_XnMc0M7WZl6FIm9qXqzKWqpM-13BoikC53VBZCw8sU5V_r460kkNfZGKDs7fJrM2nBUip8Jqnmq3QgaIWIgg2MvtXWZNIy9SxPRZTY0BejksbhaxvVuUR2nEqbgAYqlKX5BaprZS6yUyculRQreHOEw"></div><div><div class="font-label-md text-label-md text-on-surface font-bold">{{ $tutor2->name ?? "Admin Cabang" }}</div><div class="font-body-sm text-body-sm text-on-surface-variant">{{ $tutor2->headline ?? "Koordinator Jadwal" }}</div></div></div><a class="p-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white transition-colors shadow-xs" href="{{ \App\Support\Fmt::waLink($child->tutor->phone ?? "") }}" title="Chat WhatsApp Tutor"><span class="material-symbols-outlined text-[18px]">chat</span></a></div></div><button class="w-full py-2.5 px-4 rounded-xl bg-surface-container text-primary hover:bg-surface-container-high transition-colors font-label-md text-label-md font-bold flex items-center justify-center gap-1.5 shadow-xs" type="button"><span class="material-symbols-outlined text-[18px]">add_task</span><span class="">Request Tambah Sesi / Tutor Baru</span></button></div><div class="p-6 rounded-3xl bg-gradient-to-br from-surface-container-low to-surface-container-high shadow-xs border border-surface-container-high/60 flex flex-col gap-4"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-secondary text-on-secondary flex items-center justify-center shrink-0 shadow-xs"><span class="material-symbols-outlined text-[20px]">headset_mic</span></div><div><div class="font-label-lg text-label-lg text-on-surface font-bold">Layanan Bantuan Cabang</div><div class="font-body-sm text-body-sm text-on-surface-variant">Cabang Tebet &amp; Jakarta Selatan</div></div></div><p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Perlu penyesuaian jadwal mendadak, pergantian silabus, atau konsultasi akademik? Tim Academic Advisor kami siap membantu.</p><div class="flex flex-col gap-2 pt-1"><a class="flex items-center justify-between p-3.5 rounded-xl bg-surface-container-lowest hover:bg-emerald-50 text-on-surface hover:text-emerald-800 transition-colors shadow-xs border border-surface-container-high/40" href="{{ \App\Support\Fmt::waLink($child->tutor->phone ?? "") }}" rel="noopener noreferrer" target="_blank"><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[20px]">support_agent</span></div><div class="text-left"><div class="font-label-md text-label-md font-bold">Kak Arya Pratama</div><div class="font-label-sm text-label-sm text-on-surface-variant">Customer Care &amp; Penjadwalan</div></div></div><span class="material-symbols-outlined text-[18px] text-emerald-600">arrow_outward</span></a></div><div class="flex items-center justify-between text-[11px] text-on-surface-variant pt-1 px-1"><span class="font-medium">Senin – Sabtu • 08.00 – 20.00 WIB</span><span class="text-emerald-700 font-bold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span><span class="">Online</span></span></div></div></div>
-</div>
-</div>
-</div></main></div>
+    $perluTindakan = $perluTindakan ?? [
+        'judul'  => '1 Jadwal Sesi Menunggu Konfirmasi Anda',
+        'detail' => 'Sesi Les Privat: <b>Rabu, 22 Okt 2026 (16:00 – 17:30 WIB)</b> • Bersama <b>Kak Rina, M.Pd</b> (Tahsin & PAI Terpadu – Home Visit).',
+    ];
 
-<script src="{{ asset('js/opc.js') }}"></script><script>
-OPC.userLogout({!! json_encode(auth()->user()->name) !!});
-const CHILDREN = {!! json_encode($childrenJson) !!}, CUR = {{ $child->id }};
-(function () {
-  const btns = [...document.querySelectorAll('button')].filter(b => /\(Kelas|Kelas \d+ (SMP|SMA|SD)/.test(b.textContent) && b.querySelector('div, span') && /Aisyah|Farhan|Kevin|Nabila|Bilqis|Rayhan/.test(b.textContent));
-  const kids = btns.slice(0, 2);
-  kids.forEach((b, i) => b.addEventListener('click', () => { const c = CHILDREN[i]; if (!c) return OPC.toast('Anak kedua belum terdaftar. Hubungi admin cabang.', false); const u = new URL(location.href); u.searchParams.set('anak', c.id); location.href = u.toString(); }));
-  OPC.on('Tambah Anak', () => window.open('https://wa.me/6281198760001?text=' + encodeURIComponent('Halo Admin, saya ingin menambahkan data anak ke akun portal saya.'), '_blank'), {sel: 'button', exact: false});
-  document.querySelectorAll('button[aria-label="Pemberitahuan"]').forEach(b => b.addEventListener('click', () => OPC.toast({!! json_encode($notifText ?? 'Tidak ada pemberitahuan baru.') !!}, true)));
-  document.querySelectorAll('a[data-path="profil-siswa"]').forEach(a => a.addEventListener('click', e => { e.preventDefault();
-    OPC.dialog({title: 'Profil Siswa', desc: 'Data tercatat di administrasi cabang.', fields: [
-      {name: 'a', label: 'Nama', value: {!! json_encode($child->name) !!}}, {name: 'b', label: 'Jenjang / Sekolah', value: {!! json_encode($child->grade . ' • ' . $child->school) !!}},
-      {name: 'c', label: 'Program', value: {!! json_encode($child->program) !!}}, {name: 'd', label: 'Tutor', value: {!! json_encode($child->tutor->name ?? '-') !!}}, {name: 'e', label: 'Alamat', value: {!! json_encode($child->address) !!}}], submit: 'Tutup', onSubmit: async () => {}}); }));
-  document.querySelectorAll('div').forEach(d => { if (d.children.length >= 1 && d.textContent.includes('Bantuan Admin') && d.textContent.includes('WhatsApp Konsultasi') && d.children.length <= 3 && d.textContent.length < 80) { d.style.cursor = 'pointer'; d.addEventListener('click', () => window.open('https://wa.me/6281198760001', '_blank')); } });
-})();
+    $sesi = $sesi ?? [
+        'kurikulum' => 'KURIKULUM MANDIRI & PEMBINAAN KARAKTER QUR\'ANI',
+        'judul'     => 'Tahsin & PAI Terpadu',
+        'fokus'     => 'Makhraj Huruf Halqiyah & QS. Al-Mulk ayat 1–10.',
+        'target'    => 'Target evaluasi kelancaran makharijul huruf dan tajwid mad thabi\'i dengan metode talaqqi.',
+        'waktu'     => '16:00 – 17:30 WIB',
+        'tutor'     => ['nama' => 'Kak Rina, M.Pd', 'rating' => 4.9, 'peran' => 'Tutor Utama Tahsin', 'lokasi' => 'Home Visit (Tebet Barat)', 'foto' => null],
+    ];
 
-const NEXT = {!! json_encode($nextJson) !!};
-document.querySelectorAll('[data-act=confirm]').forEach(b => b.addEventListener('click', async () => { try { const j = await OPC.post({!! json_encode(url('/portal/jadwal')) !!} + '/' + NEXT.id + '/konfirmasi', {}); OPC.done(j, 'reload'); } catch (e) {} }));
-document.querySelectorAll('[data-act=resched]').forEach(b => b.addEventListener('click', () => window.OPCResched(NEXT)));
-window.OPCResched = function (n) { OPC.dialog({title: 'Ajukan Reschedule', desc: 'Pilih waktu pengganti. Tutor & admin akan diberi tahu.', fields: [
-  {name: 'date', label: 'Tanggal baru', type: 'date', value: n.date}, {name: 'start_time', label: 'Jam mulai', type: 'time', value: n.start}, {name: 'end_time', label: 'Jam selesai', type: 'time', value: n.end},
-  {name: 'reason', label: 'Alasan', type: 'select', options: ['Siswa Kurang Sehat', 'Bentrok Ekskul / Sekolah', 'Urusan Keluarga Mendesak', 'Lainnya'].map(x => ({v: x, t: x}))}, {name: 'note', label: 'Catatan', type: 'textarea'}], submit: 'Kirim Pengajuan',
-  onSubmit: async v => { const j = await OPC.post({!! json_encode(url('/portal/jadwal')) !!} + '/' + n.id + '/reschedule', v); OPC.done(j, 'reload'); }}); };
-OPC.on('Isi Presensi & Catatan Belajar', () => OPC.go({!! json_encode(route('portal.presensi')) !!}), {exact: false});
-OPC.on('Lihat Silabus', () => OPC.toast('Silabus {{ $child->program }} tersedia di tutor — tanyakan via WhatsApp.', true), {sel: 'button', exact: false});
-OPC.on('Request Tambah Sesi / Tutor Baru', () => window.open('https://wa.me/6281198760001?text=' + encodeURIComponent('Halo Admin, saya ingin request tambah sesi / tutor baru untuk {{ $child->name }}.'), '_blank'), {sel: 'button', exact: false});
-document.querySelectorAll('[data-journal]').forEach(it => it.querySelectorAll('button').forEach(b => b.addEventListener('click', () => OPC.dialog({title: it.dataset.title, desc: 'Jurnal tutor', fields: [{name: 'j', label: 'Catatan', type: 'textarea', value: it.dataset.journal || 'Belum ada jurnal.'}], submit: 'Tutup', onSubmit: async () => {}}))));
-(function () { const items = [...document.querySelectorAll('[data-st]')]; const f = (t, fn) => OPC.find(t, {sel: 'button', exact: false}).forEach(b => b.addEventListener('click', () => items.forEach(i => i.style.display = fn(i) ? '' : 'none')));
-  f('Semua Sesi', () => true); f('Tuntas', i => i.dataset.st === 'hadir'); f('Perlu Evaluasi', i => i.dataset.st !== 'hadir'); })();
-</script></body></html>
+    $riwayat = $riwayat ?? [
+        ['ikon' => 'book-open', 'tone' => 'tl',     'judul' => 'Tajwid Makhorijul Huruf & QS. Al-Mulk',            'status' => 'ok',   'statusLabel' => 'Hadir Tuntas',
+         'tutor' => 'Kak Rina, M.Pd',  'tgl' => 'Selasa, 21 Okt 2026', 'extra' => ['t' => 'Hafalan Sangat Lancar', 'star' => true],
+         'catatan' => 'Catatan Tutor: "Makhraj huruf Halqiyah sudah mantap…"', 'aksi' => 'Lihat Jurnal & Nilai', 'filter' => 'tuntas'],
+        ['ikon' => 'calc',      'tone' => 'violet', 'judul' => 'Matematika: Sistem Persamaan Linear Tiga Variabel', 'status' => 'ok',   'statusLabel' => 'Hadir Tuntas',
+         'tutor' => 'Sir Danu, S.Pd',  'tgl' => 'Sabtu, 18 Okt 2026',  'extra' => ['t' => 'Skor Latihan: 92 / 100', 'star' => false],
+         'catatan' => 'Catatan Tutor: "Metode substitusi & eliminasi campuran…"', 'aksi' => 'Lihat Jurnal & Nilai', 'filter' => 'tuntas'],
+        ['ikon' => 'languages', 'tone' => 'amber',  'judul' => 'Bahasa Inggris: Daily Conversation & Phrasal Verbs', 'status' => 'warn', 'statusLabel' => 'Izin Sakit (Terkonfirmasi)',
+         'tutor' => 'Ms. Sarah',       'tgl' => 'Rabu, 15 Okt 2026',   'extra' => ['t' => 'Jadwal Pengganti: Sabtu, 25 Okt (10:00 WIB)', 'star' => false], 'noVisit' => true,
+         'catatan' => 'Status: Reschedule telah disepakati oleh orang tua dan…', 'aksi' => 'Detail Jadwal', 'filter' => 'evaluasi', 'aksiGray' => true],
+        ['ikon' => 'flask',     'tone' => 'violet', 'judul' => 'IPA Fisika: Gerak Lurus Beraturan (GLB) & GLBB',     'status' => 'ok',   'statusLabel' => 'Hadir Tuntas',
+         'tutor' => 'Kak Fikri, S.Si', 'tgl' => 'Senin, 13 Okt 2026',  'extra' => ['t' => 'Tugas Mandiri Selesai (A)', 'star' => false],
+         'catatan' => 'Catatan Tutor: "Pemahaman grafik v-t sudah sangat baik."', 'aksi' => 'Lihat Jurnal & Nilai', 'filter' => 'tuntas'],
+    ];
+    $totalPertemuan = $totalPertemuan ?? 12;
+
+    $mingguIni = $mingguIni ?? ['sesi' => 3, 'selesai' => 1, 'terjadwal' => 2];
+    $presensi  = $presensi  ?? ['bulan' => 'Oktober 2026', 'persen' => 95, 'label' => 'Sangat Baik', 'hadir' => 7, 'total' => 8];
+    $tagihan   = $tagihan   ?? ['status' => 'LUNAS', 'jumlah' => 'Rp 650.000', 'paket' => 'Paket 8 Pertemuan Reguler SMP', 'jatuhTempo' => '05 Nov 2026'];
+    $paket     = $paket     ?? ['nama' => 'Paket Bulanan 8 Sesi', 'sisa' => 1, 'pakai' => 7, 'total' => 8,
+                                'info' => 'Telah digunakan 7 sesi dalam siklus Oktober. Kuota baru diperbarui otomatis tanggal 1 setiap bulan.'];
+    $tutorPendamping = $tutorPendamping ?? [
+        ['nama' => 'Kak Rina, M.Pd',  'mapel' => 'Tahsin & PAI (Home Visit)',       'foto' => null],
+        ['nama' => 'Sir Danu, S.Pd',  'mapel' => 'Matematika & Sains (Home Visit)', 'foto' => null],
+    ];
+    $cabang = $cabang ?? ['nama' => 'Cabang Tebet & Jakarta Selatan', 'cs' => 'Kak Arya Pratama', 'cs_peran' => 'Customer Care & Penjadwalan', 'jam' => 'Senin – Sabtu • 08.00 – 20.00 WIB'];
+
+    $url = fn ($n) => \Illuminate\Support\Facades\Route::has($n) ? route($n) : '#';
+    $inisial = fn ($n) => collect(preg_split('/[\s,]+/', $n))->filter()->map(fn($w) => strtoupper(substr($w, 0, 1)))->take(2)->join('');
+    $toneMap = ['tl' => 'ico tl', 'violet' => 'ico violet', 'amber' => 'ico amber'];
+@endphp
+
+@section('topbar')
+    <div class="crumb">
+        <span>Portal Orang Tua & Siswa</span><i class="dot"></i>
+        <button class="profile-pill" type="button">
+            <x-icon name="graduation" style="width:16px;height:16px;color:var(--blue)" />
+            <span>Profil Aktif: <b>{{ $aktif['nama'] }}</b> ({{ \Illuminate\Support\Str::before($aktif['info'], ' •') }})</span>
+            <x-icon name="chevron-down" style="width:14px;height:14px" />
+        </button>
+    </div>
+@endsection
+
+@section('topbar-right')
+    <div class="userbox">
+        <span class="bell" aria-label="Notifikasi"><x-icon name="bell" /></span>
+        <span class="vsep"></span>
+        <div class="who"><b>{{ $wali['nama'] }}</b><small>{{ $wali['peran'] }}</small></div>
+        <div class="avatar-c solid"><x-icon name="user" style="width:18px;height:18px" /></div>
+    </div>
+@endsection
+
+@section('content')
+    {{-- Header + pemilih anak --}}
+    <div class="sw-head">
+        <div>
+            <h1>Selamat Datang, {{ $wali['nama'] }} 👋</h1>
+            <p class="pg-sub">Pantau perkembangan belajar, kehadiran, dan jadwal les privat putra-putri Anda secara real-time.</p>
+        </div>
+        <div class="child-switch">
+            <div class="child-row">
+                @foreach ($anak as $a)
+                    <button type="button" class="child {{ $a['aktif'] ? 'on' : '' }}">
+                        <span class="em">{{ $a['emoji'] }}</span>
+                        <span><b>{{ $a['nama'] }}</b><small>{{ $a['info'] }}</small></span>
+                        @if ($a['aktif'])<i class="st"></i>@endif
+                    </button>
+                @endforeach
+            </div>
+            <a href="#" class="link add-child"><x-icon name="plus-circle" /> Tambah Anak</a>
+        </div>
+    </div>
+
+    {{-- Banner tindakan --}}
+    @if ($perluTindakan)
+        <section class="alert" role="alert">
+            <span class="ico"><x-icon name="calendar-check" /></span>
+            <div class="txt">
+                <span class="tg">● TINDAKAN DIPERLUKAN</span><br>
+                <b>{{ $perluTindakan['judul'] }}</b><br>
+                {!! $perluTindakan['detail'] !!}
+            </div>
+            <div class="acts">
+                <a href="{{ $url('siswa.jadwal') }}" class="btn btn-primary"><x-icon name="check-circle" /> Konfirmasi Jadwal</a>
+                <a href="{{ $url('siswa.jadwal') }}" class="btn"><x-icon name="refresh" /> Ajukan Reschedule</a>
+                <a href="https://wa.me/" class="btn btn-green"><x-icon name="message" /> Chat Tutor</a>
+            </div>
+        </section>
+    @endif
+
+    <div class="sw-grid">
+        {{-- ============ Kolom utama ============ --}}
+        <div>
+            {{-- Hero sesi berlangsung --}}
+            <section class="hero" aria-label="Sesi sedang berlangsung">
+                <div class="row1">
+                    <span class="live"><i></i> SESI SEDANG BERLANGSUNG • HARI INI</span>
+                    <span class="clock"><x-icon name="clock" /> {{ $sesi['waktu'] }}</span>
+                </div>
+                <div class="kur"><x-icon name="book-open" /> {{ $sesi['kurikulum'] }}</div>
+                <h2>{{ $sesi['judul'] }}</h2>
+                <p class="fok">Fokus Pembelajaran: <b>{{ $sesi['fokus'] }}</b> {{ $sesi['target'] }}</p>
+
+                <div class="tutor-box">
+                    <span class="ph">
+                        @if ($sesi['tutor']['foto'])<img src="{{ $sesi['tutor']['foto'] }}" alt="{{ $sesi['tutor']['nama'] }}">
+                        @else{{ $inisial($sesi['tutor']['nama']) }}@endif
+                    </span>
+                    <div class="nm">
+                        <b>{{ $sesi['tutor']['nama'] }}</b>
+                        <span class="rate"><x-icon name="star" fill style="width:11px;height:11px;color:#fbbf24;vertical-align:-1px" /> {{ $sesi['tutor']['rating'] }}</span>
+                        <small>{{ $sesi['tutor']['peran'] }}</small>
+                    </div>
+                    <span class="loc"><x-icon name="map-pin" style="width:15px;height:15px" /> {{ $sesi['tutor']['lokasi'] }}</span>
+                    <span class="ver"><x-icon name="shield-check" /> <span>Tutor Terverifikasi<br>BSNP</span></span>
+                </div>
+
+                <div class="acts">
+                    <a href="{{ $url('siswa.presensi') }}" class="btn"><x-icon name="clipboard" /> Isi Presensi & Catatan Belajar</a>
+                    <a href="https://wa.me/" class="btn wa"><x-icon name="message" /> Chat WhatsApp Tutor</a>
+                    <a href="#" class="plain"><x-icon name="book-open" style="width:16px;height:16px" /> Lihat Silabus</a>
+                </div>
+            </section>
+
+            {{-- Riwayat --}}
+            <div class="hist-h">
+                <div>
+                    <h2>Riwayat & Catatan Belajar Terkini</h2><span class="cnt">{{ $totalPertemuan }} Pertemuan</span>
+                    <p>Jurnal evaluasi akademik, keaktifan, dan absensi {{ $aktif['nama'] }}</p>
+                </div>
+                <div class="seg" id="filterRiwayat">
+                    <button type="button" class="on" data-f="all">Semua<br>Sesi</button>
+                    <button type="button" data-f="tuntas">Tuntas<br>({{ collect($riwayat)->where('filter', 'tuntas')->count() + 7 }})</button>
+                    <button type="button" data-f="evaluasi">Perlu<br>Evaluasi ({{ collect($riwayat)->where('filter', 'evaluasi')->count() + 1 }})</button>
+                </div>
+            </div>
+
+            <div class="hist">
+                @foreach ($riwayat as $r)
+                    <article class="card h-item" data-filter="{{ $r['filter'] }}">
+                        <span class="ic {{ $toneMap[$r['tone']] ?? 'ico blue' }}"><x-icon :name="$r['ikon']" /></span>
+                        <div class="body">
+                            <h3>{{ $r['judul'] }}</h3>
+                            <div class="tags">
+                                <span class="chip {{ $r['status'] }}">{{ $r['statusLabel'] }}</span>
+                                @empty($r['noVisit'])<span class="chip vis">Home Visit</span>@endempty
+                            </div>
+                            <div class="meta">
+                                <span>{{ $r['tutor'] }}</span><i class="sep"></i>
+                                <span>{{ $r['tgl'] }}</span><i class="sep"></i>
+                                <span class="hl {{ $r['extra']['star'] ? 'star' : '' }}">
+                                    @if ($r['extra']['star'])<x-icon name="star" fill style="width:12px;height:12px;vertical-align:-1px" />@endif
+                                    {{ $r['extra']['t'] }}
+                                </span>
+                            </div>
+                            <p class="note">{{ $r['catatan'] }}</p>
+                        </div>
+                        <a href="{{ $url('siswa.presensi') }}" class="btn act {{ !empty($r['aksiGray']) ? 'btn-gray' : 'btn-soft' }}">
+                            {{ $r['aksi'] }}
+                            <x-icon name="{{ !empty($r['aksiGray']) ? 'chevron-down' : 'arrow-right' }}" style="{{ !empty($r['aksiGray']) ? 'transform:rotate(-90deg)' : '' }}" />
+                        </a>
+                    </article>
+                @endforeach
+            </div>
+
+            <div class="more">
+                <a href="{{ $url('siswa.presensi') }}" class="link">Lihat Semua Catatan Pembelajaran (Total {{ $totalPertemuan }} Pertemuan) <x-icon name="arrow-right" /></a>
+            </div>
+        </div>
+
+        {{-- ============ Kolom kanan ============ --}}
+        <aside class="side-col">
+            <section class="card mini">
+                <div class="row"><span>Jadwal Minggu Ini</span><span class="ico blue" style="width:34px;height:34px;border-radius:10px;display:grid;place-items:center"><x-icon name="columns" /></span></div>
+                <div class="big">{{ $mingguIni['sesi'] }} Sesi <small>/ 7 Hari</small></div>
+                <div class="legend"><span class="g">{{ $mingguIni['selesai'] }} Selesai</span><span>{{ $mingguIni['terjadwal'] }} Terjadwal</span></div>
+            </section>
+
+            <section class="card mini">
+                <div class="row"><span>Presensi {{ $presensi['bulan'] }}</span><span class="ico green" style="width:34px;height:34px;border-radius:10px;display:grid;place-items:center"><x-icon name="user-check" /></span></div>
+                <div class="big">{{ $presensi['persen'] }}% <small class="ok">{{ $presensi['label'] }}</small></div>
+                <span class="tot" style="margin-top:-24px">{{ $presensi['hadir'] }} dari {{ $presensi['total'] }} Sesi</span>
+                <div class="bar"><i style="width:{{ $presensi['persen'] }}%"></i></div>
+            </section>
+
+            <section class="card mini">
+                <div class="row"><span>Status Tagihan Periode Ini</span><span class="tag-lunas"><x-icon name="check-circle" style="width:13px;height:13px" /> {{ $tagihan['status'] }}</span></div>
+                <div class="amt">{{ $tagihan['jumlah'] }}</div>
+                <small style="color:var(--ink-2)">{{ $tagihan['paket'] }}</small>
+                <div class="due"><span>Jatuh tempo: {{ $tagihan['jatuhTempo'] }}</span><a href="{{ $url('siswa.tagihan') }}" class="wa-btn" aria-label="Lihat tagihan"><x-icon name="message" /></a></div>
+            </section>
+
+            <section class="card pkt">
+                <div class="hd"><h3>Paket & Tutor Pendamping</h3><x-icon name="graduation" /></div>
+                <div class="pkt-box">
+                    <div class="r1"><b>{{ $paket['nama'] }}</b><span class="sisa">Sisa {{ $paket['sisa'] }} Sesi</span></div>
+                    <p>{{ $paket['info'] }}</p>
+                    <div class="u"><span>Penggunaan Kuota</span><b>{{ $paket['pakai'] }} / {{ $paket['total'] }} Sesi ({{ round($paket['pakai'] / $paket['total'] * 100, 1) }}%)</b></div>
+                    <div class="bar"><i style="width:{{ $paket['pakai'] / $paket['total'] * 100 }}%"></i></div>
+                </div>
+
+                <div class="sm">Tutor Pendamping {{ \Illuminate\Support\Str::before($aktif['nama'], ' ') }}</div>
+                @foreach ($tutorPendamping as $tp)
+                    <div class="pt">
+                        <span class="ph">@if ($tp['foto'])<img src="{{ $tp['foto'] }}" alt="">@else{{ $inisial($tp['nama']) }}@endif</span>
+                        <div><b>{{ $tp['nama'] }}</b><small>{{ $tp['mapel'] }}</small></div>
+                        <a href="https://wa.me/" class="wa-btn" aria-label="Chat {{ $tp['nama'] }}"><x-icon name="message" /></a>
+                    </div>
+                @endforeach
+
+                <a href="#" class="req"><x-icon name="request" /> Request Tambah Sesi / Tutor Baru</a>
+            </section>
+
+            <section class="help">
+                <div class="hd">
+                    <span class="ic"><x-icon name="headset" /></span>
+                    <div><b>Layanan Bantuan Cabang</b><small>{{ $cabang['nama'] }}</small></div>
+                </div>
+                <p>Perlu penyesuaian jadwal mendadak, pergantian silabus, atau konsultasi akademik? Tim Academic Advisor kami siap membantu.</p>
+                <a href="https://wa.me/" class="cs">
+                    <span class="ic"><x-icon name="headset" /></span>
+                    <span><b>{{ $cabang['cs'] }}</b><small>{{ $cabang['cs_peran'] }}</small></span>
+                    <x-icon name="arrow-up-right" />
+                </a>
+                <div class="jam"><span>{{ $cabang['jam'] }}</span><b>● Online</b></div>
+            </section>
+        </aside>
+    </div>
+@endsection
+
+@push('scripts')
+<script>
+    // Filter riwayat: Semua / Tuntas / Perlu Evaluasi
+    (function () {
+        const tabs  = document.querySelectorAll('#filterRiwayat button');
+        const items = document.querySelectorAll('.h-item');
+        tabs.forEach(t => t.addEventListener('click', () => {
+            tabs.forEach(x => x.classList.toggle('on', x === t));
+            items.forEach(i => i.style.display =
+                (t.dataset.f === 'all' || i.dataset.filter === t.dataset.f) ? '' : 'none');
+        }));
+    })();
+</script>
+@endpush

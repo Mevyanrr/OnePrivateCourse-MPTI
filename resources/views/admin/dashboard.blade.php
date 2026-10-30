@@ -1,71 +1,261 @@
-<!DOCTYPE html><html lang="id"><head><meta name="csrf-token" content="{{ csrf_token() }}"><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_dashboard" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"colors":{"on-tertiary-container":"#f1eeff","surface-dim":"#d2d9f4","secondary-fixed-dim":"#6bd8cb","on-primary":"#ffffff","background":"#faf8ff","surface-container-high":"#e2e7ff","tertiary":"#3e3fcc","primary":"#004ac6","on-surface":"#131b2e","inverse-primary":"#b4c5ff","primary-fixed":"#dbe1ff","surface-container-highest":"#dae2fd","surface-container-low":"#f2f3ff","error":"#ba1a1a","on-error-container":"#93000a","on-primary-container":"#eeefff","surface-container-lowest":"#ffffff","surface":"#faf8ff","secondary-fixed":"#89f5e7","outline-variant":"#c3c6d7","surface-tint":"#0053db","surface-container":"#eaedff","primary-container":"#2563eb","on-surface-variant":"#434655","outline":"#737686","surface-bright":"#faf8ff","tertiary-container":"#585be6","on-secondary":"#ffffff","on-tertiary-fixed-variant":"#2f2ebe","inverse-surface":"#283044","secondary-container":"#86f2e4","error-container":"#ffdad6","on-secondary-fixed-variant":"#005049","surface-variant":"#dae2fd","on-secondary-container":"#006f66","on-primary-fixed":"#00174b","tertiary-fixed":"#e1e0ff","secondary":"#006a61","inverse-on-surface":"#eef0ff","on-background":"#131b2e","tertiary-fixed-dim":"#c0c1ff","primary-fixed-dim":"#b4c5ff","on-tertiary":"#ffffff","on-tertiary-fixed":"#07006c","on-secondary-fixed":"#00201d","on-error":"#ffffff","on-primary-fixed-variant":"#003ea8"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"space-sm":"0.5rem","gutter-mobile":"1rem","space-lg":"1.5rem","space-md":"1rem","margin-mobile":"1rem","space-xl":"2rem","space-xs":"0.25rem","gutter":"1.5rem","margin":"2rem"},"fontFamily":{"label-md":["Plus Jakarta Sans"],"body-lg":["Plus Jakarta Sans"],"display-lg":["Plus Jakarta Sans"],"label-lg":["Plus Jakarta Sans"],"body-md":["Plus Jakarta Sans"],"headline-md":["Plus Jakarta Sans"],"headline-xl-mobile":["Plus Jakarta Sans"],"headline-lg":["Plus Jakarta Sans"],"display-lg-mobile":["Plus Jakarta Sans"],"headline-xl":["Plus Jakarta Sans"],"label-sm":["Plus Jakarta Sans"],"body-sm":["Plus Jakarta Sans"],"headline-sm":["Plus Jakarta Sans"]},"fontSize":{"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"600"}],"body-lg":["16px",{"lineHeight":"24px","fontWeight":"400"}],"display-lg":["40px",{"lineHeight":"48px","letterSpacing":"-0.02em","fontWeight":"700"}],"label-lg":["14px",{"lineHeight":"20px","letterSpacing":"0.01em","fontWeight":"600"}],"body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}],"headline-md":["20px",{"lineHeight":"28px","fontWeight":"600"}],"headline-xl-mobile":["24px",{"lineHeight":"32px","letterSpacing":"-0.015em","fontWeight":"700"}],"headline-lg":["24px",{"lineHeight":"32px","letterSpacing":"-0.01em","fontWeight":"600"}],"display-lg-mobile":["30px",{"lineHeight":"38px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-xl":["32px",{"lineHeight":"40px","letterSpacing":"-0.015em","fontWeight":"700"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.03em","fontWeight":"600"}],"body-sm":["13px",{"lineHeight":"18px","fontWeight":"400"}],"headline-sm":["18px",{"lineHeight":"26px","fontWeight":"600"}]}}}}</script></head><body class="bg-[#f8faff] text-slate-800 antialiased min-h-screen flex font-['Plus_Jakarta_Sans',sans-serif]"><aside class="fixed left-0 top-0 h-full w-64 bg-white border-r border-slate-200/80 z-50 flex flex-col justify-between p-4"><div class="flex flex-col"><div class="flex items-center gap-3 px-2 py-2 mb-4"><div class="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center shrink-0 shadow-sm shadow-blue-500/30"><span class="material-symbols-outlined text-white text-[20px]">school</span></div><div class="flex flex-col min-w-0"><span class="font-bold text-slate-800 text-[15px] leading-snug tracking-tight">One Private Course</span><span class="text-[11px] text-slate-400 font-medium">Sistem Manajemen Bimbel</span></div></div><div class="mb-4"><button class="w-full h-10 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-xl flex items-center justify-center gap-2 transition-all shadow-sm shadow-blue-600/25" type="button"><span class="material-symbols-outlined text-[18px]">add_circle</span><span class="">+ Tambah Sesi Les</span></button></div><nav class="flex flex-col gap-1"><a class="flex items-center justify-between px-3 py-2 rounded-xl bg-blue-50/80 text-blue-700 font-semibold text-xs transition-colors" href="{{ route('admin.dashboard') }}"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[19px] text-blue-600">dashboard</span><span class="">Dashboard Ringkasan</span></div><span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span></a><a class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors text-xs font-medium" href="{{ route('admin.jadwal') }}"><span class="material-symbols-outlined text-[19px] text-slate-400">calendar_month</span><span class="">Jadwal &amp; Sesi Les</span></a><a class="flex items-center justify-between px-3 py-2 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors text-xs font-medium" href="{{ route('admin.siswa') }}"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[19px] text-slate-400">group</span><span class="">Database Siswa</span></div><span class="px-2 py-0.5 rounded-full bg-slate-100 text-slate-500 text-[11px] font-semibold">{{ $nav['students'] }}</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors text-xs font-medium" href="{{ route('admin.tutor') }}"><span class="material-symbols-outlined text-[19px] text-slate-400">badge</span><span class="">Tutor &amp; Guru Pengajar</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors text-xs font-medium" href="{{ route('admin.presensi') }}"><span class="material-symbols-outlined text-[19px] text-slate-400">fact_check</span><span class="">Presensi &amp; Laporan</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors text-xs font-medium" href="{{ route('admin.pembayaran') }}"><span class="material-symbols-outlined text-[19px] text-slate-400">receipt_long</span><span class="">Invoicing &amp; Honorarium</span></a><div class="border-t border-slate-100 my-2 mx-1"></div><a class="flex items-center justify-between px-3 py-2 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors text-xs font-medium" href="{{ route('admin.konfirmasi') }}"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[19px] text-amber-500">pending_actions</span><span class="">Konfirmasi Sesi</span></div><span class="px-2 py-0.5 rounded-full bg-amber-50 text-amber-600 border border-amber-200/60 text-[11px] font-bold">{{ $nav['confirm'] }}</span></a><a class="flex items-center justify-between px-3 py-2 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors text-xs font-medium" href="{{ route('admin.konfirmasi') }}"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[19px] text-blue-500">notifications</span><span class="">Notifikasi Masuk</span></div><span class="px-2 py-0.5 rounded-full bg-blue-50 text-blue-600 border border-blue-200/60 text-[11px] font-bold">{{ $nav['notif'] }}</span></a><a class="flex items-center justify-between px-3 py-2 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors text-xs font-medium" href="{{ route('admin.akun') }}"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[19px] text-slate-400">manage_accounts</span><span class="">Akun &amp; Hak Akses</span></div></a></nav></div><div class="p-3 bg-slate-50 rounded-xl border border-slate-200/60 flex items-center gap-3"><div class="w-8 h-8 rounded-lg bg-blue-100/70 text-blue-600 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[18px]">support_agent</span></div><div class="flex flex-col min-w-0"><span class="text-[11px] font-semibold text-slate-800 truncate">Bantuan Cabang</span><span class="text-[10px] text-slate-400">One Private v2.4</span></div></div></aside><div class="pl-64 flex-1 flex flex-col min-w-0"><header class="h-14 bg-white border-b border-slate-200/80 flex items-center justify-between px-8 sticky top-0 z-40"><div class="flex items-center gap-2 text-xs"><span class="text-slate-400">Operasional Cabang</span><span class="text-slate-300 font-medium">&gt;</span><span class="font-semibold text-blue-600">Dashboard Ringkasan</span></div><div class="flex items-center gap-3"><div class="text-right flex flex-col"><span class="text-xs font-semibold text-slate-800 leading-tight">{{ auth()->user()->name }}</span><span class="text-[11px] text-slate-400">Admin Cabang</span></div><div class="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-xs border border-blue-200/60">{{ \App\Support\Fmt::initials(auth()->user()->name) }}</div></div></header><main class="p-8 max-w-[1400px] w-full mx-auto"><div class="flex flex-col w-full">
-<!-- Content Header -->
-<div class="flex items-start justify-between gap-4 mb-6"><div><div class="flex items-center gap-2.5"><h1 class="text-2xl font-bold text-slate-900 tracking-tight">Dashboard Ringkasan</h1><span class="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200/60 text-[11px] font-semibold uppercase tracking-wide">Aktif Hari Ini</span></div><p class="text-xs text-slate-500 mt-1">Selamat datang kembali, {{ auth()->user()->name }}. Pantau aktivitas belajar dan operasional les hari ini.</p></div><div class="flex items-center gap-2.5 shrink-0"><div class="flex items-center gap-2 bg-white border border-slate-200/80 px-3.5 py-2 rounded-xl text-xs text-slate-700 shadow-sm"><span class="material-symbols-outlined text-[16px] text-blue-600">calendar_today</span><span class="font-medium">Hari ini, {{ \App\Support\Fmt::dateLong(today()) }}</span><span class="material-symbols-outlined text-[16px] text-slate-400">expand_more</span></div><button class="flex items-center gap-1.5 bg-white hover:bg-slate-50 text-slate-700 border border-slate-200/80 px-3 py-2 rounded-xl text-xs font-semibold shadow-sm transition-colors" type="button"><span class="material-symbols-outlined text-[16px] text-slate-500">print</span><span class="">Cetak Ringkasan</span></button><button class="bg-blue-600 hover:bg-blue-700 text-white rounded-xl px-4 py-2 text-xs font-semibold shadow-sm shadow-blue-500/20 flex items-center gap-1.5 transition-colors" type="button"><span class="material-symbols-outlined text-[16px]">file_download</span><span class="">Ekspor Rekap</span></button></div></div>
-<!-- Metric Overview Bento Cards (4 Kolom) -->
-<div class="grid grid-cols-4 gap-4 mb-6"><div class="bg-white rounded-2xl border border-slate-200/80 p-4 shadow-sm relative flex flex-col justify-between"><div class="flex items-center justify-between mb-2"><span class="text-xs font-medium text-slate-500">Sesi Hari Ini</span><div class="w-8 h-8 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center"><span class="material-symbols-outlined text-[18px]">event_available</span></div></div><div class="flex items-baseline gap-1.5 mb-2"><span class="text-2xl font-bold text-slate-900 leading-none">{{ $d['sessionsToday'] }}</span><span class="text-xs text-slate-400 font-medium">Sesi</span></div><div class="text-xs text-slate-500 font-medium flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span><span class="">{{ $d['homeVisit'] }} Home Visit</span><span class="text-slate-300">•</span><span class="w-1.5 h-1.5 rounded-full bg-indigo-600"></span><span class="">{{ $d['online'] }} Online Zoom</span></div></div><div class="bg-white rounded-2xl border border-slate-200/80 p-4 shadow-sm relative flex flex-col justify-between"><div class="flex items-center justify-between mb-2"><span class="text-xs font-medium text-slate-500">Siswa Aktif</span><div class="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center"><span class="material-symbols-outlined text-[18px]">school</span></div></div><div class="flex items-baseline gap-1.5 mb-2"><span class="text-2xl font-bold text-slate-900 leading-none">{{ $d['activeStudents'] }}</span><span class="text-xs text-slate-400 font-medium">Siswa</span></div><div class="text-xs text-emerald-600 font-medium flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">trending_up</span><span class="">+{{ $d['newStudents'] }} siswa baru bulan ini</span></div></div><div class="bg-white rounded-2xl border border-slate-200/80 p-4 shadow-sm relative flex flex-col justify-between"><div class="flex items-center justify-between mb-2"><span class="text-xs font-medium text-slate-500">Tutor Bertugas</span><div class="w-8 h-8 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center"><span class="material-symbols-outlined text-[18px]">co_present</span></div></div><div class="flex items-baseline gap-1.5 mb-2"><span class="text-2xl font-bold text-slate-900 leading-none">{{ $d['tutorsToday'] }}</span><span class="text-xs text-slate-400 font-medium">Tutor</span></div><div class="text-xs text-slate-500 font-medium flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-emerald-600">check</span><span class="">{{ $d['allConfirmed'] ? 'Semua tutor telah terkonfirmasi' : $d['unconfirmed'] . ' sesi belum terkonfirmasi tutor' }}</span></div></div><div class="bg-white rounded-2xl border border-slate-200/80 p-4 shadow-sm relative flex flex-col justify-between"><div class="flex items-center justify-between mb-2"><span class="text-xs font-medium text-slate-500">Belum Membayar</span><div class="w-8 h-8 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center"><span class="material-symbols-outlined text-[18px]">receipt_long</span></div></div><div class="flex items-baseline gap-1.5 mb-2"><span class="text-2xl font-bold text-slate-800 leading-none">{{ $d['unpaid'] }}</span><span class="text-xs text-slate-400 font-medium">Siswa</span></div><div class="text-xs text-amber-600 font-medium flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">priority_high</span><span class="">Periode {{ \App\Support\Fmt::period() }}</span></div></div></div>
-<!-- Priority Follow-Up Actions Panel -->
-<div class="mb-6"><div class="flex items-center justify-between mb-3"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-blue-600 text-[18px]">task_alt</span><h2 class="text-sm font-bold text-slate-900">Perlu Tindak Lanjut</h2></div><span class="text-[11px] font-semibold text-slate-500 bg-slate-100 px-2.5 py-0.5 rounded-full">{{ $d['priority'] }} Perhatian Prioritas</span></div><div class="grid grid-cols-1 md:grid-cols-3 gap-4"><div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex flex-col justify-between relative overflow-hidden"><div class="w-1 h-8 absolute left-0 top-4 bg-rose-500 rounded-r"></div><div><div class="flex items-center justify-between mb-2"><span class="text-[10px] font-bold text-rose-700 bg-rose-50 border border-rose-200/60 px-2 py-0.5 rounded-full uppercase tracking-wider">Presensi Kosong</span><span class="text-[11px] text-slate-400">Kemarin</span></div><h3 class="text-xs font-bold text-slate-800 mb-1">Absensi Belum Diisi</h3><p class="text-xs text-slate-500 leading-relaxed">{{ $d['emptyAtt'] }} sesi les kemarin oleh <strong class="text-slate-700 font-semibold">{{ $d['emptyAttTutor'] }}</strong> belum mengisi catatan materi &amp; kehadiran.</p></div><div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between"><span class="text-[11px] text-slate-400">Status: Pending Tutor</span><a class="px-3 py-1.5 bg-slate-50 hover:bg-slate-100 text-blue-600 text-xs font-semibold rounded-lg inline-flex items-center gap-1 transition-colors" href="{{ route('admin.presensi') }}"><span class="">Lihat Presensi</span><span class="material-symbols-outlined text-[14px]">arrow_forward</span></a></div></div><div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex flex-col justify-between relative overflow-hidden"><div class="w-1 h-8 absolute left-0 top-4 bg-indigo-500 rounded-r"></div><div><div class="flex items-center justify-between mb-2"><span class="text-[10px] font-bold text-indigo-700 bg-indigo-50 border border-indigo-200/60 px-2 py-0.5 rounded-full uppercase tracking-wider">Iuran Siswa</span><span class="text-[11px] text-slate-400">Bulan Berjalan</span></div><h3 class="text-xs font-bold text-slate-800 mb-1">Belum Bayar</h3><p class="text-xs text-slate-500 leading-relaxed"><strong class="text-slate-700 font-semibold">{{ $d['unpaid'] }} siswa</strong> belum melakukan pembayaran untuk periode les bulan {{ \App\Support\Fmt::period() }}.</p></div><div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between"><span class="text-[11px] text-slate-400">Total: {{ $d['unpaid'] }} Siswa</span><a class="px-3 py-1.5 bg-slate-50 hover:bg-slate-100 text-blue-600 text-xs font-semibold rounded-lg inline-flex items-center gap-1 transition-colors" href="{{ route('admin.pembayaran') }}"><span class="">Lihat Pembayaran</span><span class="material-symbols-outlined text-[14px]">arrow_forward</span></a></div></div><div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex flex-col justify-between relative overflow-hidden"><div class="w-1 h-8 absolute left-0 top-4 bg-teal-500 rounded-r"></div><div><div class="flex items-center justify-between mb-2"><span class="text-[10px] font-bold text-teal-700 bg-teal-50 border border-teal-200/60 px-2 py-0.5 rounded-full uppercase tracking-wider">Jadwal Baru</span><span class="text-[11px] text-slate-400">{{ $d['pendingConfirm'] }} Request</span></div><h3 class="text-xs font-bold text-slate-800 mb-1">Konfirmasi Sesi Baru</h3><p class="text-xs text-slate-500 leading-relaxed">{{ $d['pendingConfirm'] }} permintaan jadwal sesi les baru dari orang tua siswa menunggu konfirmasi waktu &amp; tutor.</p></div><div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between"><span class="text-[11px] text-slate-400">Cabang Utama</span><a class="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg inline-flex items-center gap-1 shadow-sm transition-colors" href="{{ route('admin.konfirmasi') }}"><span class="">Buka Konfirmasi</span><span class="material-symbols-outlined text-[14px]">arrow_forward</span></a></div></div></div></div>
-<!-- Operational Visual Section: Session Schedule Table & Branch Focus -->
-<div class="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start mb-6"><div class="xl:col-span-8 flex flex-col gap-4"><div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden"><div class="p-4 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3"><div class="flex items-center gap-2.5"><div class="w-8 h-8 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[18px]">view_timeline</span></div><div><h2 class="text-sm font-bold text-slate-900">Jadwal Sesi Hari Ini</h2><p class="text-[11px] text-slate-400">Pantauan real-time pelaksanaan kelas tatap muka &amp; virtual</p></div></div><div class="inline-flex p-1 bg-slate-100 rounded-xl gap-1 text-xs"><button class="bg-white text-blue-600 font-semibold px-2.5 py-1 rounded-lg shadow-xs transition-colors" type="button">Semua ({{ $d['sessionsToday'] }})</button><button class="text-slate-600 hover:text-slate-900 px-2.5 py-1 rounded-lg font-medium transition-colors" type="button">Home Visit</button><button class="text-slate-600 hover:text-slate-900 px-2.5 py-1 rounded-lg font-medium transition-colors" type="button">Online</button></div></div><div class="overflow-x-auto"><table class="w-full text-left border-collapse"><thead><tr class="bg-slate-50/70 border-b border-slate-100 text-[11px] font-semibold uppercase tracking-wider text-slate-500"><th class="py-3.5 px-4">SISWA / PESERTA</th><th class="py-3.5 px-4">TUTOR &amp; PELAJARAN</th><th class="py-3.5 px-4">WAKTU SESI</th><th class="py-3.5 px-4">METODE</th><th class="py-3.5 px-4">STATUS</th><th class="py-3.5 px-4 text-right">AKSI</th></tr></thead><tbody class="divide-y divide-slate-100 text-xs">
-@forelse($todaySessions as $s) @php($ls = $s->liveStatus())
 
-@if($ls === 'selesai')
-<tr data-method="{{ $s->method }}" class="hover:bg-slate-50/50 transition-colors"><td class="py-3.5 px-4 whitespace-nowrap"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-blue-100 text-blue-700 font-bold text-xs flex items-center justify-center shrink-0">{{ \App\Support\Fmt::initials($s->student->name) }}</div><div class="flex flex-col"><span class="font-bold text-slate-800 text-xs">{{ $s->student->name }}</span><span class="text-[11px] text-slate-400">{{ $s->student->grade }} • Reguler</span></div></div></td><td class="py-3.5 px-4 whitespace-nowrap"><div class="flex flex-col"><span class="text-slate-800 font-semibold text-xs">{{ $s->tutor->name ?? "-" }}</span><span class="text-[11px] text-blue-600 font-medium">{{ $s->subject }}</span></div></td><td class="py-3.5 px-4 whitespace-nowrap"><div class="flex items-center gap-1 text-slate-700 text-xs font-medium"><span class="material-symbols-outlined text-[14px] text-slate-400">schedule</span><span class="">{{ \App\Support\Fmt::hhmm($s->start_time) }} - {{ \App\Support\Fmt::hhmm($s->end_time) }} WIB</span></div><div class="text-[11px] text-slate-400">Durasi: {{ \App\Support\Fmt::minutes($s->start_time, $s->end_time) }} Menit</div></td>
-@if($s->method === 'online')
-<td class="py-3.5 px-4 whitespace-nowrap"><span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-blue-50 text-blue-700 border border-blue-200/50 text-[11px] font-medium"><span class="material-symbols-outlined text-[13px]">videocam</span> Online Zoom</span></td>
-@else
-<td class="py-3.5 px-4 whitespace-nowrap"><span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-100 text-slate-600 text-[11px] font-medium"><span class="material-symbols-outlined text-[13px]">{{ \App\Support\Fmt::methodIcon($s->method) }}</span> {{ \App\Support\Fmt::method($s->method) }}</span></td>
-@endif
-<td class="py-3.5 px-4 whitespace-nowrap"><span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200/50 text-[11px] font-medium"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Selesai</span></td><td class="py-3.5 px-4 whitespace-nowrap text-right"><button class="px-2.5 py-1 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-[11px] font-semibold transition-colors" type="button" data-go="{{ route('admin.siswa.show', $s->student_id) }}">Detail</button></td></tr>
-@elseif($ls === 'berjalan')
-<tr data-method="{{ $s->method }}" class="bg-blue-50/20 hover:bg-blue-50/40 transition-colors"><td class="py-3.5 px-4 whitespace-nowrap"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-indigo-100 text-indigo-700 font-bold text-xs flex items-center justify-center shrink-0">{{ \App\Support\Fmt::initials($s->student->name) }}</div><div class="flex flex-col"><span class="font-bold text-slate-800 text-xs">{{ $s->student->name }}</span><span class="text-[11px] text-slate-400">{{ $s->student->grade }} • Reguler</span></div></div></td><td class="py-3.5 px-4 whitespace-nowrap"><div class="flex flex-col"><span class="text-slate-800 font-semibold text-xs">{{ $s->tutor->name ?? "-" }}</span><span class="text-[11px] text-blue-600 font-medium">{{ $s->subject }}</span></div></td><td class="py-3.5 px-4 whitespace-nowrap"><div class="flex items-center gap-1 text-blue-600 text-xs font-semibold"><span class="material-symbols-outlined text-[14px]">schedule</span><span class="">{{ \App\Support\Fmt::hhmm($s->start_time) }} - {{ \App\Support\Fmt::hhmm($s->end_time) }} WIB</span></div><div class="text-[11px] text-blue-500 font-medium">Sesi Berlangsung</div></td>
-@if($s->method === 'online')
-<td class="py-3.5 px-4 whitespace-nowrap"><span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-blue-50 text-blue-700 border border-blue-200/50 text-[11px] font-medium"><span class="material-symbols-outlined text-[13px]">videocam</span> Online Zoom</span></td>
-@else
-<td class="py-3.5 px-4 whitespace-nowrap"><span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-100 text-slate-600 text-[11px] font-medium"><span class="material-symbols-outlined text-[13px]">{{ \App\Support\Fmt::methodIcon($s->method) }}</span> {{ \App\Support\Fmt::method($s->method) }}</span></td>
-@endif
-<td class="py-3.5 px-4 whitespace-nowrap"><span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200/50 text-[11px] font-semibold"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 animate-ping"></span> Berjalan</span></td><td class="py-3.5 px-4 whitespace-nowrap text-right"><button class="px-2.5 py-1 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-semibold transition-colors shadow-xs" type="button" data-go="{{ route('admin.siswa.show', $s->student_id) }}">Masuk Kelas</button></td></tr>
-@else
-<tr data-method="{{ $s->method }}" class="hover:bg-slate-50/50 transition-colors"><td class="py-3.5 px-4 whitespace-nowrap"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-amber-100 text-amber-700 font-bold text-xs flex items-center justify-center shrink-0">{{ \App\Support\Fmt::initials($s->student->name) }}</div><div class="flex flex-col"><span class="font-bold text-slate-800 text-xs">{{ $s->student->name }}</span><span class="text-[11px] text-slate-400">{{ $s->student->grade }} • Reguler</span></div></div></td><td class="py-3.5 px-4 whitespace-nowrap"><div class="flex flex-col"><span class="text-slate-800 font-semibold text-xs">{{ $s->tutor->name ?? "-" }}</span><span class="text-[11px] text-blue-600 font-medium">{{ $s->subject }}</span></div></td><td class="py-3.5 px-4 whitespace-nowrap"><div class="flex items-center gap-1 text-slate-700 text-xs font-medium"><span class="material-symbols-outlined text-[14px] text-slate-400">schedule</span><span class="">{{ \App\Support\Fmt::hhmm($s->start_time) }} - {{ \App\Support\Fmt::hhmm($s->end_time) }} WIB</span></div><div class="text-[11px] text-amber-600 font-medium">Mulai {{ $s->start_time ? \Carbon\Carbon::parse($s->date->toDateString() . " " . $s->start_time)->diffForHumans() : "" }}</div></td>
-@if($s->method === 'online')
-<td class="py-3.5 px-4 whitespace-nowrap"><span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-blue-50 text-blue-700 border border-blue-200/50 text-[11px] font-medium"><span class="material-symbols-outlined text-[13px]">videocam</span> Online Zoom</span></td>
-@else
-<td class="py-3.5 px-4 whitespace-nowrap"><span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-100 text-slate-600 text-[11px] font-medium"><span class="material-symbols-outlined text-[13px]">{{ \App\Support\Fmt::methodIcon($s->method) }}</span> {{ \App\Support\Fmt::method($s->method) }}</span></td>
-@endif
-<td class="py-3.5 px-4 whitespace-nowrap"><span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 text-[11px] font-medium"><span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span> Belum Mulai</span></td><td class="py-3.5 px-4 whitespace-nowrap text-right"><button class="px-2.5 py-1 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-[11px] font-semibold transition-colors" type="button" data-go="{{ route('admin.siswa.show', $s->student_id) }}">Detail</button></td></tr>
-@endif
 
-@empty
-<tr><td colspan="6" class="py-8 text-center text-xs text-slate-400">Belum ada sesi les hari ini.</td></tr>
-@endforelse
-</tbody></table></div><div class="p-3.5 bg-white border-t border-slate-100 flex items-center justify-between text-xs"><span class="text-slate-500">Menampilkan <strong class="font-semibold text-slate-700">{{ $todaySessions->count() }}</strong> dari <strong class="font-semibold text-slate-700">{{ $d['sessionsToday'] }}</strong> sesi hari ini</span><a class="text-blue-600 hover:text-blue-700 font-semibold inline-flex items-center gap-1 transition-colors" href="{{ route('admin.jadwal') }}"><span class="">Lihat Seluruh {{ $d['sessionsToday'] }} Sesi</span><span class="material-symbols-outlined text-[16px]">arrow_forward</span></a></div></div></div><div class="xl:col-span-4 flex flex-col gap-4"><div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex flex-col"><div class="flex items-center justify-between mb-3"><h3 class="text-xs font-bold text-slate-900">Pencapaian Sesi Bulan Ini</h3><span class="text-[10px] text-blue-600 font-semibold bg-blue-50 border border-blue-200/60 px-2 py-0.5 rounded-full">Okt 2026</span></div><div class="flex items-center gap-4 my-1"><div class="relative w-24 h-24 flex items-center justify-center shrink-0"><svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100"><circle class="text-slate-100" cx="50" cy="50" fill="transparent" r="38" stroke="currentColor" stroke-width="10"></circle><circle class="text-blue-600 transition-all duration-1000" cx="50" cy="50" fill="transparent" r="38" stroke="currentColor" stroke-dasharray="238.7" stroke-dashoffset="{{ round(238.7 * (1 - $d['monthPct'] / 100), 1) }}" stroke-linecap="round" stroke-width="10"></circle></svg><div class="absolute inset-0 flex flex-col items-center justify-center"><span class="text-xl font-bold text-slate-900">{{ $d['monthPct'] }}%</span><span class="text-[9px] text-slate-400 uppercase font-semibold">Selesai</span></div></div><div class="flex flex-col gap-2 min-w-0"><div><span class="text-[11px] text-slate-400 block">Target Bulan Ini</span><span class="text-xs font-bold text-slate-800">{{ $d['targetHours'] }} Jam Sesi</span></div><div><span class="text-[11px] text-slate-400 block">Terlaksana</span><span class="text-xs font-bold text-emerald-600">{{ $d['doneHours'] }} Jam Terselesaikan</span></div></div></div><div class="mt-3 pt-3 flex flex-col gap-1.5 bg-slate-50 p-3 rounded-xl border border-slate-100"><div class="flex justify-between items-center text-xs"><span class="text-slate-500">Tingkat Kehadiran Tutor</span><span class="font-bold text-slate-800">{{ $d['tutorAttendance'] }}%</span></div><div class="w-full bg-slate-200 rounded-full h-1.5 overflow-hidden"><div class="bg-emerald-500 h-1.5 rounded-full" style="width: {{ $d['tutorAttendance'] }}%"></div></div></div></div><div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex flex-col"><div class="flex items-center justify-between mb-3"><div class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[17px] text-blue-600">groups</span><h3 class="text-xs font-bold text-slate-900">Tutor On-Duty Hari Ini</h3></div><a class="text-[11px] text-blue-600 hover:text-blue-700 font-semibold" href="{{ route('admin.tutor') }}">Semua ({{ $d['tutorsToday'] }})</a></div><div class="flex flex-col gap-2.5">
-@forelse($dutyTutors as $row)
+@extends('portal')
+@section('title', 'Dashboard Ringkasan')
 
-@if($row['status'] === 'Terselesaikan')
-<div class="flex items-center justify-between p-2 rounded-xl hover:bg-slate-50 transition-colors"><div class="flex items-center gap-2.5"><div class="w-7 h-7 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-[11px] font-bold shrink-0">{{ \App\Support\Fmt::initials($row["tutor"]->name) }}</div><div><span class="text-xs font-semibold text-slate-800 block">{{ $row["tutor"]->name }}</span><span class="text-[10px] text-slate-400">{{ $row["count"] }} Sesi ({{ $row["method"] }})</span></div></div><span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200/50 text-[10px] font-medium">Terselesaikan</span></div>
-@elseif($row['status'] === 'Di Kelas')
-<div class="flex items-center justify-between p-2 rounded-xl hover:bg-slate-50 transition-colors"><div class="flex items-center gap-2.5"><div class="w-7 h-7 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center text-[11px] font-bold shrink-0">{{ \App\Support\Fmt::initials($row["tutor"]->name) }}</div><div><span class="text-xs font-semibold text-slate-800 block">{{ $row["tutor"]->name }}</span><span class="text-[10px] text-slate-400">{{ $row["count"] }} Sesi ({{ $row["method"] }})</span></div></div><span class="px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200/50 text-[10px] font-medium">Di Kelas</span></div>
-@else
-<div class="flex items-center justify-between p-2 rounded-xl hover:bg-slate-50 transition-colors"><div class="flex items-center gap-2.5"><div class="w-7 h-7 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center text-[11px] font-bold shrink-0">{{ \App\Support\Fmt::initials($row["tutor"]->name) }}</div><div><span class="text-xs font-semibold text-slate-800 block">{{ $row["tutor"]->name }}</span><span class="text-[10px] text-slate-400">{{ $row["count"] }} Sesi ({{ $row["method"] }})</span></div></div><span class="px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 text-[10px] font-medium">Siap Berangkat</span></div>
-@endif
+@php
+    /*
+     * Semua data di bawah adalah DEFAULT/DUMMY agar tampilan langsung jalan.
+     * Dari controller cukup kirim variabel dengan nama sama untuk menimpanya:
+     *   return view('admin.dashboard', compact('namaAdmin', 'stats', 'tindakLanjut', 'sesiHariIni', ...));
+     */
+    $namaAdmin = $namaAdmin ?? 'Arya Pratama';
+    $tanggal   = $tanggal ?? '24 Oktober 2026';
 
-@empty
-<div class="text-[11px] text-slate-400 p-2">Tidak ada tutor bertugas hari ini.</div>
-@endforelse
-</div></div></div></div>
-</div><footer class="text-center text-xs text-slate-400 py-6">© 2026 One Private Course. Sistem Manajemen Bimbel &amp; Les Privat.</footer></main></div>
+    $stats = $stats ?? [
+        ['label' => 'Sesi Hari Ini',   'value' => 14, 'unit' => 'Sesi',  'icon' => 'calendar-check', 'tone' => 'blue',
+         'meta' => [['c' => '#2057d6', 't' => '8 Home Visit'], ['c' => '#6d5ae6', 't' => '6 Online Zoom']]],
+        ['label' => 'Siswa Aktif',     'value' => 48, 'unit' => 'Siswa', 'icon' => 'graduation', 'tone' => 'green',
+         'trend' => '+4 siswa baru bulan ini'],
+        ['label' => 'Tutor Bertugas',  'value' => 12, 'unit' => 'Tutor', 'icon' => 'user-square', 'tone' => 'violet',
+         'ok' => 'Semua tutor telah terkonfirmasi'],
+        ['label' => 'Belum Membayar',  'value' => 9,  'unit' => 'Siswa', 'icon' => 'receipt', 'tone' => 'amber',
+         'warn' => 'Periode Oktober 2026'],
+    ];
 
-<script src="{{ asset('js/opc.js') }}"></script><script>
-OPC.userLogout({!! json_encode(auth()->user()->name) !!});
-OPC.on('+ Tambah Sesi Les', () => OPC.go({!! json_encode(route('admin.jadwal.baru')) !!}));
-OPC.on('Cetak Ringkasan', () => window.print());
-OPC.on('Ekspor Rekap', () => OPC.go({!! json_encode(route('admin.export', 'jadwal')) !!}));
-OPC.on('Bantuan Cabang', () => window.open('https://wa.me/6281198760001','_blank'), {sel:'div', exact:false});
-(function(){
-  const rows=[...document.querySelectorAll('tbody tr[data-method]')];
-  const set=(label,fn)=>OPC.find(label,{sel:'button',exact:false}).forEach(b=>b.addEventListener('click',()=>{rows.forEach(r=>r.style.display=fn(r)?'':'none');}));
-  set('Semua (', r=>true); set('Home Visit', r=>r.dataset.method!=='online'); set('Online', r=>r.dataset.method==='online');
-})();
-document.querySelectorAll('button').forEach(b=>{ if(OPC.label(b).startsWith('Hari ini,')) b.addEventListener('click',()=>OPC.go({!! json_encode(route('admin.jadwal')) !!})); });
-</script></body></html>
+    $tindakLanjut = $tindakLanjut ?? [
+        ['label' => 'PRESENSI KOSONG', 'waktu' => 'Kemarin', 'c' => '#e11d48', 'bg' => '#ffe9ee',
+         'judul' => 'Absensi Belum Diisi',
+         'isi' => '2 sesi les kemarin oleh <b>Kak Fikri S.Si</b> belum mengisi catatan materi & kehadiran.',
+         'status' => 'Status: Pending Tutor', 'btn' => 'Lihat Presensi', 'route' => 'admin.presensi', 'primary' => false],
+        ['label' => 'IURAN SISWA', 'waktu' => 'Bulan Berjalan', 'c' => '#6d5ae6', 'bg' => '#eeebff',
+         'judul' => 'Belum Bayar',
+         'isi' => '<b>9 siswa</b> belum melakukan pembayaran untuk periode les bulan Oktober 2026.',
+         'status' => 'Total: 9 Siswa', 'btn' => 'Lihat Pembayaran', 'route' => 'admin.pembayaran', 'primary' => false],
+        ['label' => 'JADWAL BARU', 'waktu' => '3 Request', 'c' => '#14b8a6', 'bg' => '#e0f7f4',
+         'judul' => 'Konfirmasi Sesi Baru',
+         'isi' => '3 permintaan jadwal sesi les baru dari orang tua siswa menunggu konfirmasi waktu & tutor.',
+         'status' => 'Cabang Utama', 'btn' => 'Buka Konfirmasi', 'route' => 'admin.konfirmasi', 'primary' => true],
+    ];
+
+    $sesiHariIni = $sesiHariIni ?? [
+        ['ini' => 'AP', 'warna' => 'b', 'nama' => 'Aisyah Putri',   'kelas' => 'Kelas 8 SMP • Reguler',
+         'tutor' => 'Kak Rina M.Pd',   'mapel' => 'Mengaji & Tahsin',      'waktu' => '14:00 - 15:30 WIB', 'ket' => 'Durasi: 90 Menit',  'state' => '',    'metode' => 'home'],
+        ['ini' => 'KP', 'warna' => 'b', 'nama' => 'Kevin Pratama',  'kelas' => 'Kelas 11 SMA • Intensif',
+         'tutor' => 'Sir Danu S.Hum',  'mapel' => 'English Conversation',  'waktu' => '15:45 - 17:15 WIB', 'ket' => 'Sesi Berlangsung', 'state' => 'now', 'metode' => 'online'],
+        ['ini' => 'BR', 'warna' => 'y', 'nama' => 'Bilqis & Rafa',  'kelas' => 'SD Kelas 5 & 3 • Duo',
+         'tutor' => 'Kak Fikri S.Si',  'mapel' => 'Matematika & IPA',      'waktu' => '16:00 - 17:30 WIB', 'ket' => 'Mulai dlm 15 mnt', 'state' => 'soon','metode' => 'home'],
+        ['ini' => 'FN', 'warna' => 'g', 'nama' => 'Farhan Nugraha', 'kelas' => 'SMA Kelas 12 • Intensif',
+         'tutor' => 'Ustadz Hanif',    'mapel' => "Tahfidz Al-Qur'an",     'waktu' => '18:30 - 20:00 WIB', 'ket' => "Sesi Ba'da Maghrib",'state' => '',    'metode' => 'home'],
+    ];
+    $totalSesi = $totalSesi ?? 14;
+
+    $capaian = $capaian ?? ['persen' => 78, 'target' => '240 Jam Sesi', 'selesai' => '188 Jam Terselesaikan', 'kehadiran' => 98.4, 'bulan' => 'Okt 2026'];
+
+    $tutorDuty = $tutorDuty ?? [
+        ['ini' => 'RN', 'warna' => 'b', 'nama' => 'Kak Rina M.Pd',  'info' => '2 Sesi (Home Visit)',  'status' => 'Terselesaikan', 'tone' => 'green'],
+        ['ini' => 'DN', 'warna' => 'b', 'nama' => 'Sir Danu S.Hum', 'info' => '1 Sesi (Online Zoom)', 'status' => 'Di Kelas',       'tone' => 'blue'],
+        ['ini' => 'FK', 'warna' => 'y', 'nama' => 'Kak Fikri S.Si', 'info' => '2 Sesi (Home Visit)',  'status' => 'Siap Berangkat', 'tone' => 'gray'],
+    ];
+
+    $url = fn ($n) => \Illuminate\Support\Facades\Route::has($n) ? route($n) : '#';
+    $ringC = 2 * M_PI * 44; // keliling lingkaran r=44
+@endphp
+
+@section('topbar')
+    <div class="crumb">
+        <span>Operasional Cabang</span><span>›</span><b>Dashboard Ringkasan</b>
+    </div>
+@endsection
+
+@section('topbar-right')
+    <div class="userbox">
+        <div class="who"><b>{{ $namaAdmin }}</b><small>Admin Cabang</small></div>
+        <div class="avatar-c">{{ collect(explode(' ', $namaAdmin))->map(fn($w) => strtoupper(substr($w, 0, 1)))->take(2)->join('') }}</div>
+    </div>
+@endsection
+
+@section('content')
+    {{-- Header --}}
+    <div class="adm-head">
+        <div>
+            <div class="pg-title">
+                <h1>Dashboard Ringkasan</h1>
+                <span class="badge-live">AKTIF HARI INI</span>
+            </div>
+            <p class="pg-sub">Selamat datang kembali, {{ $namaAdmin }}. Pantau aktivitas belajar dan operasional les hari ini.</p>
+        </div>
+        <div class="head-actions">
+            <button class="btn" type="button"><x-icon name="calendar" /> Hari ini, {{ $tanggal }} <x-icon name="chevron-down" /></button>
+            <button class="btn" type="button" onclick="window.print()"><x-icon name="printer" /> Cetak Ringkasan</button>
+            <button class="btn btn-primary" type="button"><x-icon name="download" /> Ekspor Rekap</button>
+        </div>
+    </div>
+
+    {{-- Statistik --}}
+    <section class="stats" aria-label="Statistik hari ini">
+        @foreach ($stats as $s)
+            <article class="card stat">
+                <div class="row">
+                    <span>{{ $s['label'] }}</span>
+                    <span class="ico {{ $s['tone'] }}"><x-icon :name="$s['icon']" /></span>
+                </div>
+                <div class="num">{{ $s['value'] }}<small>{{ $s['unit'] }}</small></div>
+
+                @if (!empty($s['meta']))
+                    <div class="meta">
+                        @foreach ($s['meta'] as $m)
+                            <span><i class="dotc" style="background:{{ $m['c'] }}"></i>{{ $m['t'] }}</span>
+                        @endforeach
+                    </div>
+                @elseif (!empty($s['trend']))
+                    <div class="meta" style="color:var(--green)"><x-icon name="trend" style="width:14px;height:14px" /> {{ $s['trend'] }}</div>
+                @elseif (!empty($s['ok']))
+                    <div class="meta" style="color:var(--green)"><x-icon name="check" style="width:14px;height:14px" /> {{ $s['ok'] }}</div>
+                @elseif (!empty($s['warn']))
+                    <div class="meta" style="color:var(--amber)"><b style="margin-right:2px">!</b> {{ $s['warn'] }}</div>
+                @endif
+            </article>
+        @endforeach
+    </section>
+
+    {{-- Perlu tindak lanjut --}}
+    <div class="sec-h">
+        <h2><x-icon name="check-circle" /> Perlu Tindak Lanjut</h2>
+        <span class="pill-gray">{{ count($tindakLanjut) }} Perhatian Prioritas</span>
+    </div>
+    <section class="todo-grid">
+        @foreach ($tindakLanjut as $t)
+            <article class="card todo" style="--c:{{ $t['c'] }};--bgc:{{ $t['bg'] }}">
+                <div class="top"><span class="lbl">{{ $t['label'] }}</span><span>{{ $t['waktu'] }}</span></div>
+                <h3>{{ $t['judul'] }}</h3>
+                <p>{!! $t['isi'] !!}</p>
+                <div class="foot">
+                    <span>{{ $t['status'] }}</span>
+                    <a href="{{ $url($t['route']) }}" class="btn {{ $t['primary'] ? 'btn-primary' : '' }}">
+                        {{ $t['btn'] }} <x-icon name="arrow-right" />
+                    </a>
+                </div>
+            </article>
+        @endforeach
+    </section>
+
+    {{-- Jadwal + sisi kanan --}}
+    <div class="adm-grid">
+        <section class="card" aria-label="Jadwal sesi hari ini">
+            <div class="card-h">
+                <div class="t">
+                    <span class="ico blue"><x-icon name="clipboard" /></span>
+                    <div><h3>Jadwal Sesi Hari Ini</h3><small>Pantauan real-time pelaksanaan kelas tatap muka & virtual</small></div>
+                </div>
+                <div class="seg" role="tablist" id="filterMetode">
+                    <button class="on" data-f="all" role="tab">Semua ({{ $totalSesi }})</button>
+                    <button data-f="home" role="tab">Home Visit</button>
+                    <button data-f="online" role="tab">Online</button>
+                </div>
+            </div>
+
+            <div class="tbl-wrap">
+                <table class="tbl">
+                    <thead>
+                        <tr><th>Siswa / Peserta</th><th>Tutor & Pelajaran</th><th>Waktu Sesi</th><th>Metode</th></tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($sesiHariIni as $r)
+                            <tr data-metode="{{ $r['metode'] }}">
+                                <td>
+                                    <div class="cell-user">
+                                        <span class="av {{ $r['warna'] }}">{{ $r['ini'] }}</span>
+                                        <div><b>{{ $r['nama'] }}</b><small>{{ $r['kelas'] }}</small></div>
+                                    </div>
+                                </td>
+                                <td><b>{{ $r['tutor'] }}</b><span class="sub">{{ $r['mapel'] }}</span></td>
+                                <td>
+                                    <div class="time {{ $r['state'] === 'now' ? 'now' : '' }}">
+                                        <x-icon name="clock" /> {{ $r['waktu'] }}
+                                    </div>
+                                    <small style="{{ $r['state'] === 'now' ? 'color:var(--blue)' : ($r['state'] === 'soon' ? 'color:var(--amber)' : '') }}">{{ $r['ket'] }}</small>
+                                </td>
+                                <td>
+                                    @if ($r['metode'] === 'online')
+                                        <span class="m-chip zoom"><x-icon name="video" /> Online Zoom</span>
+                                    @else
+                                        <span class="m-chip"><x-icon name="map-pin" /> Home Visit</span>
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="tbl-foot">
+                <span>Menampilkan <b id="shownCount">{{ count($sesiHariIni) }}</b> dari <b>{{ $totalSesi }}</b> sesi hari ini</span>
+                <a href="{{ $url('admin.jadwal') }}" class="link">Lihat Seluruh {{ $totalSesi }} Sesi <x-icon name="arrow-right" /></a>
+            </div>
+        </section>
+
+        <aside class="side-stack">
+            {{-- Pencapaian --}}
+            <section class="card ring-card">
+                <div class="hd"><h3>Pencapaian Sesi Bulan Ini</h3><span class="tag blue">{{ $capaian['bulan'] }}</span></div>
+                <div class="ring-wrap">
+                    <div class="ring">
+                        <svg viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="44" fill="none" stroke="#e6edfb" stroke-width="9"/>
+                            <circle cx="50" cy="50" r="44" fill="none" stroke="#2057d6" stroke-width="9" stroke-linecap="round"
+                                    stroke-dasharray="{{ round($ringC * $capaian['persen'] / 100, 1) }} {{ round($ringC, 1) }}"/>
+                        </svg>
+                        <div class="t"><b>{{ $capaian['persen'] }}%</b><small>SELESAI</small></div>
+                    </div>
+                    <div class="ring-info">
+                        <small>Target Bulan Ini</small><b>{{ $capaian['target'] }}</b>
+                        <small>Terlaksana</small><b class="bl">{{ $capaian['selesai'] }}</b>
+                    </div>
+                </div>
+                <div class="kehadiran">
+                    <div class="r"><span>Tingkat Kehadiran Tutor</span><b>{{ $capaian['kehadiran'] }}%</b></div>
+                    <div class="bar"><i style="width:{{ $capaian['kehadiran'] }}%"></i></div>
+                </div>
+            </section>
+
+            {{-- Tutor on duty --}}
+            <section class="card duty">
+                <div class="hd">
+                    <h3><x-icon name="users" /> Tutor On-Duty Hari Ini</h3>
+                    <a href="{{ $url('admin.tutor') }}" class="link" style="font-size:12px">Semua ({{ count($tutorDuty) + 9 }})</a>
+                </div>
+                @foreach ($tutorDuty as $d)
+                    <div class="duty-row">
+                        <span class="av {{ $d['warna'] }}">{{ $d['ini'] }}</span>
+                        <div><b>{{ $d['nama'] }}</b><small>{{ $d['info'] }}</small></div>
+                        <span class="tag {{ $d['tone'] }}">{{ $d['status'] }}</span>
+                    </div>
+                @endforeach
+            </section>
+        </aside>
+    </div>
+
+    <p class="foot-copy">© {{ date('Y') }} One Private Course. Sistem Manajemen Bimbel & Les Privat.</p>
+@endsection
+
+@push('scripts')
+<script>
+    // Filter tabel jadwal berdasarkan metode (Semua / Home Visit / Online)
+    (function () {
+        const tabs = document.querySelectorAll('#filterMetode button');
+        const rows = document.querySelectorAll('.tbl tbody tr');
+        const out  = document.getElementById('shownCount');
+        tabs.forEach(t => t.addEventListener('click', () => {
+            tabs.forEach(x => x.classList.toggle('on', x === t));
+            let n = 0;
+            rows.forEach(r => {
+                const show = t.dataset.f === 'all' || r.dataset.metode === t.dataset.f;
+                r.style.display = show ? '' : 'none';
+                if (show) n++;
+            });
+            out.textContent = n;
+        }));
+    })();
+</script>
+@endpush
