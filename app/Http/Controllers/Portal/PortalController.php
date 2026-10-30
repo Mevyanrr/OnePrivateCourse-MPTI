@@ -9,6 +9,7 @@ use App\Models\Payment;
 use App\Models\Student;
 use App\Support\Fmt;
 use Carbon\Carbon;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 
 class PortalController extends Controller
@@ -26,7 +27,7 @@ class PortalController extends Controller
     {
         $children = $this->children();
         if ($children->isEmpty()) {
-            abort(403, 'Belum ada siswa yang terhubung ke akun ini. Hubungi admin cabang.');
+            throw new HttpResponseException(response()->view('siswa.kosong', ['user' => auth()->user()]));
         }
         if ($r->filled('anak') && $children->contains('id', (int) $r->anak)) {
             session(['child_id' => (int) $r->anak]);
