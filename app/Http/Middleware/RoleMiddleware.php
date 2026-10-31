@@ -28,7 +28,7 @@ class RoleMiddleware
         $user = $request->user();
 
         // Akun yang dinonaktifkan admin langsung dikeluarkan, meski sesinya masih berjalan.
-        if ($user && $user->status === 'nonaktif') {
+        if ($user && ($user->status === 'nonaktif' || ! in_array($user->role, ['admin', 'wali'], true))) {
             Auth::logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();

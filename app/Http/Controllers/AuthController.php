@@ -18,7 +18,7 @@ class AuthController extends Controller
 
     /** Pilihan peran di halaman masuk -> peran akun yang boleh masuk lewat pilihan itu. */
     private const LOGIN_ROLES = [
-        'admin' => ['admin', 'tutor'], // tab "Admin": admin & staf/tutor (panel /admin)
+        'admin' => ['admin'], // tab "Admin": admin & staf/tutor (panel /admin)
         'wali'  => ['wali'],           // tab "Siswa/Wali": portal /portal
     ];
 
@@ -69,6 +69,9 @@ class AuthController extends Controller
             return back()->withErrors(['identifier' => 'Akun ini belum aktif atau dinonaktifkan. Hubungi admin cabang.'])->withInput($keep);
         }
 
+        if ($user->role === 'tutor') {
+           return back()->withErrors(['identifier' => 'Akun tutor tidak memiliki akses masuk. Hubungi admin cabang.'])->withInput($keep);
+       }
         // Kata sandi benar, tapi peran yang dipilih tidak sesuai akun -> arahkan ke tab yang benar.
         if (! in_array($user->role, self::LOGIN_ROLES[$data['role']], true)) {
             $should = $user->role === 'wali' ? 'Siswa/Wali' : 'Admin';

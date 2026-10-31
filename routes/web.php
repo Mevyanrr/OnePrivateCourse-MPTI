@@ -1,4 +1,3 @@
-```php
 <?php
 
 use App\Http\Controllers\Admin;
@@ -40,7 +39,7 @@ Route::post('/logout', [AuthController::class, 'logout'])
 
 Route::prefix('admin')
     ->name('admin.')
-    ->middleware(['auth', 'role:admin,tutor'])
+    ->middleware(['auth', 'role:admin'])
     ->group(function () {
 
         // Dashboard.
