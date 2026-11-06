@@ -1,12 +1,121 @@
-<!DOCTYPE html>
+{{-- resources/views/admin/jadwal.blade.php --}}
+@extends('portal')
+@section('title', 'Jadwal & Sesi Les')
 
-<html lang="id"><head><meta name="csrf-token" content="{{ csrf_token() }}"><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><style>@@layer base{html,body{margin:0;padding:0;font-family:'Plus Jakarta Sans',sans-serif;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"colors":{"on-tertiary-container":"#f1eeff","surface-dim":"#d2d9f4","secondary-fixed-dim":"#6bd8cb","on-primary":"#ffffff","background":"#faf8ff","surface-container-high":"#e2e7ff","tertiary":"#3e3fcc","primary":"#2563eb","on-surface":"#0f172a","inverse-primary":"#b4c5ff","primary-fixed":"#dbe1ff","surface-container-highest":"#dae2fd","surface-container-low":"#f8fafc","error":"#ba1a1a","on-error-container":"#93000a","on-primary-container":"#eeefff","surface-container-lowest":"#ffffff","surface":"#f8fafc","secondary-fixed":"#89f5e7","outline-variant":"#e2e8f0","surface-tint":"#2563eb","surface-container":"#f1f5f9","primary-container":"#2563eb","on-surface-variant":"#64748b","outline":"#94a3b8","surface-bright":"#faf8ff","tertiary-container":"#585be6","on-secondary":"#ffffff","on-tertiary-fixed-variant":"#2f2ebe","inverse-surface":"#283044","secondary-container":"#ccfbf1","error-container":"#fee2e2","on-secondary-fixed-variant":"#005049","surface-variant":"#f1f5f9","on-secondary-container":"#0f766e","on-primary-fixed":"#00174b","tertiary-fixed":"#e1e0ff","secondary":"#0d9488","inverse-on-surface":"#eef0ff","on-background":"#0f172a","tertiary-fixed-dim":"#c0c1ff","primary-fixed-dim":"#b4c5ff","on-tertiary":"#ffffff","on-tertiary-fixed":"#07006c","on-secondary-fixed":"#00201d","on-error":"#ffffff","on-primary-fixed-variant":"#003ea8"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","2xl":"1rem","full":"9999px"},"fontFamily":{"sans":["Plus Jakarta Sans","sans-serif"]}}}}</script></head><body class="bg-surface font-sans text-slate-900 antialiased selection:bg-blue-100 selection:text-blue-700"><!-- Sidebar Navigation --><aside class="fixed left-0 top-0 h-full w-[258px] bg-white border-r border-slate-200 z-50 flex flex-col justify-between py-5"><div class="flex flex-col"><div class="px-5 flex items-center gap-3 mb-6"><div class="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center shrink-0 shadow-sm"><span class="material-symbols-outlined text-white text-[22px]">school</span></div><div class="flex flex-col min-w-0"><span class="text-[15px] text-blue-600 font-bold truncate tracking-tight">One Private Course</span><span class="text-[11px] text-slate-500 font-medium truncate">Sistem Manajemen Bimbel</span></div></div><div class="px-5 mb-5"><button class="w-full h-10 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-xl flex items-center justify-center gap-2 shadow-sm transition-colors" type="button"><span class="material-symbols-outlined text-[18px]">add</span><span>Tambah Sesi Les</span></button></div><nav class="flex flex-col gap-1 px-3"><a class="flex items-center justify-between px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors" href="{{ route('admin.dashboard') }}"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px] text-slate-400">grid_view</span><span class="text-sm font-medium">Dashboard Ringkasan</span></div></a><a class="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-blue-50 text-blue-700 font-semibold transition-colors" href="{{ route('admin.jadwal') }}"><span class="material-symbols-outlined text-[20px] text-blue-600">calendar_month</span><span class="text-sm">Jadwal &amp; Sesi Les</span></a><a class="flex items-center justify-between px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors" href="{{ route('admin.siswa') }}"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px] text-slate-400">group</span><span class="text-sm font-medium">Database Siswa</span></div><span class="px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 text-xs font-semibold">{{ $nav['students'] }}</span></a><a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors" href="{{ route('admin.tutor') }}"><span class="material-symbols-outlined text-[20px] text-slate-400">person_apron</span><span class="text-sm font-medium">Tutor &amp; Guru Pengajar</span></a><a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors" href="{{ route('admin.presensi') }}"><span class="material-symbols-outlined text-[20px] text-slate-400">assignment_turned_in</span><span class="text-sm font-medium">Presensi &amp; Laporan</span></a><a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors" href="{{ route('admin.pembayaran') }}"><span class="material-symbols-outlined text-[20px] text-slate-400">payments</span><span class="text-sm font-medium">Pembayaran</span></a><div class="border-t border-slate-100 my-2 mx-1"></div><a class="flex items-center justify-between px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors" href="{{ route('admin.konfirmasi') }}"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px] text-slate-400">pending_actions</span><span class="text-sm font-medium">Konfirmasi Sesi</span></div><span class="px-2 py-0.5 rounded-full bg-rose-100 text-rose-700 text-xs font-bold">{{ $nav['confirm'] }}</span></a></nav></div><div class="px-5 pt-3"><div class="p-3 bg-slate-50 border border-slate-100 rounded-xl flex items-center gap-3"><span class="material-symbols-outlined text-blue-600 text-[20px]">support_agent</span><div class="flex flex-col"><span class="text-xs font-semibold text-slate-800">Bantuan Cabang</span><span class="text-[11px] text-slate-500">v2.4 LTS</span></div></div></div></aside><!-- Main Content Wrapper --><div class="pl-[258px]"><header class="fixed top-0 left-[258px] right-0 h-16 bg-white/95 backdrop-blur-md border-b border-slate-200 z-40 flex items-center justify-between px-8"><div class="flex items-center gap-2 text-xs font-medium text-slate-500"><span class="hover:text-slate-700 cursor-pointer">Operasional Cabang</span><span class="text-slate-300">/</span><span class="text-slate-900 font-semibold">Penjadwalan &amp; Kalender</span><span class="text-slate-300">/</span><span class="text-blue-600 font-bold">Jadwal &amp; Sesi Les</span></div><div class="flex items-center gap-4"><div class="text-right flex flex-col"><span class="text-xs font-semibold text-slate-800 leading-tight">{{ auth()->user()->name }}</span><span class="text-[11px] text-slate-500">Admin Cabang</span></div><div class="w-9 h-9 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xs ring-2 ring-blue-100"><span class="material-symbols-outlined text-[18px]">person</span></div></div></header><main class="relative pt-20 bg-slate-50 min-h-screen px-8 pb-14"><div class="flex flex-col w-full max-w-[1400px] mx-auto gap-6"><!-- Header Section --><div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4"><div><div class="flex items-center gap-2 text-xs font-medium text-slate-500 mb-1"><span>Operasional Cabang</span><span>&gt;</span><span>Penjadwalan &amp; Kalender</span><span>&gt;</span><span class="text-blue-600 font-semibold">Jadwal &amp; Sesi Les</span></div><h1 class="text-2xl font-bold tracking-tight text-slate-900">Jadwal &amp; Sesi Les</h1><p class="text-sm text-slate-500 mt-0.5">Kelola jadwal pembelajaran harian, sesi les privat aktif, dan penugasan tutor.</p></div><div class="flex items-center gap-3"><button class="h-10 px-4 bg-white hover:bg-slate-50 text-slate-700 border border-slate-200/90 rounded-xl text-xs font-semibold flex items-center gap-2 shadow-sm transition-colors"><span class="material-symbols-outlined text-[18px] text-slate-500">file_download</span><span>Export Jadwal</span></button><button class="h-10 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-semibold flex items-center gap-2 shadow-sm shadow-blue-500/20 transition-all"><span class="material-symbols-outlined text-[18px]">add</span><span> Buat Jadwal Baru</span></button></div></div><!-- Conflict Alert Banner -->
+@section('topbar')
+    <div class="crumb">
+        <span>Operasional Cabang</span><span>›</span><span>Penjadwalan &amp; Kalender</span><span>›</span><b>Jadwal &amp; Sesi Les</b>
+    </div>
+@endsection
+
+@section('topbar-right')
+    @php $namaAdmin = auth()->user()->name; @endphp
+    <div class="userbox">
+        <div class="who"><b>{{ $namaAdmin }}</b><small>Admin Cabang</small></div>
+        <div class="avatar-c">{{ collect(explode(' ', $namaAdmin))->map(fn($w) => strtoupper(substr($w, 0, 1)))->take(2)->join('') }}</div>
+    </div>
+@endsection
+
+@section('content')
+{{-- Reset ringan pengganti preflight Tailwind, hanya berlaku di area halaman ini --}}
+<style>
+    :where(.jb) *, :where(.jb) ::before, :where(.jb) ::after { box-sizing: border-box; border-width: 0; border-style: solid; border-color: #e5e7eb; }
+    :where(.jb) :is(h1,h2,h3,p) { margin: 0; }
+    :where(.jb) button { background-color: transparent; background-image: none; font-family: inherit; font-size: 100%; line-height: inherit; color: inherit; margin: 0; padding: 0; cursor: pointer; }
+    :where(.jb) :is(input,select) { font-family: inherit; font-size: 100%; margin: 0; }
+    :where(.jb) a { color: inherit; text-decoration: inherit; }
+    :where(.jb) table { border-collapse: collapse; border-color: inherit; }
+    .jb { font-family: 'Plus Jakarta Sans', sans-serif; }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+
+<div class="jb flex flex-col w-full max-w-[1400px] mx-auto gap-6">
+
+<!-- Header Section -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+<div>
+<div class="flex items-center gap-2 text-xs font-medium text-slate-500 mb-1"><span>Operasional Cabang</span><span>&gt;</span><span>Penjadwalan &amp; Kalender</span><span>&gt;</span><span class="text-blue-600 font-semibold">Jadwal &amp; Sesi Les</span></div>
+<h1 class="text-2xl font-bold tracking-tight text-slate-900">Jadwal &amp; Sesi Les</h1>
+<p class="text-sm text-slate-500 mt-0.5">Kelola jadwal pembelajaran harian, sesi les privat aktif, dan penugasan tutor.</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="h-10 px-4 bg-white hover:bg-slate-50 text-slate-700 border border-slate-200/90 rounded-xl text-xs font-semibold flex items-center gap-2 shadow-sm transition-colors"><span class="material-symbols-outlined text-[18px] text-slate-500">file_download</span><span>Export Jadwal</span></button>
+<button class="h-10 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-semibold flex items-center gap-2 shadow-sm shadow-blue-500/20 transition-all"><span class="material-symbols-outlined text-[18px]">add</span><span> Buat Jadwal Baru</span></button>
+</div>
+</div>
+
+<!-- Conflict Alert Banner -->
 @if($conflictCount > 0)
-<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 bg-red-50/90 border border-red-200/80 rounded-2xl shadow-sm text-slate-900" id="conflict-banner"><div class="flex items-start gap-3.5"><div class="w-9 h-9 rounded-xl bg-red-100 text-red-600 flex items-center justify-center shrink-0 mt-0.5"><span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">warning</span></div><div class="flex flex-col"><div class="flex items-center gap-2"><span class="text-sm font-bold text-slate-900">{{ $conflictCount }} Jadwal Bentrok Terdeteksi pada Pekan Ini</span><span class="px-2 py-0.5 bg-red-600 text-white rounded-full text-[10px] font-bold uppercase tracking-wider">PERLU RESOLUSI</span></div><p class="text-xs text-slate-600 mt-1">{!! $conflictHtml !!}</p></div></div><div class="flex items-center gap-2 self-end sm:self-center shrink-0"><button class="px-3.5 py-2 bg-red-600 text-white hover:bg-red-700 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-sm transition-colors"><span class="material-symbols-outlined text-[16px]">bolt</span><span>Lihat &amp; Sesuaikan</span></button><button class="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-600 hover:bg-red-100/60 rounded-lg transition-colors" onclick="document.getElementById('conflict-banner').style.display='none'" title="Tutup"><span class="material-symbols-outlined text-[18px]">close</span></button></div></div>
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 bg-red-50/90 border border-red-200/80 rounded-2xl shadow-sm text-slate-900" id="conflict-banner">
+<div class="flex items-start gap-3.5">
+<div class="w-9 h-9 rounded-xl bg-red-100 text-red-600 flex items-center justify-center shrink-0 mt-0.5"><span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">warning</span></div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2"><span class="text-sm font-bold text-slate-900">{{ $conflictCount }} Jadwal Bentrok Terdeteksi pada Pekan Ini</span><span class="px-2 py-0.5 bg-red-600 text-white rounded-full text-[10px] font-bold uppercase tracking-wider">PERLU RESOLUSI</span></div>
+<p class="text-xs text-slate-600 mt-1">{!! $conflictHtml !!}</p>
+</div>
+</div>
+<div class="flex items-center gap-2 self-end sm:self-center shrink-0">
+<button class="px-3.5 py-2 bg-red-600 text-white hover:bg-red-700 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-sm transition-colors"><span class="material-symbols-outlined text-[16px]">bolt</span><span>Lihat &amp; Sesuaikan</span></button>
+<button class="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-600 hover:bg-red-100/60 rounded-lg transition-colors" onclick="document.getElementById('conflict-banner').style.display='none'" title="Tutup"><span class="material-symbols-outlined text-[18px]">close</span></button>
+</div>
+</div>
 @endif
-<!-- 4 KPI Cards Grid --><div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"><div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center gap-4"><div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[24px]">calendar_today</span></div><div><span class="text-xs font-medium text-slate-500 uppercase tracking-wider block">Sesi Hari Ini</span><span class="text-2xl font-bold text-slate-900 mt-0.5 block">{{ $kpi['today'] }} Sesi</span><span class="text-xs text-blue-600 font-medium mt-1 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">check_circle</span>{{ $kpi['confirmedPct'] }}% Tutor terkonfirmasi</span></div></div><div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center gap-4"><div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[24px]">check_circle</span></div><div><span class="text-xs font-medium text-slate-500 uppercase tracking-wider block">Selesai</span><span class="text-2xl font-bold text-slate-900 mt-0.5 block">{{ $kpi['done'] }} Sesi</span><span class="text-xs text-emerald-600 font-medium mt-1 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">task_alt</span>{{ $kpi['attNote'] }}</span></div></div><div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center gap-4"><div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[24px]">timelapse</span></div><div><span class="text-xs font-medium text-slate-500 uppercase tracking-wider block">Berjalan Saat Ini</span><span class="text-2xl font-bold text-slate-900 mt-0.5 block">{{ $kpi['running'] }} Sesi</span><span class="text-xs text-amber-600 font-medium mt-1 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">radio_button_checked</span>{{ $kpi['runningNote'] }}</span></div></div><div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center gap-4"><div class="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[24px]">schedule</span></div><div><span class="text-xs font-medium text-slate-500 uppercase tracking-wider block">Akan Datang</span><span class="text-2xl font-bold text-slate-900 mt-0.5 block">{{ $kpi['upcoming'] }} Sesi</span><span class="text-xs text-indigo-600 font-medium mt-1 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">schedule</span>{{ $kpi['upNote'] }}</span></div></div></div><!-- Toolbar: Segmented Tabs & Filter Bar --><div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex flex-col gap-4"><!-- Top row: Segmented tab & Switch View --><div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-100"><div class="inline-flex p-1 bg-slate-100 rounded-xl"><button class="px-4 py-1.5 rounded-lg text-xs font-medium text-slate-600 hover:text-slate-900 transition-colors">Semua Sesi</button><button class="px-4 py-1.5 rounded-lg text-xs font-bold text-blue-700 bg-white shadow-xs transition-all">Hari Ini</button><button class="px-4 py-1.5 rounded-lg text-xs font-medium text-slate-600 hover:text-slate-900 transition-colors">Minggu Ini</button><button class="px-4 py-1.5 rounded-lg text-xs font-medium text-slate-600 hover:text-slate-900 transition-colors">Bulan Ini</button></div><div class="flex items-center gap-2"><span class="text-xs text-slate-500 font-medium mr-1">Tampilan:</span><div class="inline-flex p-1 bg-slate-100 rounded-xl"><button class="px-3.5 py-1.5 rounded-lg text-xs font-bold text-blue-700 bg-white shadow-xs flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px]">view_list</span><span>Tabel</span></button><button class="px-3.5 py-1.5 rounded-lg text-xs font-medium text-slate-600 hover:text-slate-900 flex items-center gap-1.5 transition-colors"><span class="material-symbols-outlined text-[16px]">calendar_month</span><span>Kalender</span></button></div></div></div><!-- Bottom row: Search & Dropdowns --><div class="flex flex-wrap items-center gap-2.5"><div class="relative flex-1 min-w-[240px]"><span class="material-symbols-outlined absolute left-3 top-2.5 text-[18px] text-slate-400">search</span><input class="w-full h-10 pl-9 pr-3 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-slate-800 placeholder-slate-400" placeholder="Cari tutor, siswa, atau mata pelajaran..." type="text"/></div><div class="relative min-w-[160px]"><select class="appearance-none w-full h-10 bg-slate-50 hover:bg-slate-100/70 border border-slate-200 text-slate-700 text-xs font-medium pl-3 pr-8 rounded-xl cursor-pointer focus:outline-none focus:border-blue-500 transition-colors"><option value="">Semua Tutor</option>
+
+<!-- 4 KPI Cards Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[24px]">calendar_today</span></div>
+<div><span class="text-xs font-medium text-slate-500 uppercase tracking-wider block">Sesi Hari Ini</span><span class="text-2xl font-bold text-slate-900 mt-0.5 block">{{ $kpi['today'] }} Sesi</span><span class="text-xs text-blue-600 font-medium mt-1 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">check_circle</span>{{ $kpi['confirmedPct'] }}% Tutor terkonfirmasi</span></div>
+</div>
+<div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[24px]">check_circle</span></div>
+<div><span class="text-xs font-medium text-slate-500 uppercase tracking-wider block">Selesai</span><span class="text-2xl font-bold text-slate-900 mt-0.5 block">{{ $kpi['done'] }} Sesi</span><span class="text-xs text-emerald-600 font-medium mt-1 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">task_alt</span>{{ $kpi['attNote'] }}</span></div>
+</div>
+<div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[24px]">timelapse</span></div>
+<div><span class="text-xs font-medium text-slate-500 uppercase tracking-wider block">Berjalan Saat Ini</span><span class="text-2xl font-bold text-slate-900 mt-0.5 block">{{ $kpi['running'] }} Sesi</span><span class="text-xs text-amber-600 font-medium mt-1 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">radio_button_checked</span>{{ $kpi['runningNote'] }}</span></div>
+</div>
+<div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[24px]">schedule</span></div>
+<div><span class="text-xs font-medium text-slate-500 uppercase tracking-wider block">Akan Datang</span><span class="text-2xl font-bold text-slate-900 mt-0.5 block">{{ $kpi['upcoming'] }} Sesi</span><span class="text-xs text-indigo-600 font-medium mt-1 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">schedule</span>{{ $kpi['upNote'] }}</span></div>
+</div>
+</div>
+
+<!-- Toolbar: Segmented Tabs & Filter Bar -->
+<div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex flex-col gap-4">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-100">
+<div class="inline-flex p-1 bg-slate-100 rounded-xl">
+<button class="px-4 py-1.5 rounded-lg text-xs font-medium text-slate-600 hover:text-slate-900 transition-colors">Semua Sesi</button>
+<button class="px-4 py-1.5 rounded-lg text-xs font-bold text-blue-700 bg-white shadow-xs transition-all">Hari Ini</button>
+<button class="px-4 py-1.5 rounded-lg text-xs font-medium text-slate-600 hover:text-slate-900 transition-colors">Minggu Ini</button>
+<button class="px-4 py-1.5 rounded-lg text-xs font-medium text-slate-600 hover:text-slate-900 transition-colors">Bulan Ini</button>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-xs text-slate-500 font-medium mr-1">Tampilan:</span>
+<div class="inline-flex p-1 bg-slate-100 rounded-xl">
+<button class="px-3.5 py-1.5 rounded-lg text-xs font-bold text-blue-700 bg-white shadow-xs flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px]">view_list</span><span>Tabel</span></button>
+<button class="px-3.5 py-1.5 rounded-lg text-xs font-medium text-slate-600 hover:text-slate-900 flex items-center gap-1.5 transition-colors"><span class="material-symbols-outlined text-[16px]">calendar_month</span><span>Kalender</span></button>
+</div>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-2.5">
+<div class="relative flex-1 min-w-[240px]"><span class="material-symbols-outlined absolute left-3 top-2.5 text-[18px] text-slate-400">search</span><input class="w-full h-10 pl-9 pr-3 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-slate-800 placeholder-slate-400" placeholder="Cari tutor, siswa, atau mata pelajaran..." type="text"/></div>
+<div class="relative min-w-[160px]"><select class="appearance-none w-full h-10 bg-slate-50 hover:bg-slate-100/70 border border-slate-200 text-slate-700 text-xs font-medium pl-3 pr-8 rounded-xl cursor-pointer focus:outline-none focus:border-blue-500 transition-colors"><option value="">Semua Tutor</option>
 @foreach($tutors as $t)<option value="{{ $t->id }}">{{ $t->name }}</option>@endforeach
-</select><span class="material-symbols-outlined text-[16px] text-slate-400 absolute right-2.5 top-3 pointer-events-none">expand_more</span></div><div class="relative min-w-[160px]"><select class="appearance-none w-full h-10 bg-slate-50 hover:bg-slate-100/70 border border-slate-200 text-slate-700 text-xs font-medium pl-3 pr-8 rounded-xl cursor-pointer focus:outline-none focus:border-blue-500 transition-colors"><option>Semua Ruangan</option><option>Studio 1 (Cabang)</option><option>Studio 2 (Cabang)</option><option>Home Visit (Rumah)</option><option>Online (Zoom / Meet)</option></select><span class="material-symbols-outlined text-[16px] text-slate-400 absolute right-2.5 top-3 pointer-events-none">expand_more</span></div><div class="relative min-w-[150px]"><select class="appearance-none w-full h-10 bg-slate-50 hover:bg-slate-100/70 border border-slate-200 text-slate-700 text-xs font-medium pl-3 pr-8 rounded-xl cursor-pointer focus:outline-none focus:border-blue-500 transition-colors"><option>Semua Status</option><option>Berjalan</option><option>Selesai</option><option>Akan Datang</option><option>Bentrok</option></select><span class="material-symbols-outlined text-[16px] text-slate-400 absolute right-2.5 top-3 pointer-events-none">expand_more</span></div><button class="h-10 w-10 flex items-center justify-center bg-slate-50 hover:bg-slate-100 text-slate-600 border border-slate-200 rounded-xl transition-colors" title="Filter Tambahan"><span class="material-symbols-outlined text-[18px]">tune</span></button></div></div><!-- Sessions Table Container --><div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden"><div class="overflow-x-auto"><table class="w-full text-left border-collapse text-xs"><thead><tr class="bg-slate-50/80 border-b border-slate-200 text-slate-500 font-semibold uppercase tracking-wider text-[11px]"><th class="py-3.5 px-4">Jam &amp; Tanggal</th><th class="py-3.5 px-4">Tutor Pengampu</th><th class="py-3.5 px-4">Mata Pelajaran</th><th class="py-3.5 px-4">Kelas</th><th class="py-3.5 px-4">Ruangan / Metode</th><th class="py-3.5 px-4">Siswa</th><th class="py-3.5 px-4 text-center">Aksi</th></tr></thead><tbody class="divide-y divide-slate-100 text-slate-700">
+</select><span class="material-symbols-outlined text-[16px] text-slate-400 absolute right-2.5 top-3 pointer-events-none">expand_more</span></div>
+<div class="relative min-w-[160px]"><select class="appearance-none w-full h-10 bg-slate-50 hover:bg-slate-100/70 border border-slate-200 text-slate-700 text-xs font-medium pl-3 pr-8 rounded-xl cursor-pointer focus:outline-none focus:border-blue-500 transition-colors"><option>Semua Ruangan</option><option>Studio 1 (Cabang)</option><option>Studio 2 (Cabang)</option><option>Home Visit (Rumah)</option><option>Online (Zoom / Meet)</option></select><span class="material-symbols-outlined text-[16px] text-slate-400 absolute right-2.5 top-3 pointer-events-none">expand_more</span></div>
+<div class="relative min-w-[150px]"><select class="appearance-none w-full h-10 bg-slate-50 hover:bg-slate-100/70 border border-slate-200 text-slate-700 text-xs font-medium pl-3 pr-8 rounded-xl cursor-pointer focus:outline-none focus:border-blue-500 transition-colors"><option>Semua Status</option><option>Berjalan</option><option>Selesai</option><option>Akan Datang</option><option>Bentrok</option></select><span class="material-symbols-outlined text-[16px] text-slate-400 absolute right-2.5 top-3 pointer-events-none">expand_more</span></div>
+<button class="h-10 w-10 flex items-center justify-center bg-slate-50 hover:bg-slate-100 text-slate-600 border border-slate-200 rounded-xl transition-colors" title="Filter Tambahan"><span class="material-symbols-outlined text-[18px]">tune</span></button>
+</div>
+</div>
+
+<!-- Sessions Table Container -->
+<div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse text-xs">
+<thead><tr class="bg-slate-50/80 border-b border-slate-200 text-slate-500 font-semibold uppercase tracking-wider text-[11px]"><th class="py-3.5 px-4">Jam &amp; Tanggal</th><th class="py-3.5 px-4">Tutor Pengampu</th><th class="py-3.5 px-4">Mata Pelajaran</th><th class="py-3.5 px-4">Kelas</th><th class="py-3.5 px-4">Ruangan / Metode</th><th class="py-3.5 px-4">Siswa</th><th class="py-3.5 px-4 text-center">Aksi</th></tr></thead>
+<tbody class="divide-y divide-slate-100 text-slate-700">
 @forelse($sessions as $s)
 
 @if($s->vs === 'selesai')
@@ -22,7 +131,15 @@
 @empty
 <tr><td colspan="7" class="py-10 text-center text-xs text-slate-400">Tidak ada sesi pada filter ini.</td></tr>
 @endforelse
-</tbody></table></div><!-- Pagination Footer --><div class="p-4 border-t border-slate-200/80 bg-white flex flex-col sm:flex-row sm:items-center justify-between gap-3"><span class="text-xs text-slate-500">Menampilkan <span class="font-bold text-slate-700">{{ $sessions->firstItem() ?? 0 }} – {{ $sessions->lastItem() ?? 0 }}</span> dari <span class="font-bold text-slate-700">{{ $sessions->total() }}</span> sesi pembelajaran</span><div class="flex items-center gap-1.5"><button {{ $sessions->onFirstPage() ? "disabled" : "" }} data-go="{{ $sessions->previousPageUrl() }}" class="h-8 px-3 rounded-lg border border-slate-200 text-slate-500 hover:bg-slate-50 text-xs font-semibold disabled:opacity-50 transition-colors">Sebelumnya</button>
+</tbody>
+</table>
+</div>
+
+<!-- Pagination Footer -->
+<div class="p-4 border-t border-slate-200/80 bg-white flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+<span class="text-xs text-slate-500">Menampilkan <span class="font-bold text-slate-700">{{ $sessions->firstItem() ?? 0 }} – {{ $sessions->lastItem() ?? 0 }}</span> dari <span class="font-bold text-slate-700">{{ $sessions->total() }}</span> sesi pembelajaran</span>
+<div class="flex items-center gap-1.5">
+<button {{ $sessions->onFirstPage() ? "disabled" : "" }} data-go="{{ $sessions->previousPageUrl() }}" class="h-8 px-3 rounded-lg border border-slate-200 text-slate-500 hover:bg-slate-50 text-xs font-semibold disabled:opacity-50 transition-colors">Sebelumnya</button>
 @foreach(range(1, max(1, $sessions->lastPage())) as $pg)
 @if($pg === $sessions->currentPage())
 <button class="h-8 w-8 rounded-lg bg-blue-600 text-white text-xs font-bold shadow-xs">{{ $pg }}</button>
@@ -30,12 +147,33 @@
 <button data-go="{{ $sessions->url($pg) }}" class="h-8 w-8 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 text-xs font-semibold transition-colors">{{ $pg }}</button>
 @endif
 @endforeach
-<button {{ $sessions->hasMorePages() ? "" : "disabled" }} data-go="{{ $sessions->nextPageUrl() }}" class="h-8 px-3 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 text-xs font-semibold transition-colors">Selanjutnya</button></div></div></div><!-- Page Footer --><footer class="pt-6 pb-2 text-center text-xs text-slate-400"><p>© 2026 One Private Course • Sistem Manajemen Bimbel &amp; Pembelajaran Privat Cabang Jakarta Selatan. Seluruh hak cipta dilindungi.</p></footer></div></main></div><script src="{{ asset('js/opc.js') }}"></script><script>
+<button {{ $sessions->hasMorePages() ? "" : "disabled" }} data-go="{{ $sessions->nextPageUrl() }}" class="h-8 px-3 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 text-xs font-semibold transition-colors">Selanjutnya</button>
+</div>
+</div>
+</div>
+
+<!-- Page Footer -->
+<footer class="pt-6 pb-2 text-center text-xs text-slate-400"><p>© 2026 One Private Course • Sistem Manajemen Bimbel &amp; Pembelajaran Privat Cabang Jakarta Selatan. Seluruh hak cipta dilindungi.</p></footer>
+</div>
+@endsection
+
+@push('scripts')
+<script>
+window.tailwind = window.tailwind || {};
+tailwind.config={"darkMode":"class","corePlugins":{"preflight":false},"theme":{"extend":{"colors":{"on-tertiary-container":"#f1eeff","surface-dim":"#d2d9f4","secondary-fixed-dim":"#6bd8cb","on-primary":"#ffffff","background":"#faf8ff","surface-container-high":"#e2e7ff","tertiary":"#3e3fcc","primary":"#2563eb","on-surface":"#0f172a","inverse-primary":"#b4c5ff","primary-fixed":"#dbe1ff","surface-container-highest":"#dae2fd","surface-container-low":"#f8fafc","error":"#ba1a1a","on-error-container":"#93000a","on-primary-container":"#eeefff","surface-container-lowest":"#ffffff","surface":"#f8fafc","secondary-fixed":"#89f5e7","outline-variant":"#e2e8f0","surface-tint":"#2563eb","surface-container":"#f1f5f9","primary-container":"#2563eb","on-surface-variant":"#64748b","outline":"#94a3b8","surface-bright":"#faf8ff","tertiary-container":"#585be6","on-secondary":"#ffffff","on-tertiary-fixed-variant":"#2f2ebe","inverse-surface":"#283044","secondary-container":"#ccfbf1","error-container":"#fee2e2","on-secondary-fixed-variant":"#005049","surface-variant":"#f1f5f9","on-secondary-container":"#0f766e","on-primary-fixed":"#00174b","tertiary-fixed":"#e1e0ff","secondary":"#0d9488","inverse-on-surface":"#eef0ff","on-background":"#0f172a","tertiary-fixed-dim":"#c0c1ff","primary-fixed-dim":"#b4c5ff","on-tertiary":"#ffffff","on-tertiary-fixed":"#07006c","on-secondary-fixed":"#00201d","on-error":"#ffffff","on-primary-fixed-variant":"#003ea8"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","2xl":"1rem","full":"9999px"},"fontFamily":{"sans":["Plus Jakarta Sans","sans-serif"]}}}};
+</script>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="{{ asset('js/opc.js') }}"></script>
+<script>
 OPC.userLogout({!! json_encode(auth()->user()->name) !!});
 const BARU = {!! json_encode(route('admin.jadwal.baru')) !!}, BASE = {!! json_encode(route('admin.jadwal')) !!}, UBAH = {!! json_encode(url('/admin/jadwal')) !!};
 const Q = new URLSearchParams(location.search);
 const TUTORS = {!! json_encode($tutors->map(fn($t) => ['id' => $t->id, 'name' => $t->name])->values()) !!};
-OPC.on('+ Buat Jadwal Baru', () => OPC.go(BARU)); OPC.on('Export Jadwal', () => OPC.go({!! json_encode(route('admin.export', 'jadwal')) !!}));
+OPC.on('Export Jadwal', () => OPC.go({!! json_encode(route('admin.export', 'jadwal')) !!}));
+
+const btnBaru = document.querySelector('.jb button.bg-blue-600.shadow-blue-500\\/20');
+if (btnBaru) btnBaru.addEventListener('click', () => { location.href = BARU; });
+
 OPC.on('Lihat & Sesuaikan', () => { const r = document.querySelector('tr[data-status=bentrok]'); if (r) { r.scrollIntoView({behavior: 'smooth', block: 'center'}); r.style.outline = '2px solid #ef4444'; } });
 function nav(k, v) { const u = new URL(location.href); u.searchParams.delete('page'); v ? u.searchParams.set(k, v) : u.searchParams.delete(k); location.href = u.toString(); }
 // tab rentang
@@ -43,7 +181,7 @@ const tabs = ['Semua Sesi', 'Hari Ini', 'Minggu Ini', 'Bulan Ini'].map(t => OPC.
 const cur = keys.indexOf({!! json_encode($range) !!});
 let ready = false; const ap = OPC.choice(tabs, 0, k => { if (ready) nav('range', keys[k]); }); if (cur > 0) ap(cur); ready = true;
 // select
-const sels = [...document.querySelectorAll('select')]; const [sT, sR, sS] = sels;
+const sels = [...document.querySelectorAll('.jb select')]; const [sT, sR, sS] = sels;
 if (Q.get('tutor')) sT.value = Q.get('tutor');
 const rm = {'Home Visit (Rumah)': 'home_visit', 'Online (Zoom / Meet)': 'online', 'Studio 1 (Cabang)': 'studio', 'Studio 2 (Cabang)': 'studio'};
 [...sR.options].forEach(o => { if (rm[o.textContent]) o.value = rm[o.textContent]; else if (!o.value) o.value = ''; });
@@ -55,7 +193,7 @@ const qi = document.querySelector('input[placeholder^="Cari tutor"]'); qi.value 
 qi.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); nav('q', qi.value); } });
 const rows = [...document.querySelectorAll('tbody tr[data-id]')]; qi.addEventListener('input', () => { const v = qi.value.toLowerCase(); rows.forEach(r => r.style.display = r.textContent.toLowerCase().includes(v) ? '' : 'none'); });
 OPC.on('Filter Tambahan', () => OPC.toast('Gunakan filter Tutor, Ruangan, dan Status di sebelah kiri.', true), {sel: 'button[title="Filter Tambahan"]', exact: false});
-document.querySelectorAll('button[title="Filter Tambahan"]').forEach(b => b.addEventListener('click', () => { document.querySelectorAll('select').forEach(s => s.value = ''); location.href = BASE; }));
+document.querySelectorAll('button[title="Filter Tambahan"]').forEach(b => b.addEventListener('click', () => { document.querySelectorAll('.jb select').forEach(s => s.value = ''); location.href = BASE; }));
 // ubah / resolusi / batal
 function reschedule(id) { OPC.go(BARU + '?ubah=' + id); }
 window.SESS = {!! json_encode($sessionsJson) !!};
@@ -73,4 +211,5 @@ OPC.on('Kalender', () => {
   document.body.appendChild(ov); ov.addEventListener('click', e => { if (e.target === ov || e.target.dataset.x !== undefined) ov.remove(); });
 }, {sel: 'button'});
 OPC.on('Tabel', () => {}, {sel: 'button'});
-</script></body></html>
+</script>
+@endpush

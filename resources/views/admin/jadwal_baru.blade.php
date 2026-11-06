@@ -1,181 +1,36 @@
-<!DOCTYPE html>
+{{-- resources/views/admin/jadwal_baru.blade.php --}}
+@extends('portal')
+@section('title', 'Tambah Jadwal Baru')
 
-<html lang="id"><head><meta name="csrf-token" content="{{ csrf_token() }}">
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<meta content="web_dashboard" name="shell-type"/>
-<title>One Private Course - Sistem Alokasi Sesi Les</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+@section('topbar')
+    <div class="crumb">
+        <span>Operasional Cabang</span><span>›</span><span>Jadwal &amp; Sesi Les</span><span>›</span><b>Tambah Jadwal Baru</b>
+    </div>
+@endsection
+
+@section('topbar-right')
+    @php $namaAdmin = auth()->user()->name; @endphp
+    <div class="userbox">
+        <div class="who"><b>{{ $namaAdmin }}</b><small>Admin Cabang</small></div>
+        <div class="avatar-c">{{ collect(explode(' ', $namaAdmin))->map(fn($w) => strtoupper(substr($w, 0, 1)))->take(2)->join('') }}</div>
+    </div>
+@endsection
+
+@section('content')
+{{-- Reset ringan pengganti preflight Tailwind, hanya berlaku di area halaman ini --}}
 <style>
-    @@layer base {
-      html, body {
-        margin: 0;
-        padding: 0;
-        font-family: 'Plus Jakarta Sans', sans-serif;
-      }
-      body {
-        overscroll-behavior: none;
-      }
-    }
-    ::-webkit-scrollbar {
-      display: none;
-    }
-  </style>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script id="tailwind-config">
-    tailwind.config = {
-      darkMode: "class",
-      theme: {
-        extend: {
-          colors: {
-            "tertiary-fixed": "#e1e0ff",
-            "on-secondary-fixed-variant": "#005049",
-            "surface-dim": "#d2d9f4",
-            "on-tertiary-container": "#f1eeff",
-            "outline-variant": "#c3c6d7",
-            "on-background": "#131b2e",
-            "primary-container": "#2563eb",
-            "primary-fixed-dim": "#b4c5ff",
-            "tertiary-fixed-dim": "#c0c1ff",
-            "surface-variant": "#dae2fd",
-            "surface-container": "#eaedff",
-            "background": "#faf8ff",
-            "error-container": "#ffdad6",
-            "on-surface": "#131b2e",
-            "primary": "#004ac6",
-            "primary-fixed": "#dbe1ff",
-            "on-tertiary-fixed": "#07006c",
-            "inverse-surface": "#283044",
-            "surface-container-lowest": "#ffffff",
-            "on-secondary-container": "#006f66",
-            "tertiary": "#3e3fcc",
-            "on-tertiary-fixed-variant": "#2f2ebe",
-            "on-secondary": "#ffffff",
-            "inverse-on-surface": "#eef0ff",
-            "on-error-container": "#93000a",
-            "surface": "#faf8ff",
-            "on-tertiary": "#ffffff",
-            "on-surface-variant": "#434655",
-            "on-primary-container": "#eeefff",
-            "surface-container-high": "#e2e7ff",
-            "on-primary-fixed-variant": "#003ea8",
-            "surface-tint": "#0053db",
-            "secondary-fixed-dim": "#6bd8cb",
-            "on-primary-fixed": "#00174b",
-            "error": "#ba1a1a",
-            "surface-container-highest": "#dae2fd",
-            "secondary-container": "#86f2e4",
-            "tertiary-container": "#585be6",
-            "secondary-fixed": "#89f5e7",
-            "inverse-primary": "#b4c5ff",
-            "on-secondary-fixed": "#00201d",
-            "outline": "#737686",
-            "secondary": "#006a61",
-            "on-primary": "#ffffff",
-            "surface-container-low": "#f2f3ff",
-            "on-error": "#ffffff",
-            "surface-bright": "#faf8ff"
-          },
-          fontFamily: {
-            sans: ["Plus Jakarta Sans", "sans-serif"]
-          }
-        }
-      }
-    };
-  </script>
-</head>
-<body class="bg-surface font-sans text-on-surface antialiased">
-<!-- Fixed Left Sidebar -->
-<aside class="fixed left-0 top-0 h-full w-[258px] bg-surface-container-lowest border-r border-outline-variant/40 z-50 flex flex-col justify-between py-5">
-<div class="flex flex-col">
-<div class="px-5 flex items-center gap-3 mb-6">
-<div class="w-10 h-10 rounded-xl bg-primary-container flex items-center justify-center shrink-0 shadow-sm shadow-primary/20">
-<span class="material-symbols-outlined text-on-primary text-[22px]">school</span>
-</div>
-<div class="flex flex-col min-w-0">
-<span class="text-sm font-bold text-primary-container truncate tracking-tight">One Private Course</span>
-<span class="text-[11px] text-on-surface-variant font-medium truncate">Sistem Manajemen Bimbel</span>
-</div>
-</div>
-<div class="px-5 mb-5">
-<button class="w-full h-10 bg-primary-container hover:bg-primary text-on-primary text-sm font-semibold rounded-lg flex items-center justify-center gap-2 transition-colors shadow-sm" type="button">
-<span class="material-symbols-outlined text-[18px]">add</span>
-<span>Tambah Sesi Les</span>
-</button>
-</div>
-<nav class="flex flex-col gap-1 px-3">
-<a class="flex items-center justify-between px-3 py-2.5 rounded-lg bg-surface-container-low text-primary-container font-semibold transition-colors" href="{{ route('admin.dashboard') }}">
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-[20px]">grid_view</span>
-<span class="text-sm">Dashboard Ringkasan</span>
-</div>
-<span class="w-2 h-2 rounded-full bg-primary-container shrink-0"></span>
-</a>
-<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" href="{{ route('admin.jadwal') }}">
-<span class="material-symbols-outlined text-[20px]">calendar_month</span>
-<span class="text-sm font-medium">Jadwal &amp; Sesi Les</span>
-</a>
-<a class="flex items-center justify-between px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" href="{{ route('admin.siswa') }}">
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-[20px]">group</span>
-<span class="text-sm font-medium">Database Siswa</span>
-</div>
-<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface text-[11px] font-semibold">{{ $nav['students'] }}</span>
-</a>
-<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" href="{{ route('admin.tutor') }}">
-<span class="material-symbols-outlined text-[20px]">person_apron</span>
-<span class="text-sm font-medium">Tutor &amp; Guru Pengajar</span>
-</a>
-<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" href="{{ route('admin.presensi') }}">
-<span class="material-symbols-outlined text-[20px]">assignment_turned_in</span>
-<span class="text-sm font-medium">Presensi &amp; Laporan</span>
-</a>
-<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" href="{{ route('admin.pembayaran') }}">
-<span class="material-symbols-outlined text-[20px]">payments</span>
-<span class="text-sm font-medium">Pembayaran</span>
-</a>
-<div class="border-t border-outline-variant/30 my-2 mx-1"></div>
-<a class="flex items-center justify-between px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" href="{{ route('admin.konfirmasi') }}">
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-[20px]">pending_actions</span>
-<span class="text-sm font-medium">Konfirmasi Sesi</span>
-</div>
-<span class="px-2 py-0.5 rounded-full bg-error-container text-error text-[11px] font-bold">{{ $nav['confirm'] }}</span>
-</a>
-</nav>
-</div>
-<div class="px-5 pt-3">
-<div class="p-3 bg-surface-container-low rounded-xl flex items-center gap-3 border border-outline-variant/30">
-<span class="material-symbols-outlined text-primary-container text-[20px]">support_agent</span>
-<div class="flex flex-col min-w-0">
-<span class="text-xs font-bold text-on-surface truncate">Bantuan Cabang</span>
-<span class="text-[11px] text-on-surface-variant truncate">Lentera OS v2.4 LTS</span>
-</div>
-</div>
-</div>
-</aside>
-<!-- Main Content Wrapper -->
-<div class="pl-[258px]">
-<!-- Top Bar -->
-<header class="fixed top-0 left-[258px] right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-md border-b border-outline-variant/40 z-40 flex items-center justify-between px-8">
-<div class="flex items-center gap-2 text-sm">
-<span class="text-on-surface-variant">Operasional Cabang</span>
-<span class="text-outline-variant font-light">/</span>
-<span class="text-on-surface font-semibold">Dashboard Ringkasan</span>
-</div>
-<div class="flex items-center gap-4">
-<div class="text-right flex flex-col">
-<span class="text-xs font-bold text-on-surface">{{ auth()->user()->name }}</span>
-<span class="text-[11px] text-on-surface-variant">Admin Cabang Tebet</span>
-</div>
-<div class="w-9 h-9 rounded-full bg-primary/10 text-primary border border-primary/20 flex items-center justify-center font-bold text-xs">
-          AP
-        </div>
-</div>
-</header>
-<!-- Page Body -->
-<main class="relative pt-16 bg-surface min-h-screen p-6 xl:p-8">
+    :where(.jb) *, :where(.jb) ::before, :where(.jb) ::after { box-sizing: border-box; border-width: 0; border-style: solid; border-color: #e5e7eb; }
+    :where(.jb) :is(h1,h2,h3,h4,p) { margin: 0; font-size: inherit; font-weight: inherit; }
+    :where(.jb) button { background-color: transparent; background-image: none; font-family: inherit; font-size: 100%; line-height: inherit; color: inherit; margin: 0; padding: 0; cursor: pointer; }
+    :where(.jb) :is(input,select,textarea) { font-family: inherit; font-size: 100%; margin: 0; }
+    :where(.jb) a { color: inherit; text-decoration: inherit; }
+    :where(.jb) table { border-collapse: collapse; border-color: inherit; }
+    .jb { font-family: 'Plus Jakarta Sans', sans-serif; }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+
+<div class="jb flex flex-col w-full max-w-[1400px] mx-auto text-on-surface antialiased">
 <div class="flex flex-col w-full">
 <!-- Interactive Workbench Environment -->
 <div class="relative w-full rounded-2xl overflow-hidden bg-surface-container-low shadow-sm border border-outline-variant/30">
@@ -717,9 +572,77 @@ Pilih rekomendasi slot aman terlebih dahulu
 </div>
 </div>
 </div>
-</main>
 </div>
-<script src="{{ asset('js/opc.js') }}"></script><script>
+@endsection
+
+@push('scripts')
+<script>
+window.tailwind = window.tailwind || {};
+window.__twcfg = tailwind.config = {
+  darkMode: "class",
+  corePlugins: { preflight: false },
+  theme: {
+    extend: {
+      colors: {
+        "tertiary-fixed": "#e1e0ff",
+        "on-secondary-fixed-variant": "#005049",
+        "surface-dim": "#d2d9f4",
+        "on-tertiary-container": "#f1eeff",
+        "outline-variant": "#c3c6d7",
+        "on-background": "#131b2e",
+        "primary-container": "#2563eb",
+        "primary-fixed-dim": "#b4c5ff",
+        "tertiary-fixed-dim": "#c0c1ff",
+        "surface-variant": "#dae2fd",
+        "surface-container": "#eaedff",
+        "background": "#faf8ff",
+        "error-container": "#ffdad6",
+        "on-surface": "#131b2e",
+        "primary": "#004ac6",
+        "primary-fixed": "#dbe1ff",
+        "on-tertiary-fixed": "#07006c",
+        "inverse-surface": "#283044",
+        "surface-container-lowest": "#ffffff",
+        "on-secondary-container": "#006f66",
+        "tertiary": "#3e3fcc",
+        "on-tertiary-fixed-variant": "#2f2ebe",
+        "on-secondary": "#ffffff",
+        "inverse-on-surface": "#eef0ff",
+        "on-error-container": "#93000a",
+        "surface": "#faf8ff",
+        "on-tertiary": "#ffffff",
+        "on-surface-variant": "#434655",
+        "on-primary-container": "#eeefff",
+        "surface-container-high": "#e2e7ff",
+        "on-primary-fixed-variant": "#003ea8",
+        "surface-tint": "#0053db",
+        "secondary-fixed-dim": "#6bd8cb",
+        "on-primary-fixed": "#00174b",
+        "error": "#ba1a1a",
+        "surface-container-highest": "#dae2fd",
+        "secondary-container": "#86f2e4",
+        "tertiary-container": "#585be6",
+        "secondary-fixed": "#89f5e7",
+        "inverse-primary": "#b4c5ff",
+        "on-secondary-fixed": "#00201d",
+        "outline": "#737686",
+        "secondary": "#006a61",
+        "on-primary": "#ffffff",
+        "surface-container-low": "#f2f3ff",
+        "on-error": "#ffffff",
+        "surface-bright": "#faf8ff"
+      },
+      fontFamily: {
+        sans: ["Plus Jakarta Sans", "sans-serif"]
+      }
+    }
+  }
+};
+</script>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>tailwind.config = window.__twcfg;</script>
+<script src="{{ asset('js/opc.js') }}"></script>
+<script>
 OPC.userLogout({!! json_encode(auth()->user()->name) !!});
 const LIST = {!! json_encode(route('admin.jadwal')) !!}, API = {!! json_encode(url('/admin/jadwal')) !!};
 const STUDENTS = {!! json_encode($studentsJson) !!}, TUTORS = {!! json_encode($tutorsJson) !!}, EDIT = {!! json_encode($edit) !!};
@@ -810,4 +733,5 @@ const mins = (a, b) => { const f = s => +s.split(':')[0] * 60 + +s.split(':')[1]
     if (!pickSlot) return OPC.toast('Pilih slot pengganti dulu.', false);
     try { const j = await OPC.put(API + '/' + EDIT.id, {date: pickSlot.date, start_time: pickSlot.start, end_time: pickSlot.end, tutor_id: pickSlot.tutor_id, reason: reason ? reason.textContent.trim() : ''}); OPC.done(j, LIST); } catch (e) {} }));
 })();
-</script></body></html>
+</script>
+@endpush

@@ -1,40 +1,42 @@
-<!DOCTYPE html><html lang="id"><head><meta name="csrf-token" content="{{ csrf_token() }}"><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_dashboard" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@@layer base{html,body{margin:0;padding:0;font-family:'Plus Jakarta Sans',sans-serif;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}
-/* Tabel tetap bisa digeser: scrollbar horizontal ditampilkan tipis hanya di area tabel */
-.scroll-x{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:#c3c6d7 transparent;}
-.scroll-x::-webkit-scrollbar{display:block;height:8px;}
-.scroll-x::-webkit-scrollbar-track{background:transparent;}
-.scroll-x::-webkit-scrollbar-thumb{background:#c3c6d7;border-radius:9999px;}
-.material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400;}</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"boxShadow":{"xs":"0 1px 2px 0 rgb(0 0 0 / 0.05)"},"colors":{"on-tertiary-container":"#f1eeff","surface-dim":"#d2d9f4","secondary-fixed-dim":"#6bd8cb","on-primary":"#ffffff","background":"#faf8ff","surface-container-high":"#e2e7ff","tertiary":"#3e3fcc","primary":"#004ac6","on-surface":"#131b2e","inverse-primary":"#b4c5ff","primary-fixed":"#dbe1ff","surface-container-highest":"#dae2fd","surface-container-low":"#f2f3ff","error":"#ba1a1a","on-error-container":"#93000a","on-primary-container":"#eeefff","surface-container-lowest":"#ffffff","surface":"#faf8ff","secondary-fixed":"#89f5e7","outline-variant":"#c3c6d7","surface-tint":"#0053db","surface-container":"#eaedff","primary-container":"#2563eb","on-surface-variant":"#434655","outline":"#737686","surface-bright":"#faf8ff","tertiary-container":"#585be6","on-secondary":"#ffffff","on-tertiary-fixed-variant":"#2f2ebe","inverse-surface":"#283044","secondary-container":"#86f2e4","error-container":"#ffdad6","on-secondary-fixed-variant":"#005049","surface-variant":"#dae2fd","on-secondary-container":"#006f66","on-primary-fixed":"#00174b","tertiary-fixed":"#e1e0ff","secondary":"#006a61","inverse-on-surface":"#eef0ff","on-background":"#131b2e","tertiary-fixed-dim":"#c0c1ff","primary-fixed-dim":"#b4c5ff","on-tertiary":"#ffffff","on-tertiary-fixed":"#07006c","on-secondary-fixed":"#00201d","on-error":"#ffffff","on-primary-fixed-variant":"#003ea8"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","2xl":"1rem","full":"9999px"},"spacing":{"space-sm":"0.5rem","gutter-mobile":"1rem","space-lg":"1.5rem","space-md":"1rem","margin-mobile":"1rem","space-xl":"2rem","space-xs":"0.25rem","gutter":"1.5rem","margin":"2rem","4.5":"1.125rem"},"fontFamily":{"label-md":["Plus Jakarta Sans"],"body-lg":["Plus Jakarta Sans"],"display-lg":["Plus Jakarta Sans"],"label-lg":["Plus Jakarta Sans"],"body-md":["Plus Jakarta Sans"],"headline-md":["Plus Jakarta Sans"],"headline-xl-mobile":["Plus Jakarta Sans"],"headline-lg":["Plus Jakarta Sans"],"display-lg-mobile":["Plus Jakarta Sans"],"headline-xl":["Plus Jakarta Sans"],"label-sm":["Plus Jakarta Sans"],"body-sm":["Plus Jakarta Sans"],"headline-sm":["Plus Jakarta Sans"]},"fontSize":{"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"600"}],"body-lg":["16px",{"lineHeight":"24px","fontWeight":"400"}],"display-lg":["40px",{"lineHeight":"48px","letterSpacing":"-0.02em","fontWeight":"700"}],"label-lg":["14px",{"lineHeight":"20px","letterSpacing":"0.01em","fontWeight":"600"}],"body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}],"headline-md":["20px",{"lineHeight":"28px","fontWeight":"600"}],"headline-xl-mobile":["24px",{"lineHeight":"32px","letterSpacing":"-0.015em","fontWeight":"700"}],"headline-lg":["24px",{"lineHeight":"32px","letterSpacing":"-0.01em","fontWeight":"600"}],"display-lg-mobile":["30px",{"lineHeight":"38px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-xl":["32px",{"lineHeight":"40px","letterSpacing":"-0.015em","fontWeight":"700"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.03em","fontWeight":"600"}],"body-sm":["13px",{"lineHeight":"18px","fontWeight":"400"}],"headline-sm":["18px",{"lineHeight":"26px","fontWeight":"600"}]}}}}</script></head><body class="bg-surface font-body-md text-on-surface antialiased">
-<!-- Sidebar -->
-<aside class="fixed left-0 top-0 h-full w-[258px] bg-surface-container-lowest border-r border-outline-variant/40 z-50 flex flex-col justify-between py-5">
-<div class="flex flex-col">
-<div class="px-5 flex items-center gap-3 mb-6">
-<div class="w-10 h-10 rounded-xl bg-primary-container flex items-center justify-center shrink-0 shadow-sm shadow-primary/20"><span class="material-symbols-outlined text-on-primary text-[22px]">school</span></div>
-<div class="flex flex-col min-w-0"><span class="font-headline-sm text-[16px] text-primary-container font-bold truncate tracking-tight">One Private Course</span><span class="font-label-sm text-[11px] text-on-surface-variant font-medium truncate">Sistem Manajemen Bimbel</span></div>
-</div>
-<div class="px-5 mb-5">
-<a href="{{ route('admin.jadwal.baru') }}" class="w-full h-10 bg-primary-container hover:bg-primary text-on-primary font-label-lg text-label-lg rounded-xl flex items-center justify-center gap-2 transition-all shadow-sm shadow-primary/25"><span class="material-symbols-outlined text-[19px]">add_circle</span><span>Tambah Sesi Les</span></a>
-</div>
-<nav class="flex flex-col gap-1 px-3">
-<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" href="{{ route('admin.dashboard') }}"><span class="material-symbols-outlined text-[20px] text-outline">dashboard</span><span class="font-label-lg text-label-lg">Dashboard Ringkasan</span></a>
-<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" href="{{ route('admin.jadwal') }}"><span class="material-symbols-outlined text-[20px] text-outline">calendar_month</span><span class="font-label-lg text-label-lg">Jadwal &amp; Sesi Les</span></a>
-<a class="flex items-center justify-between px-3 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" href="{{ route('admin.siswa') }}"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px] text-outline">group</span><span class="font-label-lg text-label-lg">Database Siswa</span></div><span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface font-label-sm text-[11px] font-semibold">{{ $nav['students'] }}</span></a>
-<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" href="{{ route('admin.tutor') }}"><span class="material-symbols-outlined text-[20px] text-outline">badge</span><span class="font-label-lg text-label-lg">Tutor &amp; Guru Pengajar</span></a>
-<a aria-current="page" class="flex items-center justify-between px-3 py-2.5 bg-primary-fixed/60 text-primary-container font-semibold rounded-xl border border-primary-container/20 shadow-xs" href="{{ route('admin.presensi') }}"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px] text-primary-container">fact_check</span><span class="font-label-lg text-label-lg text-primary font-bold">Presensi &amp; Laporan</span></div><span class="w-2 h-2 rounded-full bg-primary-container shrink-0"></span></a>
-<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" href="{{ route('admin.pembayaran') }}"><span class="material-symbols-outlined text-[20px] text-outline">payments</span><span class="font-label-lg text-label-lg">Pembayaran</span></a>
-<div class="border-t border-outline-variant/30 my-2 mx-1"></div>
-<a class="flex items-center justify-between px-3 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" href="{{ route('admin.konfirmasi') }}"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px] text-outline">pending_actions</span><span class="font-label-lg text-label-lg">Konfirmasi Sesi</span></div><span class="px-2 py-0.5 rounded-full bg-error-container text-error font-label-sm text-[11px] font-bold">{{ $nav['confirm'] }}</span></a>
-</nav>
-</div>
-<div class="px-4"><div class="p-3 bg-surface-container-low rounded-xl border border-outline-variant/30 flex items-center gap-3"><div class="w-8 h-8 rounded-lg bg-primary-container/10 text-primary-container flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[19px]">support_agent</span></div><div class="flex flex-col min-w-0"><span class="font-label-sm text-[11px] font-semibold text-on-surface truncate">Bantuan Cabang</span><span class="font-body-sm text-[10px] text-on-surface-variant">Lentera Edukasi v2.4</span></div></div></div>
-</aside>
-<!-- Main Wrapper -->
-<div class="pl-[258px]">
-<header class="fixed top-0 left-[258px] right-0 h-16 bg-surface-container-lowest/95 backdrop-blur-md border-b border-outline-variant/40 z-40 flex items-center justify-between px-8">
-<div class="flex items-center gap-2 font-label-md text-label-md"><span class="text-xs font-medium text-on-surface-variant">Operasional Cabang</span><span class="text-xs text-outline-variant">/</span><span class="text-xs font-semibold text-on-surface tracking-tight">Presensi &amp; Laporan</span></div>
-<div class="flex items-center gap-3"><div class="text-right flex flex-col"><span class="font-label-md text-label-md font-bold text-on-surface leading-tight">{{ auth()->user()->name }}</span><span class="font-body-sm text-[11px] text-on-surface-variant">Admin Cabang Tebet</span></div><div class="w-9 h-9 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-bold text-[13px] shadow-xs">{{ \App\Support\Fmt::initials(auth()->user()->name) }}</div></div>
-</header>
-<main class="relative pt-16 bg-surface min-h-screen p-8">
+{{-- resources/views/admin/presensi.blade.php --}}
+@extends('portal')
+@section('title', 'Presensi & Laporan')
+
+@section('topbar')
+    <div class="crumb">
+        <span>Operasional Cabang</span><span>›</span><b>Presensi &amp; Laporan</b>
+    </div>
+@endsection
+
+@section('topbar-right')
+    @php $namaAdmin = auth()->user()->name; @endphp
+    <div class="userbox">
+        <div class="who"><b>{{ $namaAdmin }}</b><small>Admin Cabang</small></div>
+        <div class="avatar-c">{{ collect(explode(' ', $namaAdmin))->map(fn($w) => strtoupper(substr($w, 0, 1)))->take(2)->join('') }}</div>
+    </div>
+@endsection
+
+@section('content')
+{{-- Reset ringan pengganti preflight Tailwind, hanya berlaku di area halaman ini --}}
+<style>
+    :where(.jb) *, :where(.jb) ::before, :where(.jb) ::after { box-sizing: border-box; border-width: 0; border-style: solid; border-color: #e5e7eb; }
+    :where(.jb) :is(h1,h2,h3,h4,p) { margin: 0; font-size: inherit; font-weight: inherit; }
+    :where(.jb) button { background-color: transparent; background-image: none; font-family: inherit; font-size: 100%; line-height: inherit; color: inherit; margin: 0; padding: 0; cursor: pointer; }
+    :where(.jb) :is(input,select,textarea) { font-family: inherit; font-size: 100%; margin: 0; }
+    :where(.jb) a { color: inherit; text-decoration: inherit; }
+    :where(.jb) table { border-collapse: collapse; border-color: inherit; }
+    .jb { font-family: 'Plus Jakarta Sans', sans-serif; }
+    /* Tabel tetap bisa digeser: scrollbar horizontal ditampilkan tipis hanya di area tabel */
+    .scroll-x{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:#c3c6d7 transparent;}
+    .scroll-x::-webkit-scrollbar{display:block;height:8px;}
+    .scroll-x::-webkit-scrollbar-track{background:transparent;}
+    .scroll-x::-webkit-scrollbar-thumb{background:#c3c6d7;border-radius:9999px;}
+    .material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400;}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+
+<div class="jb flex flex-col w-full max-w-[1400px] mx-auto text-on-surface antialiased">
 <div class="flex flex-col w-full max-w-7xl mx-auto space-y-6">
 <!-- 1. HEADER -->
 <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5 pt-6">
@@ -242,8 +244,16 @@
 </div>
 </div>
 </div>
-</main>
 </div>
+@endsection
+
+@push('scripts')
+<script>
+window.tailwind = window.tailwind || {};
+window.__twcfg = tailwind.config={"darkMode":"class","corePlugins":{"preflight":false},"theme":{"extend":{"boxShadow":{"xs":"0 1px 2px 0 rgb(0 0 0 / 0.05)"},"colors":{"on-tertiary-container":"#f1eeff","surface-dim":"#d2d9f4","secondary-fixed-dim":"#6bd8cb","on-primary":"#ffffff","background":"#faf8ff","surface-container-high":"#e2e7ff","tertiary":"#3e3fcc","primary":"#004ac6","on-surface":"#131b2e","inverse-primary":"#b4c5ff","primary-fixed":"#dbe1ff","surface-container-highest":"#dae2fd","surface-container-low":"#f2f3ff","error":"#ba1a1a","on-error-container":"#93000a","on-primary-container":"#eeefff","surface-container-lowest":"#ffffff","surface":"#faf8ff","secondary-fixed":"#89f5e7","outline-variant":"#c3c6d7","surface-tint":"#0053db","surface-container":"#eaedff","primary-container":"#2563eb","on-surface-variant":"#434655","outline":"#737686","surface-bright":"#faf8ff","tertiary-container":"#585be6","on-secondary":"#ffffff","on-tertiary-fixed-variant":"#2f2ebe","inverse-surface":"#283044","secondary-container":"#86f2e4","error-container":"#ffdad6","on-secondary-fixed-variant":"#005049","surface-variant":"#dae2fd","on-secondary-container":"#006f66","on-primary-fixed":"#00174b","tertiary-fixed":"#e1e0ff","secondary":"#006a61","inverse-on-surface":"#eef0ff","on-background":"#131b2e","tertiary-fixed-dim":"#c0c1ff","primary-fixed-dim":"#b4c5ff","on-tertiary":"#ffffff","on-tertiary-fixed":"#07006c","on-secondary-fixed":"#00201d","on-error":"#ffffff","on-primary-fixed-variant":"#003ea8"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","2xl":"1rem","full":"9999px"},"spacing":{"space-sm":"0.5rem","gutter-mobile":"1rem","space-lg":"1.5rem","space-md":"1rem","margin-mobile":"1rem","space-xl":"2rem","space-xs":"0.25rem","gutter":"1.5rem","margin":"2rem","4.5":"1.125rem"},"fontFamily":{"sans":["Plus Jakarta Sans","sans-serif"],"label-md":["Plus Jakarta Sans"],"body-lg":["Plus Jakarta Sans"],"display-lg":["Plus Jakarta Sans"],"label-lg":["Plus Jakarta Sans"],"body-md":["Plus Jakarta Sans"],"headline-md":["Plus Jakarta Sans"],"headline-xl-mobile":["Plus Jakarta Sans"],"headline-lg":["Plus Jakarta Sans"],"display-lg-mobile":["Plus Jakarta Sans"],"headline-xl":["Plus Jakarta Sans"],"label-sm":["Plus Jakarta Sans"],"body-sm":["Plus Jakarta Sans"],"headline-sm":["Plus Jakarta Sans"]},"fontSize":{"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"600"}],"body-lg":["16px",{"lineHeight":"24px","fontWeight":"400"}],"display-lg":["40px",{"lineHeight":"48px","letterSpacing":"-0.02em","fontWeight":"700"}],"label-lg":["14px",{"lineHeight":"20px","letterSpacing":"0.01em","fontWeight":"600"}],"body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}],"headline-md":["20px",{"lineHeight":"28px","fontWeight":"600"}],"headline-xl-mobile":["24px",{"lineHeight":"32px","letterSpacing":"-0.015em","fontWeight":"700"}],"headline-lg":["24px",{"lineHeight":"32px","letterSpacing":"-0.01em","fontWeight":"600"}],"display-lg-mobile":["30px",{"lineHeight":"38px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-xl":["32px",{"lineHeight":"40px","letterSpacing":"-0.015em","fontWeight":"700"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.03em","fontWeight":"600"}],"body-sm":["13px",{"lineHeight":"18px","fontWeight":"400"}],"headline-sm":["18px",{"lineHeight":"26px","fontWeight":"600"}]}}}};
+</script>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>tailwind.config = window.__twcfg;</script>
 <!-- Page Interactivity Scripts -->
 <script>
   // Tab Switching Logic
@@ -294,7 +304,8 @@
   });
 </script>
 
-<script src="{{ asset('js/opc.js') }}"></script><script>
+<script src="{{ asset('js/opc.js') }}"></script>
+<script>
 OPC.userLogout({!! json_encode(auth()->user()->name) !!});
 const API = {!! json_encode(url('/admin/presensi')) !!};
 const PEND = {!! json_encode($pendingJson) !!};
@@ -328,4 +339,5 @@ filters.forEach(f => { const box = f.closest('div[class*=cursor], div[class*=rou
   box.addEventListener('click', () => { if (t === 'Filter Siswa') OPC.dialog({title: 'Filter Siswa', fields: [{name: 'v', label: 'Siswa', type: 'select', value: Q.get('student') || '', options: [{v: '', t: 'Semua Siswa'}].concat(FS.map(s => ({v: s.id, t: s.name})))}], submit: 'Terapkan', onSubmit: async v => nav('student', v.v)});
     if (t === 'Filter Tutor') OPC.dialog({title: 'Filter Tutor', fields: [{name: 'v', label: 'Tutor', type: 'select', value: Q.get('tutor') || '', options: [{v: '', t: 'Semua Tutor'}].concat(FT.map(s => ({v: s.id, t: s.name})))}], submit: 'Terapkan', onSubmit: async v => nav('tutor', v.v)});
     if (t === 'Status Sesi') OPC.dialog({title: 'Status Sesi', fields: [{name: 'v', label: 'Status', type: 'select', value: Q.get('status') || '', options: [{v: '', t: 'Semua Status'}, {v: 'hadir', t: 'Hadir'}, {v: 'izin', t: 'Izin'}, {v: 'sakit', t: 'Sakit'}, {v: 'belum', t: 'Belum Diisi'}]}], submit: 'Terapkan', onSubmit: async v => nav('status', v.v)}); }); });
-</script></body></html>
+</script>
+@endpush
