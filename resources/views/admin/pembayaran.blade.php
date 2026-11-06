@@ -54,7 +54,7 @@
 <span class="">Ekspor Laporan</span>
 </button>
 <!-- Tombol Tambah Pembayaran -->
-<button class="h-10 px-4 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-xl flex items-center gap-2 shadow-sm transition-all" id="btn-open-payment-modal" type="button"><span class="material-symbols-outlined text-[18px]">add_circle</span><span class="">+ Catat Pembayaran</span></button>
+<button class="h-10 px-4 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-xl flex items-center gap-2 shadow-sm transition-all" id="btn-open-payment-modal" type="button"><span class="material-symbols-outlined text-[18px]">add_circle</span><span class="">Catat Pembayaran</span></button>
 </div>
 </div>
 </div>
