@@ -15,5 +15,5 @@ return [
     'show_demo' => env('AUTH_SHOW_DEMO', env('APP_ENV') === 'local'),
 
     // Nomor WhatsApp admin cabang (format internasional tanpa +).
-    'whatsapp' => env('OPC_WHATSAPP', '6281198760001'),
+    'whatsapp' => env('OPC_WHATSAPP', '62895376551818'),
 ];

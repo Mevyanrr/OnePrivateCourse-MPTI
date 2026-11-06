@@ -112,6 +112,12 @@
 <span class="text-slate-300 font-medium">&gt;</span>
 <span class="font-semibold text-blue-600">Akun &amp; Hak Akses</span>
 </div>
+<form method="POST" action="{{ route('logout') }}" class="ml-auto mr-4">
+@csrf
+<button type="submit" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 text-xs font-semibold transition-colors">
+<span class="material-symbols-outlined text-[16px]">logout</span> Keluar
+</button>
+</form>
 <!-- Right User Profile Pill -->
 <div class="flex items-center gap-3">
 <div class="text-right flex flex-col">
@@ -431,7 +437,7 @@
 <script src="{{ asset('js/opc.js') }}"></script><script>
 OPC.userLogout({!! json_encode(auth()->user()->name) !!});
 const API = {!! json_encode(url('/admin/akun')) !!}; const Q = new URLSearchParams(location.search);
-const ROLES = [{v: 'admin', t: 'Admin'}, {v: 'tutor', t: 'Tutor Pengajar'}, {v: 'wali', t: 'Wali Murid'}];
+const ROLES = [{v: 'admin', t: 'Admin'}, {v: 'wali', t: 'Wali Murid'}];
 function form(u) { return [{name: 'name', label: 'Nama lengkap', value: u ? u.name : ''}, {name: 'email', label: 'Email', type: 'email', value: u ? u.email : ''}, {name: 'phone', label: 'No. WhatsApp', value: u ? u.phone : ''},
   {name: 'role', label: 'Peran', type: 'select', value: u ? u.role : 'admin', options: ROLES}, {name: 'role_label', label: 'Label peran (mis. Admin Keuangan)', value: u ? u.role_label : ''}, {name: 'branch', label: 'Cabang', type: 'select', value: u ? u.branch : 'Tebet', options: ['Tebet', 'Kemang', 'Bintaro'].map(x => ({v: x, t: 'Cabang ' + x}))}]; }
 OPC.on('Buat Akun Baru', () => OPC.dialog({title: 'Buat Akun Baru', desc: 'Kata sandi awal dibuat otomatis dan ditampilkan sekali.', fields: form(null), submit: 'Buat Akun', onSubmit: async v => { const j = await OPC.post(API, v); alert((j.message || '') + '\n\nKata sandi awal: ' + j.password); OPC.done({}, 'reload'); }}), {exact: false});

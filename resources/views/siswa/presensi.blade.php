@@ -73,60 +73,7 @@
 </head>
 <body class="bg-surface text-on-surface antialiased min-h-screen flex flex-col font-sans selection:bg-primary-fixed selection:text-primary">
 <!-- LEFT SIDEBAR -->
-<aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-lowest z-50 flex flex-col justify-between border-r border-outline-variant/60 shadow-[0_2px_12px_rgba(15,23,42,0.03)]">
-<div class="flex flex-col">
-<!-- Logo Branding -->
-<div class="h-16 px-6 flex items-center gap-3 border-b border-outline-variant/50">
-<div class="w-9 h-9 rounded-xl bg-primary text-on-primary flex items-center justify-center shrink-0 shadow-sm shadow-primary/20">
-<span class="material-symbols-outlined text-[20px]">school</span>
-</div>
-<div class="flex flex-col leading-tight">
-<span class="font-bold text-[16px] text-on-surface tracking-tight">One Private</span>
-<span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">Portal Edukasi</span>
-</div>
-</div>
-<!-- Navigation Menu -->
-<div class="px-4 pt-6">
-<div class="px-3 mb-2 text-[11px] font-bold text-on-surface-variant/80 tracking-wider uppercase">Menu Utama</div>
-<nav class="flex flex-col gap-1.5">
-<a class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-on-surface-variant text-[14px] font-semibold hover:bg-surface-container-low hover:text-on-surface transition-colors" href="#">
-<span class="material-symbols-outlined text-[20px]">grid_view</span>
-<span class="">Beranda</span>
-</a>
-<a class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-on-surface-variant text-[14px] font-semibold hover:bg-surface-container-low hover:text-on-surface transition-colors" href="#">
-<span class="material-symbols-outlined text-[20px]">calendar_month</span>
-<span class="">Jadwal Les</span>
-</a>
-<a aria-current="page" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-primary text-on-primary text-[14px] font-bold shadow-md shadow-primary/25 transition-all" href="#">
-<span class="material-symbols-outlined text-[20px]">fact_check</span>
-<span class="">Presensi &amp; Catatan</span>
-</a>
-<a class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-on-surface-variant text-[14px] font-semibold hover:bg-surface-container-low hover:text-on-surface transition-colors" href="#">
-<span class="material-symbols-outlined text-[20px]">receipt_long</span>
-<span class="">Riwayat Tagihan</span>
-</a>
-<a class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-on-surface-variant text-[14px] font-semibold hover:bg-surface-container-low hover:text-on-surface transition-colors" href="#">
-<span class="material-symbols-outlined text-[20px]">account_circle</span>
-<span class="">Profil Siswa</span>
-</a>
-</nav>
-</div>
-</div>
-<!-- Bottom Help Card -->
-<div class="p-4 m-3 rounded-2xl bg-surface-container-low/70 border border-outline-variant/60">
-<div class="flex items-center gap-2 text-primary font-bold text-[13px] mb-1">
-<span class="material-symbols-outlined text-[18px]">support_agent</span>
-<span class="">Bantuan Admin</span>
-</div>
-<p class="text-[12px] text-on-surface-variant leading-relaxed mb-3">
-        Punya kendala belajar atau administrasi les?
-      </p>
-<a class="flex items-center justify-center gap-2 w-full py-2 px-3 rounded-xl bg-emerald-600 text-white text-[12px] font-bold hover:bg-emerald-700 transition-all shadow-sm" href="https://wa.me/" target="_blank">
-<span class="material-symbols-outlined text-[15px]">chat</span>
-<span class="">WhatsApp Konsultasi</span>
-</a>
-</div>
-</aside>
+@include('siswa._sidebar', ['active' => 'presensi'])
 <!-- MAIN CONTAINER (HEADER + CONTENT) -->
 <div class="pl-64 flex flex-col min-h-screen">
 <!-- TOP NAVIGATION BAR -->
@@ -684,13 +631,13 @@ const CHILDREN = {!! json_encode($childrenJson) !!}, CUR = {{ $child->id }};
   const btns = [...document.querySelectorAll('button')].filter(b => /\(Kelas|Kelas \d+ (SMP|SMA|SD)/.test(b.textContent) && b.querySelector('div, span') && /Aisyah|Farhan|Kevin|Nabila|Bilqis|Rayhan/.test(b.textContent));
   const kids = btns.slice(0, 2);
   kids.forEach((b, i) => b.addEventListener('click', () => { const c = CHILDREN[i]; if (!c) return OPC.toast('Anak kedua belum terdaftar. Hubungi admin cabang.', false); const u = new URL(location.href); u.searchParams.set('anak', c.id); location.href = u.toString(); }));
-  OPC.on('Tambah Anak', () => window.open('https://wa.me/6281198760001?text=' + encodeURIComponent('Halo Admin, saya ingin menambahkan data anak ke akun portal saya.'), '_blank'), {sel: 'button', exact: false});
+  OPC.on('Tambah Anak', () => window.open('https://wa.me/62895376551818?text=' + encodeURIComponent('Halo Admin, saya ingin menambahkan data anak ke akun portal saya.'), '_blank'), {sel: 'button', exact: false});
   document.querySelectorAll('button[aria-label="Pemberitahuan"]').forEach(b => b.addEventListener('click', () => OPC.toast({!! json_encode($notifText ?? 'Tidak ada pemberitahuan baru.') !!}, true)));
   document.querySelectorAll('a[data-path="profil-siswa"]').forEach(a => a.addEventListener('click', e => { e.preventDefault();
     OPC.dialog({title: 'Profil Siswa', desc: 'Data tercatat di administrasi cabang.', fields: [
       {name: 'a', label: 'Nama', value: {!! json_encode($child->name) !!}}, {name: 'b', label: 'Jenjang / Sekolah', value: {!! json_encode($child->grade . ' • ' . $child->school) !!}},
       {name: 'c', label: 'Program', value: {!! json_encode($child->program) !!}}, {name: 'd', label: 'Tutor', value: {!! json_encode($child->tutor->name ?? '-') !!}}, {name: 'e', label: 'Alamat', value: {!! json_encode($child->address) !!}}], submit: 'Tutup', onSubmit: async () => {}}); }));
-  document.querySelectorAll('div').forEach(d => { if (d.children.length >= 1 && d.textContent.includes('Bantuan Admin') && d.textContent.includes('WhatsApp Konsultasi') && d.children.length <= 3 && d.textContent.length < 80) { d.style.cursor = 'pointer'; d.addEventListener('click', () => window.open('https://wa.me/6281198760001', '_blank')); } });
+  document.querySelectorAll('div').forEach(d => { if (d.children.length >= 1 && d.textContent.includes('Bantuan Admin') && d.textContent.includes('WhatsApp Konsultasi') && d.children.length <= 3 && d.textContent.length < 80) { d.style.cursor = 'pointer'; d.addEventListener('click', () => window.open('https://wa.me/62895376551818', '_blank')); } });
 })();
 
 const LIVE = {!! json_encode($liveJson) !!};
@@ -708,7 +655,7 @@ if (form) {
 OPC.on('Unduh Ringkasan Sesi', () => window.print(), {sel: 'button'});
 document.querySelectorAll('[data-detail]').forEach(() => {});
 document.querySelectorAll('button').forEach(b => { const t = OPC.label(b); if (t === 'Lihat Jurnal' || t === 'Detail') b.addEventListener('click', () => { const it = b.closest('div[class*="border"]'); const jr = it ? [...it.querySelectorAll('span')].find(s => s.textContent.startsWith('"') || s.textContent.startsWith('“')) : null; OPC.dialog({title: 'Jurnal Pertemuan', fields: [{name: 'j', label: 'Catatan tutor', type: 'textarea', value: jr ? jr.textContent : 'Belum ada jurnal.'}], submit: 'Tutup', onSubmit: async () => {}}); }); });
-document.querySelectorAll('a').forEach(a => { if (a.href.includes('wa.me/6281234567890')) a.href = 'https://wa.me/6281198760001'; });
+document.querySelectorAll('a').forEach(a => { if (a.href.includes('wa.me/6281234567890')) a.href = 'https://wa.me/62895376551818'; });
 OPC.on('Hubungi Tutor via WhatsApp', () => {}, {sel: 'a', exact: false});
 const fl = [...document.querySelectorAll('select')][0]; if (fl) fl.addEventListener('change', () => OPC.toast('Menampilkan riwayat ' + fl.value, true));
 const hs = ['Semua', 'Hadir', 'Izin', 'Sakit']; const items = [...document.querySelectorAll('[class*="border"]')].filter(d => d.textContent.includes('Tutor:') && d.querySelector('button'));

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Student;
 use App\Models\User;
 use App\Support\Identity;
 use Illuminate\Http\Request;
@@ -43,7 +44,6 @@ class AccountController extends Controller
 
     public function store(Request $r)
     {
-        // Seragamkan email (huruf kecil) & nomor WhatsApp (08…) sebelum divalidasi/unik.
         $r->merge(['email' => Identity::email($r->input('email')), 'phone' => Identity::phone($r->input('phone'))]);
         $d = $r->validate(['name' => 'required|string|max:255', 'email' => 'nullable|email|unique:users,email', 'phone' => 'nullable|string|max:30|unique:users,phone',
             'role' => 'required|in:admin,tutor,wali', 'role_label' => 'nullable|string|max:100', 'branch' => 'nullable|string'],
@@ -60,7 +60,6 @@ class AccountController extends Controller
 
     public function update(Request $r, User $user)
     {
-        // Seragamkan email (huruf kecil) & nomor WhatsApp (08…) sebelum divalidasi/unik.
         $r->merge(['email' => Identity::email($r->input('email')), 'phone' => Identity::phone($r->input('phone'))]);
         $d = $r->validate(['name' => 'required|string|max:255', 'email' => 'nullable|email|unique:users,email,' . $user->id, 'phone' => 'nullable|string|max:30|unique:users,phone,' . $user->id,
             'role' => 'required|in:admin,tutor,wali', 'role_label' => 'nullable|string|max:100', 'branch' => 'nullable|string']);
@@ -83,23 +82,35 @@ class AccountController extends Controller
             return response()->json(['message' => 'Tidak bisa menonaktifkan akun sendiri.'], 422);
         }
         $user->update(['status' => $user->status === 'aktif' ? 'nonaktif' : 'aktif']);
-        // Profil tutor ikut aktif / nonaktif bersama akunnya (akun daftar-mandiri menunggu persetujuan).
         $user->tutor?->update(['status' => $user->status]);
 
         return response()->json(['message' => 'Status akun ' . $user->name . ' kini ' . $user->status . '.']);
     }
 
-        /** Daftar siswa yang sudah tertaut ke wali ini + siswa yang belum punya wali. */
+    /** Semua siswa. Yang sudah tertaut ke wali ini dicentang; yang punya wali lain diberi keterangan. */
     public function students(User $user)
     {
+        $all = Student::with('parent:id,name')->orderBy('name')->get()->map(function ($s) use ($user) {
+            $other = $s->parent_user_id && $s->parent_user_id !== $user->id ? $s->parent?->name : null;
+
+            return [
+                'id'             => $s->id,
+                'code'           => $s->code,
+                'name'           => $s->name,
+                'grade'          => $s->grade,
+                'guardian_name'  => trim(($s->guardian_name ?: '-') . ($other ? ' | tertaut ke ' . $other . ' (akan dipindahkan)' : '')),
+                'guardian_phone' => $s->guardian_phone,
+                'parent_user_id' => $s->parent_user_id,
+            ];
+        });
+
         return response()->json([
-            'linked'    => $user->children()->get(['id', 'code', 'name', 'grade']),
-            'available' => Student::whereNull('parent_user_id')->orderBy('name')
-                ->get(['id', 'code', 'name', 'grade', 'guardian_name', 'guardian_phone']),
+            'linked'    => $all->where('parent_user_id', $user->id)->values(),
+            'available' => $all->filter(fn ($s) => $s['parent_user_id'] !== $user->id)->values(),
         ]);
     }
 
-    /** Set siswa yang ditautkan ke wali ini (yang tidak dipilih dilepas). */
+    /** Set siswa untuk wali ini: yang tidak dipilih dilepas, yang dipilih dipindahkan dari wali lama. */
     public function link(Request $r, User $user)
     {
         if ($user->role !== 'wali') {
@@ -109,13 +120,11 @@ class AccountController extends Controller
         $ids = $d['student_ids'] ?? [];
 
         Student::where('parent_user_id', $user->id)->whereNotIn('id', $ids)->update(['parent_user_id' => null]);
-        Student::whereIn('id', $ids)
-            ->where(fn ($q) => $q->whereNull('parent_user_id')->orWhere('parent_user_id', $user->id))
-            ->update(['parent_user_id' => $user->id]);
+        Student::whereIn('id', $ids)->update(['parent_user_id' => $user->id]);
 
         return response()->json(['message' => 'Penautan siswa untuk ' . $user->name . ' disimpan.']);
     }
-    
+
     public function destroy(User $user)
     {
         if ($user->id === auth()->id()) {

@@ -11,7 +11,7 @@
 <link href="{{ asset('css/auth/auth.css') }}" rel="stylesheet">
 </head>
 <body class="auth auth--register">
-@php $wa = config('opc.whatsapp', '6281198760001'); @endphp
+@php $wa = config('opc.whatsapp', '62895376551818'); @endphp
 <div class="auth-page">
   <div class="auth-decor" aria-hidden="true"><img class="watermark" src="{{ asset('assets/auth/fc2cb7338589f15fa181eca0713e79d9.svg') }}" alt=""></div>
   <header class="auth-header">
