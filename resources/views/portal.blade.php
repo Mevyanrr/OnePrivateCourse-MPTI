@@ -10,26 +10,30 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     @vite(['resources/css/portal.css'])
 
     @stack('styles')
 </head>
+
 <body>
 
     <div class="shell">
 
-        {{-- Sidebar --}}
+        {{-- sidebar untuk admin dan siswa --}}
         <x-sidebar />
 
-        {{-- Konten utama --}}
+        {{-- konten utama --}}
         <div class="main">
 
-            {{-- Topbar --}}
+            {{-- topbar --}}
             <header class="topbar">
+
                 <div style="display: flex; align-items: center;">
 
+                    {{-- tombol buka sidebar --}}
                     <button
                         class="sb-toggle"
                         type="button"
@@ -40,17 +44,20 @@
                     </button>
 
                     @yield('topbar')
+
                 </div>
 
                 @yield('topbar-right')
+
             </header>
 
-            {{-- Isi halaman --}}
+            {{-- isi halaman --}}
             <main class="page">
                 @yield('content')
             </main>
 
         </div>
+
     </div>
 
     @stack('scripts')
