@@ -13,7 +13,7 @@
 <body class="auth auth--login">
 @php
     $role = old('role', 'admin') === 'wali' ? 'wali' : 'admin';
-    $wa = config('opc.whatsapp', '6281198760001');
+    $wa = config('opc.whatsapp', '62895376551818');
     $svg = fn ($f) => file_get_contents(public_path('assets/auth/'.$f)); // ikon di-inline agar warnanya ikut tab aktif
 @endphp
 <div class="auth-page">

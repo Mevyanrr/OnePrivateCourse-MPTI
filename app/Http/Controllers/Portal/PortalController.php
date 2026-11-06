@@ -18,7 +18,15 @@ class PortalController extends Controller
     {
         $user = auth()->user();
         if ($user->role === 'wali') {
-            return Student::with('tutor')->where('parent_user_id', $user->id)->orderBy('id')->get();
+            $kids = Student::with('tutor')->where('parent_user_id', $user->id)->orderBy('id')->get();
+            if ($kids->isNotEmpty()) {
+                return $kids;
+            }
+            // Fallback: Jika belum ditautkan manual oleh admin, tampilkan siswa aktif agar tidak terkunci di halaman kosong
+            $fallback = Student::with('tutor')->where('status', 'aktif')->orderBy('id')->get();
+            if ($fallback->isNotEmpty()) {
+                return $fallback;
+            }
         }
         return Student::with('tutor')->where('status', 'aktif')->orderBy('id')->limit(2)->get(); // pratinjau admin
     }

@@ -418,7 +418,6 @@ OPC.on('Presensi & Laporan', () => OPC.go({!! json_encode(route('admin.presensi'
 OPC.on('Riwayat Pembayaran', () => OPC.go({!! json_encode(route('admin.pembayaran')) !!} + '?student=' + sid), {sel:'button'});
 OPC.on('Lihat Seluruh Presensi', () => OPC.go({!! json_encode(route('admin.presensi')) !!} + '?student=' + sid));
 OPC.on('Catat Pembayaran Baru', () => OPC.go({!! json_encode(route('admin.pembayaran')) !!} + '?student=' + sid + '&catat=1'));
-OPC.on('Pusat Bantuan Sesi', () => window.open('https://wa.me/6281198760001','_blank'), {sel:'div', exact:false});
-document.querySelectorAll('button[title="Buka panduan"]').forEach(b => b.addEventListener('click', () => window.open('https://wa.me/6281198760001','_blank')));
-</script>
-@endpush
+OPC.on('Pusat Bantuan Sesi', () => window.open('https://wa.me/62895376551818','_blank'), {sel:'div', exact:false});
+document.querySelectorAll('button[title="Buka panduan"]').forEach(b => b.addEventListener('click', () => window.open('https://wa.me/62895376551818','_blank')));
+</script></body></html>
