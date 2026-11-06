@@ -13,6 +13,9 @@
 @php
     $url = fn (string $name) => \Illuminate\Support\Facades\Route::has($name) ? route($name) : '#';
 
+    // Angka badge diisi dari database lewat View Composer di AppServiceProvider ($nav).
+    $nav = $nav ?? ['students' => 0, 'confirm' => 0, 'notif' => 0];
+
     $config = [
         'admin' => [
             'brand' => ['title' => 'One Private Course', 'sub' => 'Sistem Manajemen Bimbel', 'home' => 'admin.dashboard'],
@@ -22,13 +25,13 @@
             'menus' => [
                 ['key' => 'dashboard',  'label' => 'Dashboard Ringkasan',  'icon' => 'grid',      'route' => 'admin.dashboard', 'live' => true],
                 ['key' => 'jadwal',     'label' => 'Jadwal & Sesi Les',    'icon' => 'calendar',  'route' => 'admin.jadwal'],
-                ['key' => 'siswa',      'label' => 'Database Siswa',       'icon' => 'users',     'route' => 'admin.siswa.index', 'badge' => 42],
+                ['key' => 'siswa',      'label' => 'Database Siswa',       'icon' => 'users',     'route' => 'admin.siswa', 'badge' => $nav['students'] ?? 0],
                 ['key' => 'tutor',      'label' => 'Tutor & Guru Pengajar','icon' => 'briefcase', 'route' => 'admin.tutor'],
                 ['key' => 'presensi',   'label' => 'Presensi & Laporan',   'icon' => 'clipboard', 'route' => 'admin.presensi'],
                 ['key' => 'pembayaran', 'label' => 'Invoicing & Honorarium','icon' => 'receipt',  'route' => 'admin.pembayaran'],
                 'divider',
-                ['key' => 'konfirmasi', 'label' => 'Konfirmasi Sesi',      'icon' => 'calendar-check', 'route' => 'admin.konfirmasi', 'badge' => 3, 'tone' => 'amber'],
-                ['key' => 'notifikasi', 'label' => 'Notifikasi Masuk',     'icon' => 'bell',      'route' => 'admin.notifikasi', 'badge' => 5, 'tone' => 'blue'],
+                ['key' => 'konfirmasi', 'label' => 'Konfirmasi Sesi',      'icon' => 'calendar-check', 'route' => 'admin.konfirmasi', 'badge' => $nav['confirm'] ?? 0, 'tone' => 'amber'],
+                ['key' => 'notifikasi', 'label' => 'Notifikasi Masuk',     'icon' => 'bell',      'route' => 'admin.notifikasi', 'badge' => $nav['notif'] ?? 0, 'tone' => 'blue'],
                 ['key' => 'akun',       'label' => 'Akun & Hak Akses',     'icon' => 'user-cog',  'route' => 'admin.akun'],
             ],
             'help'  => ['title' => 'Bantuan Cabang', 'sub' => 'One Private v2.4', 'icon' => 'headset', 'href' => '#'],
@@ -90,7 +93,7 @@
                 <x-icon :name="$m['icon']" />
                 <span>{{ $m['label'] }}</span>
 
-                @if (isset($m['badge']))
+                @if (!empty($m['badge']))
                     <span class="badge {{ $m['tone'] ?? '' }}">{{ $m['badge'] }}</span>
                 @elseif (!empty($m['live']) && $isActive($m))
                     <span class="live"></span>

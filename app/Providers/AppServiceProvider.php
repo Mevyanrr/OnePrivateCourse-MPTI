@@ -18,7 +18,7 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        View::composer(['admin.*', 'siswa.*'], function ($view) {
+        View::composer(['admin.*', 'siswa.*', 'components.sidebar'], function ($view) {
             $nav = ['students' => 0, 'confirm' => 0, 'notif' => 0];
             try {
                 if (Auth::check()) {

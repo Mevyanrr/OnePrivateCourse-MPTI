@@ -3,6 +3,8 @@
 
 <svg {{ $attributes->merge(['class' => 'i']) }} viewBox="0 0 24 24" aria-hidden="true" @if($fill) style="fill:currentColor" @endif>
 @switch($name)
+    @case('chevron-left')<path d="m15 18-6-6 6-6"/>@break
+    @case('chevron-right')<path d="m9 18 6-6-6-6"/>@break
     @case('grid')<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>@break
     @case('calendar')<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>@break
     @case('calendar-check')<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M9 16l2 2 4-4"/>@break
