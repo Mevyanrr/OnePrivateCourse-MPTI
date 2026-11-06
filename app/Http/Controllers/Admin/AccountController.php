@@ -89,6 +89,33 @@ class AccountController extends Controller
         return response()->json(['message' => 'Status akun ' . $user->name . ' kini ' . $user->status . '.']);
     }
 
+        /** Daftar siswa yang sudah tertaut ke wali ini + siswa yang belum punya wali. */
+    public function students(User $user)
+    {
+        return response()->json([
+            'linked'    => $user->children()->get(['id', 'code', 'name', 'grade']),
+            'available' => Student::whereNull('parent_user_id')->orderBy('name')
+                ->get(['id', 'code', 'name', 'grade', 'guardian_name', 'guardian_phone']),
+        ]);
+    }
+
+    /** Set siswa yang ditautkan ke wali ini (yang tidak dipilih dilepas). */
+    public function link(Request $r, User $user)
+    {
+        if ($user->role !== 'wali') {
+            return response()->json(['message' => 'Hanya akun wali yang bisa ditautkan ke siswa.'], 422);
+        }
+        $d   = $r->validate(['student_ids' => 'array', 'student_ids.*' => 'integer|exists:students,id']);
+        $ids = $d['student_ids'] ?? [];
+
+        Student::where('parent_user_id', $user->id)->whereNotIn('id', $ids)->update(['parent_user_id' => null]);
+        Student::whereIn('id', $ids)
+            ->where(fn ($q) => $q->whereNull('parent_user_id')->orWhere('parent_user_id', $user->id))
+            ->update(['parent_user_id' => $user->id]);
+
+        return response()->json(['message' => 'Penautan siswa untuk ' . $user->name . ' disimpan.']);
+    }
+    
     public function destroy(User $user)
     {
         if ($user->id === auth()->id()) {

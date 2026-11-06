@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Middleware\RoleMiddleware;
+use App\Models\Student;
 use App\Models\User;
 use App\Support\Identity;
 use Illuminate\Http\Request;
@@ -19,7 +20,7 @@ class AuthController extends Controller
     /** Pilihan peran di halaman masuk -> peran akun yang boleh masuk lewat pilihan itu. */
     private const LOGIN_ROLES = [
         'admin' => ['admin'], // tab "Admin": admin & staf/tutor (panel /admin)
-        'wali'  => ['wali'],           // tab "Siswa/Wali": portal /portal
+        'wali'  => ['wali'],  // tab "Siswa/Wali": portal /portal
     ];
 
     public function showLogin()
@@ -70,8 +71,8 @@ class AuthController extends Controller
         }
 
         if ($user->role === 'tutor') {
-           return back()->withErrors(['identifier' => 'Akun tutor tidak memiliki akses masuk. Hubungi admin cabang.'])->withInput($keep);
-       }
+            return back()->withErrors(['identifier' => 'Akun tutor tidak memiliki akses masuk. Hubungi admin cabang.'])->withInput($keep);
+        }
         // Kata sandi benar, tapi peran yang dipilih tidak sesuai akun -> arahkan ke tab yang benar.
         if (! in_array($user->role, self::LOGIN_ROLES[$data['role']], true)) {
             $should = $user->role === 'wali' ? 'Siswa/Wali' : 'Admin';
@@ -80,6 +81,7 @@ class AuthController extends Controller
         }
 
         RateLimiter::clear($keyUser);
+        $this->linkStudents($user);
         Auth::login($user);
         $request->session()->regenerate();
 
@@ -141,10 +143,10 @@ class AuthController extends Controller
             return back()->withErrors(['contact' => 'Email / No. WhatsApp ini sudah terdaftar. Silakan masuk.'])->withInput();
         }
 
-        // Default: akun langsung aktif & masuk dashboard. Set REGISTER_REQUIRES_APPROVAL=true bila
-        // pendaftaran harus disetujui admin dulu (disarankan untuk peran Admin/Staf di production).
-        $pending = (bool) config('opc.register_requires_approval', false);
+        // Akun Admin selalu menunggu persetujuan. Wali langsung aktif kecuali
+        // REGISTER_REQUIRES_APPROVAL=true.
         $admin   = $request->role === 'admin';
+        $pending = $admin || (bool) config('opc.register_requires_approval', false);
 
         $user = User::create([
             'name'       => trim(preg_replace('/\s+/', ' ', $request->name)),
@@ -156,6 +158,7 @@ class AuthController extends Controller
             'code'       => $this->newCode($admin ? 'ADM-' : 'WLI-'),
         ]);
         RateLimiter::hit($rateKey, 3600);
+        $this->linkStudents($user);
 
         if ($pending) {
             return redirect()->route('login')->with('success', 'Pendaftaran berhasil. Akun kamu akan aktif setelah disetujui admin cabang.');
@@ -190,6 +193,22 @@ class AuthController extends Controller
                 }
             })
             ->first();
+    }
+
+    /** Tautkan wali ke siswa yang nomor WhatsApp orang tuanya sama (08…/62…/+62… dianggap sama). */
+    private function linkStudents(User $user): int
+    {
+        if ($user->role !== 'wali' || ! $user->phone || ! config('opc.auto_link_guardian', true)) {
+            return 0;
+        }
+        $mine = Identity::phone($user->phone);
+        $ids  = Student::whereNull('parent_user_id')
+            ->whereNotNull('guardian_phone')
+            ->get(['id', 'guardian_phone'])
+            ->filter(fn ($s) => Identity::phone($s->guardian_phone) === $mine)
+            ->pluck('id');
+
+        return $ids->isEmpty() ? 0 : Student::whereIn('id', $ids)->update(['parent_user_id' => $user->id]);
     }
 
     private function newCode(string $prefix): string
