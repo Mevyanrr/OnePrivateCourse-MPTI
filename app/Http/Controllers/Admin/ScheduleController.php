@@ -15,6 +15,10 @@ class ScheduleController extends Controller
 {
     private function range(Request $r)
     {
+        $d = $r->input('date');
+        if (! $r->filled('range') && is_string($d) && preg_match('/^\d{4}-\d{2}-\d{2}$/', $d) && Carbon::hasFormat($d, 'Y-m-d')) {
+            return [$d, $d];
+        }
         return match ($r->input('range', 'all')) {
             'today' => [today()->toDateString(), today()->toDateString()],
             'week'  => [now()->startOfWeek()->toDateString(), now()->endOfWeek()->toDateString()],

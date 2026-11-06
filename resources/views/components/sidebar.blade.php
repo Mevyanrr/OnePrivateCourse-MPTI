@@ -11,26 +11,43 @@
 @php
     $notifUrl = \Illuminate\Support\Facades\Route::has('admin.notifikasi') ? route('admin.notifikasi') : '#';
 
-    $menus = [
-        ['pola' => 'admin/dashboard*',  'url' => url('/admin/dashboard'),  'label' => 'Dashboard Ringkasan',   'live' => true,
-         'svg' => '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>'],
-        ['pola' => 'admin/jadwal*',     'url' => url('/admin/jadwal'),     'label' => 'Jadwal & Sesi Les',
-         'svg' => '<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>'],
-        ['pola' => 'admin/siswa*',      'url' => url('/admin/siswa'),      'label' => 'Database Siswa', 'key' => 'siswa', 'badge' => 42,
-         'svg' => '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>'],
-        ['pola' => 'admin/tutor*',      'url' => url('/admin/tutor'),      'label' => 'Tutor & Guru Pengajar',
-         'svg' => '<rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>'],
-        ['pola' => 'admin/presensi*',   'url' => url('/admin/presensi'),   'label' => 'Presensi & Laporan',
-         'svg' => '<rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2M9 12h6M9 16h6"/>'],
-        ['pola' => 'admin/pembayaran*', 'url' => url('/admin/pembayaran'), 'label' => 'Invoicing & Honorarium',
-         'svg' => '<path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1z"/><path d="M8 8h8M8 12h8M8 16h5"/>'],
-        'divider',
-        ['pola' => 'admin/konfirmasi*', 'url' => url('/admin/konfirmasi'), 'label' => 'Konfirmasi Sesi', 'key' => 'konfirmasi', 'badge' => 3, 'tone' => 'amber',
-         'svg' => '<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M9 16l2 2 4-4"/>'],
-        ['pola' => 'admin/notifikasi*', 'url' => $notifUrl,                'label' => 'Notifikasi Masuk', 'key' => 'notifikasi', 'badge' => 5, 'tone' => 'blue',
-         'svg' => '<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>'],
-        ['pola' => 'admin/akun*',       'url' => url('/admin/akun'),       'label' => 'Akun & Hak Akses',
-         'svg' => '<circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4-4h3"/><circle cx="18" cy="17" r="2.5"/><path d="M18 12.5v2M18 19.5v2M14.1 14.8l1.7 1M20.2 18.2l1.7 1M14.1 19.2l1.7-1M20.2 15.8l1.7-1"/>'],
+    // Angka badge diisi dari database lewat View Composer di AppServiceProvider ($nav).
+    $nav = $nav ?? ['students' => 0, 'confirm' => 0, 'notif' => 0];
+
+    $config = [
+        'admin' => [
+            'brand' => ['title' => 'One Private Course', 'sub' => 'Sistem Manajemen Bimbel', 'home' => 'admin.dashboard'],
+            'cta'   => ['label' => 'Tambah Sesi Les', 'route' => 'admin.jadwal.baru'],
+            'label' => null,
+            'solid' => false,
+            'menus' => [
+                ['key' => 'dashboard',  'label' => 'Dashboard Ringkasan',  'icon' => 'grid',      'route' => 'admin.dashboard', 'live' => true],
+                ['key' => 'jadwal',     'label' => 'Jadwal & Sesi Les',    'icon' => 'calendar',  'route' => 'admin.jadwal'],
+                ['key' => 'siswa',      'label' => 'Database Siswa',       'icon' => 'users',     'route' => 'admin.siswa', 'badge' => $nav['students'] ?? 0],
+                ['key' => 'tutor',      'label' => 'Tutor & Guru Pengajar','icon' => 'briefcase', 'route' => 'admin.tutor'],
+                ['key' => 'presensi',   'label' => 'Presensi & Laporan',   'icon' => 'clipboard', 'route' => 'admin.presensi'],
+                ['key' => 'pembayaran', 'label' => 'Invoicing & Honorarium','icon' => 'receipt',  'route' => 'admin.pembayaran'],
+                'divider',
+                ['key' => 'konfirmasi', 'label' => 'Konfirmasi Sesi',      'icon' => 'calendar-check', 'route' => 'admin.konfirmasi', 'badge' => $nav['confirm'] ?? 0, 'tone' => 'amber'],
+                ['key' => 'notifikasi', 'label' => 'Notifikasi Masuk',     'icon' => 'bell',      'route' => 'admin.notifikasi', 'badge' => $nav['notif'] ?? 0, 'tone' => 'blue'],
+                ['key' => 'akun',       'label' => 'Akun & Hak Akses',     'icon' => 'user-cog',  'route' => 'admin.akun'],
+            ],
+            'help'  => ['title' => 'Bantuan Cabang', 'sub' => 'One Private v2.4', 'icon' => 'headset', 'href' => '#'],
+        ],
+        'siswa' => [
+            'brand' => ['title' => 'One Private', 'sub' => 'PORTAL EDUKASI', 'home' => 'siswa.beranda'],
+            'cta'   => null,
+            'label' => 'Menu Utama',
+            'solid' => true,
+            'menus' => [
+                ['key' => 'beranda',  'label' => 'Beranda',            'icon' => 'grid',        'route' => 'siswa.beranda'],
+                ['key' => 'jadwal',   'label' => 'Jadwal Les',         'icon' => 'calendar',    'route' => 'siswa.jadwal'],
+                ['key' => 'presensi', 'label' => 'Presensi & Catatan', 'icon' => 'clipboard',   'route' => 'siswa.presensi'],
+                ['key' => 'tagihan',  'label' => 'Riwayat Tagihan',    'icon' => 'receipt',     'route' => 'siswa.tagihan'],
+                ['key' => 'profil',   'label' => 'Profil Siswa',       'icon' => 'user-square', 'route' => 'siswa.profil'],
+            ],
+            'help'  => ['title' => 'Bantuan Admin', 'sub' => 'WhatsApp Konsultasi', 'icon' => 'headset', 'href' => 'https://wa.me/'],
+        ],
     ];
 @endphp
 
@@ -64,9 +81,9 @@
                 <svg class="i" viewBox="0 0 24 24" aria-hidden="true">{!! $m['svg'] !!}</svg>
                 <span>{{ $m['label'] }}</span>
 
-                @if ($bd !== null)
-                    <span class="badge {{ $m['tone'] ?? '' }}">{{ $bd }}</span>
-                @elseif (!empty($m['live']) && $on)
+                @if (!empty($m['badge']))
+                    <span class="badge {{ $m['tone'] ?? '' }}">{{ $m['badge'] }}</span>
+                @elseif (!empty($m['live']) && $isActive($m))
                     <span class="live"></span>
                 @endif
             </a>
