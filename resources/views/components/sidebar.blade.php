@@ -1,17 +1,15 @@
 {{--
-    SIDEBAR REUSABLE
-    ----------------
-    Pemakaian di halaman mana pun:
-        <x-sidebar role="admin" />                      → active otomatis dari route saat ini
-        <x-sidebar role="siswa" active="jadwal" />      → paksa menu "jadwal" aktif
-
-    Untuk menambah / mengubah menu cukup edit array $menus di bawah.
-    Jika nama route belum ada, link otomatis jadi "#" (tidak error).
+    resources/views/components/sidebar.blade.php
+    Satu sidebar untuk SEMUA halaman admin. Pasang SEKALI di layout portal.blade.php:
+        <x-sidebar />
+    Menu yang menyala otomatis dari URL, jadi /admin/jadwal/baru -> menu "Jadwal & Sesi Les" menyala.
+    Tidak butuh <x-icon> dan tidak bergantung nama route (pakai URL langsung).
+    Badge angka bisa dikirim dari layout:  <x-sidebar :badges="['siswa' => 42, 'konfirmasi' => 3, 'notifikasi' => 5]" />
 --}}
-@props(['role' => 'admin', 'active' => null])
+@props(['badges' => []])
 
 @php
-    $url = fn (string $name) => \Illuminate\Support\Facades\Route::has($name) ? route($name) : '#';
+    $notifUrl = \Illuminate\Support\Facades\Route::has('admin.notifikasi') ? route('admin.notifikasi') : '#';
 
     // Angka badge diisi dari database lewat View Composer di AppServiceProvider ($nav).
     $nav = $nav ?? ['students' => 0, 'confirm' => 0, 'notif' => 0];
@@ -51,46 +49,36 @@
             'help'  => ['title' => 'Bantuan Admin', 'sub' => 'WhatsApp Konsultasi', 'icon' => 'headset', 'href' => 'https://wa.me/'],
         ],
     ];
-
-    $c = $config[$role] ?? $config['admin'];
-
-    // Tentukan menu aktif: prop `active` > cocokkan nama route saat ini
-    $isActive = function (array $m) use ($active) {
-        if ($active) return $active === $m['key'];
-        return request()->routeIs($m['route'], $m['route'] . '.*');
-    };
 @endphp
 
 <aside class="sidebar" id="sidebar" aria-label="Navigasi utama">
-    <a href="{{ $url($c['brand']['home']) }}" class="brand">
-        <span class="brand-logo"><x-icon name="{{ $role === 'admin' ? 'graduation' : 'book-open' }}" /></span>
+    <a href="{{ url('/admin/dashboard') }}" class="brand">
+        <span class="brand-logo"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 10 12 5 2 10l10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span>
         <span>
-            <strong>{{ $c['brand']['title'] }}</strong>
-            <small>{{ $c['brand']['sub'] }}</small>
+            <strong>One Private Course</strong>
+            <small>Sistem Manajemen Bimbel</small>
         </span>
     </a>
 
-    @if ($c['cta'])
-        <a href="{{ $url($c['cta']['route']) }}" class="sb-cta">
-            <x-icon name="plus-circle" /> {{ $c['cta']['label'] }}
-        </a>
-    @endif
-
-    @if ($c['label'])
-        <div class="sb-label">{{ $c['label'] }}</div>
-    @endif
+    <a href="{{ url('/admin/jadwal/baru') }}" class="sb-cta">
+        <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
+        Tambah Sesi Les
+    </a>
 
     <nav class="sb-nav">
-        @foreach ($c['menus'] as $m)
+        @foreach ($menus as $m)
             @if ($m === 'divider')
                 <div class="sb-sep"></div>
                 @continue
             @endif
 
-            <a href="{{ $url($m['route']) }}"
-               class="sb-link {{ $c['solid'] ? 'solid' : '' }} {{ $isActive($m) ? 'active' : '' }}"
-               @if($isActive($m)) aria-current="page" @endif>
-                <x-icon :name="$m['icon']" />
+            @php
+                $on = request()->is($m['pola']);
+                $bd = isset($m['key']) ? ($badges[$m['key']] ?? ($m['badge'] ?? null)) : null;
+            @endphp
+
+            <a href="{{ $m['url'] }}" class="sb-link {{ $on ? 'active' : '' }}" @if($on) aria-current="page" @endif>
+                <svg class="i" viewBox="0 0 24 24" aria-hidden="true">{!! $m['svg'] !!}</svg>
                 <span>{{ $m['label'] }}</span>
 
                 @if (!empty($m['badge']))
@@ -102,11 +90,11 @@
         @endforeach
     </nav>
 
-    <a href="{{ $c['help']['href'] }}" class="sb-help">
-        <span class="ic"><x-icon :name="$c['help']['icon']" /></span>
+    <a href="#" class="sb-help">
+        <span class="ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 14v-2a9 9 0 0 1 18 0v2"/><path d="M21 15a2 2 0 0 1-2 2h-1v-6h1a2 2 0 0 1 2 2zM3 15a2 2 0 0 0 2 2h1v-6H5a2 2 0 0 0-2 2z"/></svg></span>
         <span>
-            <b>{{ $c['help']['title'] }}</b>
-            <small>{{ $c['help']['sub'] }}</small>
+            <b>Bantuan Cabang</b>
+            <small>One Private v2.4</small>
         </span>
     </a>
 </aside>
