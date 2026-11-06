@@ -205,6 +205,15 @@ Route::prefix('admin')
         Route::post('/akun/{user}/toggle', [Admin\AccountController::class, 'toggle'])
             ->whereNumber('user')
             ->name('akun.toggle');
+
+        // Penautan akun wali ke siswa.
+        Route::get('/akun/{user}/siswa', [Admin\AccountController::class, 'students'])
+            ->whereNumber('user')
+            ->name('akun.siswa');
+
+        Route::post('/akun/{user}/siswa', [Admin\AccountController::class, 'link'])
+            ->whereNumber('user')
+            ->name('akun.tautkan');
     });
 
 
