@@ -1,16 +1,11 @@
 
-@props(['badges' => []])
+{{-- sidebar untuk halaman admin dan siswa --}}
+
+@props([])
 
 @php
     // menentukan role berdasarkan url
     $role = request()->is('admin*') ? 'admin' : 'siswa';
-
-    // mengambil data badge dari view composer
-    $nav = $nav ?? [
-        'students' => 0,
-        'confirm' => 0,
-        'notif' => 0,
-    ];
 
     // konfigurasi sidebar admin dan siswa
     $config = [
@@ -27,12 +22,12 @@
             'menus' => [
                 ['key' => 'dashboard', 'label' => 'Dashboard Ringkasan', 'icon' => 'grid', 'route' => 'admin.dashboard', 'live' => true],
                 ['key' => 'jadwal', 'label' => 'Jadwal & Sesi Les', 'icon' => 'calendar', 'route' => 'admin.jadwal'],
-                ['key' => 'siswa', 'label' => 'Database Siswa', 'icon' => 'users', 'route' => 'admin.siswa', 'badge' => $nav['students'] ?? 0],
+                ['key' => 'siswa', 'label' => 'Database Siswa', 'icon' => 'users', 'route' => 'admin.siswa'],
                 ['key' => 'tutor', 'label' => 'Tutor & Guru Pengajar', 'icon' => 'briefcase', 'route' => 'admin.tutor'],
                 ['key' => 'presensi', 'label' => 'Presensi & Laporan', 'icon' => 'clipboard', 'route' => 'admin.presensi'],
                 ['key' => 'pembayaran', 'label' => 'Invoicing & Honorarium', 'icon' => 'receipt', 'route' => 'admin.pembayaran'],
                 'divider',
-                ['key' => 'konfirmasi', 'label' => 'Konfirmasi Sesi', 'icon' => 'calendar-check', 'route' => 'admin.konfirmasi', 'badge' => $nav['confirm'] ?? 0, 'tone' => 'amber'],
+                ['key' => 'konfirmasi', 'label' => 'Konfirmasi Sesi', 'icon' => 'calendar-check', 'route' => 'admin.konfirmasi'],
                 ['key' => 'akun', 'label' => 'Akun & Hak Akses', 'icon' => 'user-cog', 'route' => 'admin.akun'],
             ],
             'help' => [
@@ -66,11 +61,9 @@
 
     // mengambil konfigurasi sesuai role
     $sidebar = $config[$role];
-
-    // mengambil daftar menu
     $menus = $sidebar['menus'];
 
-    // membuat url dan status aktif setiap menu
+    // membuat url dan menentukan menu aktif
     foreach ($menus as $index => $menu) {
         if ($menu === 'divider') {
             continue;
@@ -90,7 +83,8 @@
         : '#';
 
     // membuat url tombol tambah sesi
-    $ctaUrl = $sidebar['cta'] && \Illuminate\Support\Facades\Route::has($sidebar['cta']['route'])
+    $ctaUrl = $sidebar['cta'] &&
+        \Illuminate\Support\Facades\Route::has($sidebar['cta']['route'])
         ? route($sidebar['cta']['route'])
         : '#';
 @endphp
@@ -125,7 +119,6 @@
 
     {{-- daftar navigasi --}}
     <nav class="sb-nav">
-
         @foreach ($menus as $m)
 
             {{-- pemisah menu --}}
@@ -134,10 +127,8 @@
                 @continue
             @endif
 
-            {{-- mengambil status menu dan badge --}}
             @php
                 $on = $m['active'];
-                $bd = $badges[$m['key']] ?? ($m['badge'] ?? null);
             @endphp
 
             {{-- link menu --}}
@@ -149,15 +140,17 @@
 
                 <span>{{ $m['label'] }}</span>
 
+                {{-- indikator dashboard aktif --}}
+                @if (!empty($m['live']) && $on)
+                    <span class="live"></span>
+                @endif
+
             </a>
-
         @endforeach
-
     </nav>
 
     {{-- bantuan sidebar --}}
     <a href="{{ $sidebar['help']['href'] }}" class="sb-help">
-
         <span class="ic">
             <svg class="i" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M3 14v-2a9 9 0 0 1 18 0v2"/>
@@ -169,7 +162,6 @@
             <b>{{ $sidebar['help']['title'] }}</b>
             <small>{{ $sidebar['help']['sub'] }}</small>
         </span>
-
     </a>
 
 </aside>
