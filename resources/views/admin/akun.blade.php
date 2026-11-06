@@ -18,7 +18,7 @@
   </style>
 </head>
 <body class="bg-[#f8faff] text-slate-800 antialiased min-h-screen flex">
-<!-- SIDEBAR (Matching Reference Structure) -->
+<!-- SIDEBAR -->
 <aside class="fixed left-0 top-0 h-full w-64 bg-white border-r border-slate-200/80 z-50 flex flex-col justify-between p-4">
 <div class="flex flex-col">
 <!-- Brand Header -->
@@ -136,7 +136,7 @@
 <span>Buat Akun Baru</span>
 </button>
 </div>
-<!-- KPI 4-Card Summary Grid (Matching Reference) -->
+<!-- KPI 4-Card Summary Grid -->
 <div class="grid grid-cols-4 gap-4 mb-6">
 <!-- Card 1 -->
 <div class="bg-white rounded-2xl border border-slate-200/80 p-4 shadow-sm relative flex flex-col justify-between">
@@ -205,7 +205,7 @@
 </div>
 </div>
 </div>
-<!-- Filter & Search Toolbar Container (Matching Reference Layout) -->
+<!-- Filter & Search Toolbar -->
 <div class="bg-white rounded-2xl border border-slate-200/80 p-3.5 shadow-sm mb-6 flex flex-col gap-3">
 <!-- Segmented Tab Pills & View Mode -->
 <div class="flex items-center justify-between gap-4">
@@ -270,7 +270,7 @@
 </button>
 </div>
 </div>
-<!-- DATA TABLE (Exact Grid & Styling Matching Reference) -->
+<!-- DATA TABLE -->
 <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden mb-6">
 <div class="overflow-x-auto">
 <table class="w-full text-left border-collapse">
@@ -335,7 +335,7 @@
 @if($u->role === 'wali')
 <td class="py-3.5 px-4 whitespace-nowrap">
 <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-blue-50 text-blue-700 border border-blue-200/50 text-[11px] font-medium">
-<span class="material-symbols-outlined text-[13px]">school</span> {{ $u->children->first()->name ?? "-" }}
+<span class="material-symbols-outlined text-[13px]">school</span> {{ $u->children->isEmpty() ? 'Belum tertaut' : $u->children->pluck('name')->implode(', ') }}
                   </span>
 </td>
 @elseif($u->role === 'tutor')
@@ -373,6 +373,9 @@
 @elseif($u->status === 'aktif')
 <td class="py-3.5 px-4 whitespace-nowrap text-right">
 <div class="inline-flex items-center gap-1.5">
+@if($u->role === 'wali')
+<button class="px-2.5 py-1 rounded-lg border border-blue-200 bg-blue-50 hover:bg-blue-100 text-blue-700 text-[11px] font-semibold transition-colors" type="button" data-link="{{ $u->id }}" data-name="{{ $u->name }}">Tautkan Siswa</button>
+@endif
 <button class="px-2.5 py-1 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-[11px] font-semibold transition-colors" type="button" data-reset="{{ $u->id }}">Reset Sandi</button>
 <button class="p-1 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors" type="button">
 <span class="material-symbols-outlined text-[18px]">more_vert</span>
@@ -397,7 +400,7 @@
 </tbody>
 </table>
 </div>
-<!-- Table Pagination Footer (Matching Reference Layout) -->
+<!-- Table Pagination Footer -->
 <div class="p-4 bg-white border-t border-slate-100 flex items-center justify-between">
 <span class="text-xs text-slate-500">
             Menampilkan <strong class="font-semibold text-slate-700">{{ $users->firstItem() ?? 0 }} – {{ $users->lastItem() ?? 0 }}</strong> dari <strong class="font-semibold text-slate-700">{{ $users->total() }}</strong> akun pengguna
@@ -441,6 +444,33 @@ document.addEventListener('click', async e => {
         else if (v.a === 'toggle') { const j = await OPC.post(API + '/' + id + '/toggle', {}); OPC.done(j, 'reload'); }
         else if (confirm('Hapus akun ini permanen?')) { const j = await OPC.del(API + '/' + id); OPC.done(j, 'reload'); } }}); }
 });
+function esc(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c])); }
+async function linkDialog(id, name) {
+  let d; try { d = await OPC.req(API + '/' + id + '/siswa', undefined, 'GET'); } catch (x) { return; }
+  const items = [...d.linked.map(s => ({...s, on: true})), ...d.available.map(s => ({...s, on: false}))];
+  const ov = document.createElement('div');
+  ov.className = 'fixed inset-0 z-[100] bg-slate-900/40 flex items-center justify-center p-4';
+  ov.innerHTML = '<div class="bg-white rounded-2xl shadow-xl w-full max-w-md p-5">'
+    + '<h3 class="text-sm font-bold text-slate-900">Tautkan Siswa</h3>'
+    + '<p class="text-xs text-slate-500 mt-1 mb-3">Wali: <strong>' + esc(name) + '</strong>. Centang siswa yang menjadi anak wali ini.</p>'
+    + '<div class="max-h-72 overflow-y-auto border border-slate-200 rounded-xl divide-y divide-slate-100">'
+    + (items.length ? items.map(s => '<label class="flex items-start gap-2.5 p-2.5 text-xs cursor-pointer hover:bg-slate-50">'
+        + '<input type="checkbox" class="mt-0.5 rounded border-slate-300" value="' + s.id + '"' + (s.on ? ' checked' : '') + '>'
+        + '<span><strong class="text-slate-800">' + esc(s.name) + '</strong> <span class="text-slate-400">' + esc(s.code) + ' · ' + esc(s.grade) + '</span>'
+        + (s.guardian_name || s.guardian_phone ? '<br><span class="text-slate-400">Ortu: ' + esc(s.guardian_name || '-') + ' · ' + esc(s.guardian_phone || '-') + '</span>' : '')
+        + '</span></label>').join('') : '<p class="p-4 text-xs text-slate-400 text-center">Tidak ada siswa yang tersedia.</p>')
+    + '</div><div class="flex justify-end gap-2 mt-4">'
+    + '<button type="button" data-x class="px-3 py-2 text-xs border border-slate-200 rounded-xl text-slate-600 hover:bg-slate-50">Batal</button>'
+    + '<button type="button" data-ok class="px-3 py-2 text-xs bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl">Simpan</button></div></div>';
+  document.body.appendChild(ov);
+  ov.querySelector('[data-x]').onclick = () => ov.remove();
+  ov.addEventListener('click', e => { if (e.target === ov) ov.remove(); });
+  ov.querySelector('[data-ok]').onclick = async () => {
+    const ids = [...ov.querySelectorAll('input:checked')].map(i => +i.value);
+    try { const j = await OPC.post(API + '/' + id + '/siswa', {student_ids: ids}); ov.remove(); OPC.done(j, 'reload'); } catch (x) {}
+  };
+}
+document.addEventListener('click', e => { const b = e.target.closest('[data-link]'); if (b) linkDialog(b.dataset.link, b.dataset.name); });
 function nav(k, v) { const u = new URL(location.href); u.searchParams.delete('page'); v ? u.searchParams.set(k, v) : u.searchParams.delete(k); location.href = u.toString(); }
 const tabs = ['Semua Akun', 'Admin', 'Tutor', 'Wali Murid', 'Nonaktif'].map(t => OPC.find(t, {sel: 'button'})[0]); const keys = ['all', 'admin', 'tutor', 'wali', 'nonaktif']; const cur = keys.indexOf({!! json_encode($tab) !!});
 let ready = false; const ap = OPC.choice(tabs, 0, k => { if (ready) nav('tab', keys[k]); }); if (cur > 0) ap(cur); ready = true;
