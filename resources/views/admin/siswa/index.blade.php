@@ -40,7 +40,7 @@
 <div class="flex items-center gap-2.5 shrink-0">
 <button class="border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 rounded-xl px-3.5 py-2 text-xs font-medium flex items-center gap-1.5 transition-colors shadow-xs" type="button"><span class="material-symbols-outlined text-[17px] text-slate-500">print</span><span>Cetak Daftar</span></button>
 <button class="border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 rounded-xl px-3.5 py-2 text-xs font-medium flex items-center gap-1.5 transition-colors shadow-xs" type="button"><span class="material-symbols-outlined text-[17px] text-slate-500">ios_share</span><span>Export</span></button>
-<button class="bg-blue-600 hover:bg-blue-700 text-white rounded-xl px-4 py-2 text-xs font-semibold shadow-sm shadow-blue-500/20 flex items-center gap-1.5 transition-colors shrink-0" type="button"><span class="material-symbols-outlined text-[17px]">person_add</span><span>+ Tambah Siswa</span></button>
+<button class="bg-blue-600 hover:bg-blue-700 text-white rounded-xl px-4 py-2 text-xs font-semibold shadow-sm shadow-blue-500/20 flex items-center gap-1.5 transition-colors shrink-0" type="button"><span class="material-symbols-outlined text-[17px]">person_add</span><span>Tambah Siswa</span></button>
 </div>
 </div>
 

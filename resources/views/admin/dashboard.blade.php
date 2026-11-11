@@ -1,11 +1,6 @@
 @extends('portal')
 @section('title', 'Dashboard Ringkasan')
 
-{{--
-    Seluruh data berasal dari App\Http\Controllers\Admin\DashboardController (database Supabase).
-    Tidak ada data dummy di file ini; variabel yang kurang akan memunculkan error (bukan angka palsu).
-    Tanggal yang ditampilkan dikontrol lewat query string  ?tanggal=YYYY-MM-DD  (kosong = hari ini).
---}}
 
 @php
     $url   = fn ($n) => \Illuminate\Support\Facades\Route::has($n) ? route($n) : '#';
