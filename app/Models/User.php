@@ -26,4 +26,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Tutor::class);
     }
+
+    public function student()
+{
+    return $this->hasOne(Student::class, 'user_id'); // Sesuaikan foreign key jika berbeda di database Anda
+}
 }

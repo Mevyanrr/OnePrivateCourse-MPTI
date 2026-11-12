@@ -1,3 +1,4 @@
+
 <?php
 
 use App\Http\Controllers\Admin;
@@ -7,15 +8,16 @@ use App\Http\Middleware\RoleMiddleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-// Halaman utama: arahkan pengguna berdasarkan status login dan role.
+// Halaman utama.
 Route::get('/', function () {
     return Auth::check()
         ? redirect(RoleMiddleware::home())
         : redirect()->route('login');
 })->name('home');
 
-// Login dan register hanya untuk pengguna yang belum login.
+// Login dan register.
 Route::middleware('guest')->group(function () {
+
     Route::get('/login', [AuthController::class, 'showLogin'])
         ->name('login');
 
@@ -35,8 +37,7 @@ Route::post('/logout', [AuthController::class, 'logout'])
     ->name('logout');
 
 
-// ADMIN DAN TUTOR
-
+// ADMIN.
 Route::prefix('admin')
     ->name('admin.')
     ->middleware(['auth', 'role:admin'])
@@ -46,7 +47,7 @@ Route::prefix('admin')
         Route::get('/dashboard', [Admin\DashboardController::class, 'index'])
             ->name('dashboard');
 
-
+        // Siswa.
         Route::get('/siswa', [Admin\StudentController::class, 'index'])
             ->name('siswa');
 
@@ -72,9 +73,7 @@ Route::prefix('admin')
             ->whereNumber('student')
             ->name('siswa.hapus');
 
-
-        //TUTOR
-
+        // Tutor.
         Route::get('/tutor', [Admin\TutorController::class, 'index'])
             ->name('tutor');
 
@@ -93,9 +92,7 @@ Route::prefix('admin')
             ->whereNumber('tutor')
             ->name('tutor.hapus');
 
-
-        //JADWAL
-
+        // Jadwal.
         Route::get('/jadwal', [Admin\ScheduleController::class, 'index'])
             ->name('jadwal');
 
@@ -116,18 +113,14 @@ Route::prefix('admin')
             ->whereNumber('session')
             ->name('jadwal.batal');
 
-
-        //PRESENSI
-
+        // Presensi.
         Route::get('/presensi', [Admin\AttendanceController::class, 'index'])
             ->name('presensi');
 
         Route::post('/presensi', [Admin\AttendanceController::class, 'store'])
             ->name('presensi.simpan');
 
-
-        //PEMBAYARAN
-
+        // Pembayaran.
         Route::get('/pembayaran', [Admin\PaymentController::class, 'index'])
             ->name('pembayaran');
 
@@ -139,9 +132,7 @@ Route::prefix('admin')
             ->whereNumber('payment')
             ->name('pembayaran.kuitansi');
 
-
-        //KONFIRM SESI
-
+        // Konfirmasi sesi.
         Route::get('/konfirmasi', [Admin\ConfirmationController::class, 'index'])
             ->name('konfirmasi');
 
@@ -156,25 +147,13 @@ Route::prefix('admin')
             ->whereNumber('session')
             ->name('konfirmasi.ortu');
 
-
-        //EXPORT DATA
-
+        // Export data.
         Route::get('/export/{type}', [Admin\ExportController::class, 'csv'])
             ->name('export');
     });
 
 
-/*
-|--------------------------------------------------------------------------
-| AKUN DAN HAK AKSES
-|--------------------------------------------------------------------------
-|
-| Prefix URL  : /admin
-| Nama route  : admin.*
-| Akses       : admin saja
-|
-*/
-
+// AKUN DAN HAK AKSES.
 Route::prefix('admin')
     ->name('admin.')
     ->middleware(['auth', 'role:admin'])
@@ -217,17 +196,7 @@ Route::prefix('admin')
     });
 
 
-/*
-|--------------------------------------------------------------------------
-| PORTAL ORANG TUA / WALI
-|--------------------------------------------------------------------------
-|
-| Prefix URL  : /portal
-| Nama route  : portal.*
-| Akses       : wali, admin
-|
-*/
-
+// PORTAL ORANG TUA / WALI.
 Route::prefix('portal')
     ->name('portal.')
     ->middleware(['auth', 'role:wali,admin'])

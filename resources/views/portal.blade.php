@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -22,8 +21,14 @@
 
     <div class="shell">
 
-        {{-- sidebar untuk admin dan siswa --}}
-        <x-sidebar />
+        {{-- sidebar untuk admin dan siswa (tampil sesuai role yang login) --}}
+        @auth
+            @if(auth()->user()->role === 'admin')
+                <x-sidebar />
+            @else
+                <x-student-sidebar />
+            @endif
+        @endauth
 
         {{-- konten utama --}}
         <div class="main">
