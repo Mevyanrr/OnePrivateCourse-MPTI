@@ -8,46 +8,71 @@ use App\Http\Middleware\RoleMiddleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-// Halaman utama.
-Route::get('/', function () {
-    return Auth::check()
-        ? redirect(RoleMiddleware::home())
-        : redirect()->route('login');
-})->name('home');
 
-// Login dan register.
+// ======================================================
+// 1. AUTHENTICATION
+// ======================================================
+
 Route::middleware('guest')->group(function () {
 
+    // Halaman Login
     Route::get('/login', [AuthController::class, 'showLogin'])
         ->name('login');
 
+    // Proses Login
     Route::post('/login', [AuthController::class, 'login'])
         ->name('login.post');
 
+    // Halaman Register
     Route::get('/register', [AuthController::class, 'showRegister'])
         ->name('register');
 
+    // Proses Register
     Route::post('/register', [AuthController::class, 'register'])
         ->name('register.post');
 });
 
-// Logout.
+
+// Logout
 Route::post('/logout', [AuthController::class, 'logout'])
     ->middleware('auth')
     ->name('logout');
 
 
-// ADMIN.
+// ======================================================
+// 2. HOME / HALAMAN UTAMA
+// ======================================================
+
+Route::get('/', function () {
+
+    return Auth::check()
+        ? redirect(RoleMiddleware::home())
+        : redirect()->route('login');
+
+})->name('home');
+
+
+// ======================================================
+// 3. ADMIN
+// ======================================================
+
 Route::prefix('admin')
     ->name('admin.')
     ->middleware(['auth', 'role:admin'])
     ->group(function () {
 
-        // Dashboard.
+        // ----------------------------------------------
+        // DASHBOARD
+        // ----------------------------------------------
+
         Route::get('/dashboard', [Admin\DashboardController::class, 'index'])
             ->name('dashboard');
 
-        // Siswa.
+
+        // ----------------------------------------------
+        // DATA SISWA
+        // ----------------------------------------------
+
         Route::get('/siswa', [Admin\StudentController::class, 'index'])
             ->name('siswa');
 
@@ -73,7 +98,11 @@ Route::prefix('admin')
             ->whereNumber('student')
             ->name('siswa.hapus');
 
-        // Tutor.
+
+        // ----------------------------------------------
+        // DATA TUTOR
+        // ----------------------------------------------
+
         Route::get('/tutor', [Admin\TutorController::class, 'index'])
             ->name('tutor');
 
@@ -92,7 +121,11 @@ Route::prefix('admin')
             ->whereNumber('tutor')
             ->name('tutor.hapus');
 
-        // Jadwal.
+
+        // ----------------------------------------------
+        // JADWAL LES
+        // ----------------------------------------------
+
         Route::get('/jadwal', [Admin\ScheduleController::class, 'index'])
             ->name('jadwal');
 
@@ -113,14 +146,22 @@ Route::prefix('admin')
             ->whereNumber('session')
             ->name('jadwal.batal');
 
-        // Presensi.
+
+        // ----------------------------------------------
+        // PRESENSI
+        // ----------------------------------------------
+
         Route::get('/presensi', [Admin\AttendanceController::class, 'index'])
             ->name('presensi');
 
         Route::post('/presensi', [Admin\AttendanceController::class, 'store'])
             ->name('presensi.simpan');
 
-        // Pembayaran.
+
+        // ----------------------------------------------
+        // PEMBAYARAN
+        // ----------------------------------------------
+
         Route::get('/pembayaran', [Admin\PaymentController::class, 'index'])
             ->name('pembayaran');
 
@@ -132,7 +173,11 @@ Route::prefix('admin')
             ->whereNumber('payment')
             ->name('pembayaran.kuitansi');
 
-        // Konfirmasi sesi.
+
+        // ----------------------------------------------
+        // KONFIRMASI SESI
+        // ----------------------------------------------
+
         Route::get('/konfirmasi', [Admin\ConfirmationController::class, 'index'])
             ->name('konfirmasi');
 
@@ -147,94 +192,146 @@ Route::prefix('admin')
             ->whereNumber('session')
             ->name('konfirmasi.ortu');
 
-        // Export data.
+
+        // ----------------------------------------------
+        // EXPORT DATA
+        // ----------------------------------------------
+
         Route::get('/export/{type}', [Admin\ExportController::class, 'csv'])
             ->name('export');
+
     });
 
 
-// AKUN DAN HAK AKSES.
+// ======================================================
+// 4. AKUN DAN HAK AKSES ADMIN
+// ======================================================
+
 Route::prefix('admin')
     ->name('admin.')
     ->middleware(['auth', 'role:admin'])
     ->group(function () {
 
+        // Daftar akun
         Route::get('/akun', [Admin\AccountController::class, 'index'])
             ->name('akun');
 
+        // Tambah akun
         Route::post('/akun', [Admin\AccountController::class, 'store'])
             ->name('akun.simpan');
 
+        // Detail akun
         Route::get('/akun/{user}', [Admin\AccountController::class, 'show'])
             ->whereNumber('user')
             ->name('akun.show');
 
+        // Update akun
         Route::put('/akun/{user}', [Admin\AccountController::class, 'update'])
             ->whereNumber('user')
             ->name('akun.perbarui');
 
+        // Hapus akun
         Route::delete('/akun/{user}', [Admin\AccountController::class, 'destroy'])
             ->whereNumber('user')
             ->name('akun.hapus');
 
+        // Reset password
         Route::post('/akun/{user}/reset', [Admin\AccountController::class, 'reset'])
             ->whereNumber('user')
             ->name('akun.reset');
 
+        // Aktif/nonaktif akun
         Route::post('/akun/{user}/toggle', [Admin\AccountController::class, 'toggle'])
             ->whereNumber('user')
             ->name('akun.toggle');
 
-        // Penautan akun wali ke siswa.
+        // Daftar siswa yang terhubung dengan akun wali
         Route::get('/akun/{user}/siswa', [Admin\AccountController::class, 'students'])
             ->whereNumber('user')
             ->name('akun.siswa');
 
+        // Hubungkan akun wali dengan siswa
         Route::post('/akun/{user}/siswa', [Admin\AccountController::class, 'link'])
             ->whereNumber('user')
             ->name('akun.tautkan');
+
     });
 
 
-// PORTAL ORANG TUA / WALI.
+// ======================================================
+// 5. PORTAL ORANG TUA / WALI
+// ======================================================
+
 Route::prefix('portal')
     ->name('portal.')
     ->middleware(['auth', 'role:wali,admin'])
     ->group(function () {
 
-        // Beranda.
+        // ----------------------------------------------
+        // BERANDA
+        // ----------------------------------------------
+
         Route::get('/beranda', [PortalController::class, 'beranda'])
             ->name('beranda');
 
-        // Jadwal sesi.
+
+        // ----------------------------------------------
+        // JADWAL LES
+        // ----------------------------------------------
+
         Route::get('/jadwal', [PortalController::class, 'jadwal'])
             ->name('jadwal');
 
-        // Presensi.
+
+        // ----------------------------------------------
+        // PRESENSI
+        // ----------------------------------------------
+
         Route::get('/presensi', [PortalController::class, 'presensi'])
             ->name('presensi');
 
-        // Tagihan.
+
+        // ----------------------------------------------
+        // TAGIHAN
+        // ----------------------------------------------
+
         Route::get('/tagihan', [PortalController::class, 'tagihan'])
             ->name('tagihan');
 
-        // Konfirmasi jadwal.
+
+        // ----------------------------------------------
+        // KONFIRMASI JADWAL
+        // ----------------------------------------------
+
         Route::post('/jadwal/{session}/konfirmasi', [PortalController::class, 'konfirmasi'])
             ->whereNumber('session')
             ->name('jadwal.konfirmasi');
 
-        // Permintaan penjadwalan ulang.
+
+        // ----------------------------------------------
+        // RESCHEDULE JADWAL
+        // ----------------------------------------------
+
         Route::post('/jadwal/{session}/reschedule', [PortalController::class, 'reschedule'])
             ->whereNumber('session')
             ->name('jadwal.reschedule');
 
-        // Pengisian presensi.
+
+        // ----------------------------------------------
+        // PENGISIAN PRESENSI
+        // ----------------------------------------------
+
         Route::post('/presensi/{session}', [PortalController::class, 'presensiStore'])
             ->whereNumber('session')
             ->name('presensi.simpan');
 
-        // Kuitansi pembayaran.
+
+        // ----------------------------------------------
+        // KUITANSI PEMBAYARAN
+        // ----------------------------------------------
+
         Route::get('/kuitansi/{payment}', [PortalController::class, 'kuitansi'])
             ->whereNumber('payment')
             ->name('kuitansi');
+
     });
