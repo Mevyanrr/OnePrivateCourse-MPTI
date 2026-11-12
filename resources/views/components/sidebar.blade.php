@@ -1,4 +1,3 @@
-
 {{-- sidebar untuk halaman admin dan siswa --}}
 
 @props([])
@@ -29,11 +28,6 @@
                 'divider',
                 ['key' => 'konfirmasi', 'label' => 'Konfirmasi Sesi', 'icon' => 'calendar-check', 'route' => 'admin.konfirmasi'],
                 ['key' => 'akun', 'label' => 'Akun & Hak Akses', 'icon' => 'user-cog', 'route' => 'admin.akun'],
-            ],
-            'help' => [
-                'title' => 'Bantuan Cabang',
-                'sub' => 'One Private v2.4',
-                'href' => '#',
             ],
         ],
 
@@ -149,19 +143,21 @@
         @endforeach
     </nav>
 
-    {{-- bantuan sidebar --}}
-    <a href="{{ $sidebar['help']['href'] }}" class="sb-help">
-        <span class="ic">
-            <svg class="i" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M3 14v-2a9 9 0 0 1 18 0v2"/>
-                <path d="M21 15a2 2 0 0 1-2 2h-1v-6h1a2 2 0 0 1 2 2zM3 15a2 2 0 0 0 2 2h1v-6H5a2 2 0 0 0-2 2z"/>
-            </svg>
-        </span>
+    {{-- bantuan sidebar (hanya tampil kalau role punya data help) --}}
+    @if (!empty($sidebar['help']))
+        <a href="{{ $sidebar['help']['href'] }}" class="sb-help">
+            <span class="ic">
+                <svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M3 14v-2a9 9 0 0 1 18 0v2"/>
+                    <path d="M21 15a2 2 0 0 1-2 2h-1v-6h1a2 2 0 0 1 2 2zM3 15a2 2 0 0 0 2 2h1v-6H5a2 2 0 0 0-2 2z"/>
+                </svg>
+            </span>
 
-        <span>
-            <b>{{ $sidebar['help']['title'] }}</b>
-            <small>{{ $sidebar['help']['sub'] }}</small>
-        </span>
-    </a>
+            <span>
+                <b>{{ $sidebar['help']['title'] }}</b>
+                <small>{{ $sidebar['help']['sub'] }}</small>
+            </span>
+        </a>
+    @endif
 
 </aside>

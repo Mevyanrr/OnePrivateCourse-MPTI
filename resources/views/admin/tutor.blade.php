@@ -170,72 +170,72 @@
   <div class="absolute inset-0 bg-[#0F172A]/40 opacity-0 transition-opacity duration-300 pointer-events-none" id="drawerBackdrop" onclick="closeTutorDrawer()"></div>
   <div class="absolute inset-y-0 right-0 max-w-full flex pl-10">
     <div class="w-screen max-w-[520px] bg-white shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out pointer-events-auto flex flex-col h-full overflow-hidden" id="drawerPanel">
-      <div class="p-6 bg-surface-container-low/60 flex items-center justify-between border-b border-surface-container shrink-0">
+      <div class="p-6 bg-slate-50 flex items-center justify-between border-b border-slate-200 shrink-0">
         <div class="flex items-center gap-2.5">
-          <div class="w-8 h-8 rounded-lg bg-primary-container text-on-primary flex items-center justify-center"><span class="material-symbols-outlined text-[18px]">badge</span></div>
-          <div><h2 class="font-headline-sm text-headline-sm font-bold text-on-surface">Profil Tutor</h2><span class="text-[12px] text-on-surface-variant" id="dCode">ID Tutor: -</span></div>
+          <div class="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center"><span class="material-symbols-outlined text-[18px]">badge</span></div>
+          <div><h2 class="text-lg font-bold text-slate-900">Profil Tutor</h2><span class="text-[12px] text-slate-500" id="dCode">ID Tutor: -</span></div>
         </div>
-        <button class="w-8 h-8 rounded-lg hover:bg-surface-container text-on-surface-variant flex items-center justify-center" onclick="closeTutorDrawer()" type="button"><span class="material-symbols-outlined text-[20px]">close</span></button>
+        <button class="w-8 h-8 rounded-lg hover:bg-slate-200 text-slate-500 flex items-center justify-center" onclick="closeTutorDrawer()" type="button"><span class="material-symbols-outlined text-[20px]">close</span></button>
       </div>
 
       <div class="flex-1 overflow-y-auto p-6 flex flex-col gap-6" id="drawerBody">
-        <div class="p-5 rounded-xl bg-surface-container-low flex flex-col gap-4">
+        <div class="p-5 rounded-xl bg-slate-50 flex flex-col gap-4">
           <div class="flex items-start gap-4">
-            <div class="w-16 h-16 rounded-full bg-primary-container text-on-primary font-bold text-xl flex items-center justify-center shrink-0" id="dInitials">--</div>
+            <div class="w-16 h-16 rounded-full bg-blue-600 text-white font-bold text-xl flex items-center justify-center shrink-0" id="dInitials">--</div>
             <div class="flex flex-col min-w-0">
-              <h3 class="text-lg font-bold text-on-surface truncate" id="dName">-</h3>
-              <span class="text-sm text-on-surface-variant font-medium" id="dHeadline">-</span>
-              <span class="text-[12px] text-on-surface-variant mt-0.5" id="dEducation"></span>
+              <h3 class="text-lg font-bold text-slate-900 truncate" id="dName">-</h3>
+              <span class="text-sm text-slate-600 font-medium" id="dHeadline">-</span>
+              <span class="text-[12px] text-slate-500 mt-0.5" id="dEducation"></span>
               <div class="flex items-center gap-2 mt-2 flex-wrap">
-                <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container text-[11px] font-semibold" id="dBadge">-</span>
-                <span class="text-[12px] text-on-surface-variant" id="dRating"></span>
+                <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-teal-100 text-teal-800 text-[11px] font-semibold" id="dBadge">-</span>
+                <span class="text-[12px] text-slate-500" id="dRating"></span>
               </div>
             </div>
           </div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-3 border-t border-surface-container">
-            <div class="flex items-center gap-2 text-sm text-on-surface"><span class="material-symbols-outlined text-secondary text-[18px]">call</span><span class="font-medium" id="dPhone">-</span></div>
-            <div class="flex items-center gap-2 text-sm text-on-surface min-w-0"><span class="material-symbols-outlined text-primary text-[18px]">mail</span><span class="truncate" id="dEmail">-</span></div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-3 border-t border-slate-200">
+            <div class="flex items-center gap-2 text-sm text-slate-800"><span class="material-symbols-outlined text-teal-700 text-[18px]">call</span><span class="font-medium" id="dPhone">-</span></div>
+            <div class="flex items-center gap-2 text-sm text-slate-800 min-w-0"><span class="material-symbols-outlined text-blue-700 text-[18px]">mail</span><span class="truncate" id="dEmail">-</span></div>
           </div>
-          <a id="dWa" class="w-full h-10 rounded-lg bg-secondary hover:opacity-90 text-white text-xs font-semibold flex items-center justify-center gap-2 transition" href="#" target="_blank" rel="noopener"><span class="material-symbols-outlined text-[18px]">chat</span><span>Hubungi via WhatsApp</span></a>
+          <a id="dWa" class="w-full h-10 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold flex items-center justify-center gap-2 transition" href="#" target="_blank" rel="noopener"><span class="material-symbols-outlined text-[18px]">chat</span><span>Hubungi via WhatsApp</span></a>
         </div>
 
         <div>
-          <h4 class="text-sm font-bold text-on-surface mb-2.5 flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[18px]">auto_stories</span>Keahlian &amp; Bidang Pengajaran</h4>
+          <h4 class="text-sm font-bold text-slate-900 mb-2.5 flex items-center gap-2"><span class="material-symbols-outlined text-blue-700 text-[18px]">auto_stories</span>Keahlian &amp; Bidang Pengajaran</h4>
           <div class="flex flex-wrap gap-2" id="dSubjects"></div>
         </div>
 
         <div>
-          <h4 class="text-sm font-bold text-on-surface mb-2.5 flex items-center gap-2"><span class="material-symbols-outlined text-tertiary text-[18px]">location_on</span>Metode &amp; Wilayah</h4>
+          <h4 class="text-sm font-bold text-slate-900 mb-2.5 flex items-center gap-2"><span class="material-symbols-outlined text-indigo-600 text-[18px]">location_on</span>Metode &amp; Wilayah</h4>
           <div class="flex flex-wrap gap-2 mb-2" id="dMethods"></div>
-          <p class="text-sm text-on-surface-variant" id="dArea">-</p>
+          <p class="text-sm text-slate-600" id="dArea">-</p>
         </div>
 
         <div>
           <div class="flex items-center justify-between mb-2.5">
-            <h4 class="text-sm font-bold text-on-surface flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[18px]">speed</span>Beban Mengajar Pekan Ini</h4>
-            <span class="text-xs text-primary font-semibold" id="dLoadText">-</span>
+            <h4 class="text-sm font-bold text-slate-900 flex items-center gap-2"><span class="material-symbols-outlined text-blue-700 text-[18px]">speed</span>Beban Mengajar Pekan Ini</h4>
+            <span class="text-xs text-blue-700 font-semibold" id="dLoadText">-</span>
           </div>
           <div class="w-full bg-slate-200 rounded-full h-2 overflow-hidden"><div class="bg-blue-600 h-2 rounded-full transition-all" id="dLoadBar" style="width:0%"></div></div>
         </div>
 
         <div>
-          <h4 class="text-sm font-bold text-on-surface mb-2.5 flex items-center gap-2"><span class="material-symbols-outlined text-secondary text-[18px]">schedule</span>Agenda Sesi Terdekat</h4>
+          <h4 class="text-sm font-bold text-slate-900 mb-2.5 flex items-center gap-2"><span class="material-symbols-outlined text-teal-700 text-[18px]">schedule</span>Agenda Sesi Terdekat</h4>
           <div class="space-y-2" id="dAgenda"></div>
         </div>
 
         <div>
-          <h4 class="text-sm font-bold text-on-surface mb-2.5 flex items-center justify-between">
-            <span class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[18px]">group</span><span id="dStudentTitle">Siswa Aktif Bimbingan</span></span>
-            <a class="text-[11px] text-primary hover:underline" href="{{ route('admin.siswa') }}">Kelola Siswa</a>
+          <h4 class="text-sm font-bold text-slate-900 mb-2.5 flex items-center justify-between">
+            <span class="flex items-center gap-2"><span class="material-symbols-outlined text-blue-700 text-[18px]">group</span><span id="dStudentTitle">Siswa Aktif Bimbingan</span></span>
+            <a class="text-[11px] text-blue-700 hover:underline" href="{{ route('admin.siswa') }}">Kelola Siswa</a>
           </h4>
           <div class="space-y-2" id="dStudents"></div>
         </div>
       </div>
 
-      <div class="p-4 bg-surface-container-low/60 border-t border-surface-container flex items-center gap-2 shrink-0">
+      <div class="p-4 bg-slate-50 border-t border-slate-200 flex items-center gap-2 shrink-0">
         <button class="h-10 px-3 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs font-semibold flex items-center gap-1.5 transition-colors" onclick="deactivateTutor()" type="button"><span class="material-symbols-outlined text-[18px]">person_off</span>Nonaktifkan</button>
-        <button class="flex-1 h-10 rounded-lg bg-white border border-outline-variant/40 hover:bg-surface-container-low text-primary text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors" onclick="openTutorForm(cur)" type="button"><span class="material-symbols-outlined text-[18px]">edit</span>Ubah Data</button>
-        <button class="flex-1 h-10 rounded-lg bg-primary-container hover:bg-primary text-white text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors" onclick="plotSession()" type="button"><span class="material-symbols-outlined text-[18px]">calendar_add_on</span>Plot Sesi Baru</button>
+        <button class="flex-1 h-10 rounded-lg bg-white border border-slate-300 hover:bg-slate-100 text-blue-700 text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors" onclick="openTutorForm(cur)" type="button"><span class="material-symbols-outlined text-[18px]">edit</span>Ubah Data</button>
+        <button class="flex-1 h-10 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors" onclick="plotSession()" type="button"><span class="material-symbols-outlined text-[18px]">calendar_add_on</span>Plot Sesi Baru</button>
       </div>
     </div>
   </div>
@@ -245,45 +245,45 @@
 <div class="fixed inset-0 z-[60] overflow-y-auto pointer-events-none opacity-0 transition-opacity duration-200 flex items-start justify-center p-4" id="tutorModal">
   <div class="fixed inset-0 bg-[#0F172A]/40" onclick="closeTutorForm()"></div>
   <div class="relative bg-white rounded-2xl max-w-2xl w-full shadow-2xl p-6 md:p-8 z-10 my-8">
-    <div class="flex items-center justify-between pb-4 border-b border-surface-container mb-6">
+    <div class="flex items-center justify-between pb-4 border-b border-slate-200 mb-6">
       <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-primary-container text-on-primary flex items-center justify-center"><span class="material-symbols-outlined text-[22px]" id="mIcon">person_add</span></div>
-        <div><h3 class="text-lg font-bold text-on-surface" id="mTitle">Tambah Tutor / Guru Pengajar</h3><p class="text-xs text-on-surface-variant">Data tutor dipakai untuk penjadwalan dan alokasi siswa</p></div>
+        <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center"><span class="material-symbols-outlined text-[22px]" id="mIcon">person_add</span></div>
+        <div><h3 class="text-lg font-bold text-slate-900" id="mTitle">Tambah Tutor / Guru Pengajar</h3><p class="text-xs text-slate-500">Data tutor dipakai untuk penjadwalan dan alokasi siswa</p></div>
       </div>
-      <button class="w-8 h-8 rounded-lg hover:bg-surface-container text-on-surface-variant flex items-center justify-center" onclick="closeTutorForm()" type="button"><span class="material-symbols-outlined text-[20px]">close</span></button>
+      <button class="w-8 h-8 rounded-lg hover:bg-slate-100 text-slate-500 flex items-center justify-center" onclick="closeTutorForm()" type="button"><span class="material-symbols-outlined text-[20px]">close</span></button>
     </div>
 
     <form id="tutorForm" class="space-y-4" onsubmit="submitTutor(event)" novalidate>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div class="space-y-1.5"><label class="text-xs font-semibold text-on-surface">Nama Lengkap &amp; Gelar *</label><input name="name" required maxlength="255" class="w-full h-10 px-3.5 rounded-lg bg-surface-container-low text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 border-0" placeholder="Contoh: Ust. Ahmad Fauzi M.Pd" type="text"></div>
-        <div class="space-y-1.5"><label class="text-xs font-semibold text-on-surface">ID Tutor <span class="font-normal text-on-surface-variant">(kosong = otomatis)</span></label><input name="code" maxlength="60" class="w-full h-10 px-3.5 rounded-lg bg-surface-container-low text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 border-0" placeholder="OP-TUT-2026-001" type="text"></div>
-        <div class="space-y-1.5"><label class="text-xs font-semibold text-on-surface">Nomor WhatsApp Aktif *</label><input name="phone" required maxlength="30" class="w-full h-10 px-3.5 rounded-lg bg-surface-container-low text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 border-0" placeholder="0812-3456-7890" type="tel"></div>
-        <div class="space-y-1.5"><label class="text-xs font-semibold text-on-surface">Email Tutor *</label><input name="email" required maxlength="255" class="w-full h-10 px-3.5 rounded-lg bg-surface-container-low text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 border-0" placeholder="tutor@oneprivate.com" type="email"></div>
-        <div class="space-y-1.5"><label class="text-xs font-semibold text-on-surface">Spesialisasi</label><input name="headline" maxlength="255" class="w-full h-10 px-3.5 rounded-lg bg-surface-container-low text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 border-0" placeholder="Spesialis Tahsin &amp; Bahasa Arab" type="text"></div>
-        <div class="space-y-1.5"><label class="text-xs font-semibold text-on-surface">Pendidikan</label><input name="education" maxlength="255" class="w-full h-10 px-3.5 rounded-lg bg-surface-container-low text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 border-0" placeholder="S1 Pendidikan Matematika (UNJ)" type="text"></div>
+        <div class="space-y-1.5"><label class="text-xs font-semibold text-slate-800">Nama Lengkap &amp; Gelar *</label><input name="name" required maxlength="255" class="w-full h-10 px-3.5 rounded-lg bg-slate-50 border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/30" placeholder="Contoh: Ust. Ahmad Fauzi M.Pd" type="text"></div>
+        <div class="space-y-1.5"><label class="text-xs font-semibold text-slate-800">ID Tutor <span class="font-normal text-slate-500">(kosong = otomatis)</span></label><input name="code" maxlength="60" class="w-full h-10 px-3.5 rounded-lg bg-slate-50 border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/30" placeholder="OP-TUT-2026-001" type="text"></div>
+        <div class="space-y-1.5"><label class="text-xs font-semibold text-slate-800">Nomor WhatsApp Aktif *</label><input name="phone" required maxlength="30" class="w-full h-10 px-3.5 rounded-lg bg-slate-50 border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/30" placeholder="0812-3456-7890" type="tel"></div>
+        <div class="space-y-1.5"><label class="text-xs font-semibold text-slate-800">Email Tutor *</label><input name="email" required maxlength="255" class="w-full h-10 px-3.5 rounded-lg bg-slate-50 border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/30" placeholder="tutor@oneprivate.com" type="email"></div>
+        <div class="space-y-1.5"><label class="text-xs font-semibold text-slate-800">Spesialisasi</label><input name="headline" maxlength="255" class="w-full h-10 px-3.5 rounded-lg bg-slate-50 border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/30" placeholder="Spesialis Tahsin &amp; Bahasa Arab" type="text"></div>
+        <div class="space-y-1.5"><label class="text-xs font-semibold text-slate-800">Pendidikan</label><input name="education" maxlength="255" class="w-full h-10 px-3.5 rounded-lg bg-slate-50 border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/30" placeholder="S1 Pendidikan Matematika (UNJ)" type="text"></div>
       </div>
 
-      <div class="space-y-1.5"><label class="text-xs font-semibold text-on-surface">Bidang Ajar <span class="font-normal text-on-surface-variant">(pisahkan dengan koma)</span></label><input name="subjects" maxlength="1000" class="w-full h-10 px-3.5 rounded-lg bg-surface-container-low text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 border-0" placeholder="Mengaji &amp; Tahsin, Tajwid, Bahasa Arab Dasar" type="text"></div>
+      <div class="space-y-1.5"><label class="text-xs font-semibold text-slate-800">Bidang Ajar <span class="font-normal text-slate-500">(pisahkan dengan koma)</span></label><input name="subjects" maxlength="1000" class="w-full h-10 px-3.5 rounded-lg bg-slate-50 border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/30" placeholder="Mengaji &amp; Tahsin, Tajwid, Bahasa Arab Dasar" type="text"></div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div class="space-y-2">
-          <label class="text-xs font-semibold text-on-surface">Metode Mengajar</label>
-          <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" name="methods" value="home_visit" checked class="w-4 h-4 rounded">Home Visit</label>
-          <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" name="methods" value="online" class="w-4 h-4 rounded">Online (Zoom)</label>
-          <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" name="methods" value="studio" class="w-4 h-4 rounded">Studio Bimbel</label>
+          <label class="text-xs font-semibold text-slate-800">Metode Mengajar</label>
+          <label class="flex items-center gap-2 text-sm text-slate-800 cursor-pointer"><input type="checkbox" name="methods" value="home_visit" checked class="w-4 h-4 rounded">Home Visit</label>
+          <label class="flex items-center gap-2 text-sm text-slate-800 cursor-pointer"><input type="checkbox" name="methods" value="online" class="w-4 h-4 rounded">Online (Zoom)</label>
+          <label class="flex items-center gap-2 text-sm text-slate-800 cursor-pointer"><input type="checkbox" name="methods" value="studio" class="w-4 h-4 rounded">Studio Bimbel</label>
         </div>
         <div class="space-y-1.5">
-          <label class="text-xs font-semibold text-on-surface">Wilayah Jangkauan</label>
-          <input name="area" maxlength="255" class="w-full h-10 px-3.5 rounded-lg bg-surface-container-low text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 border-0" placeholder="Tebet, Pancoran, Online" type="text">
-          <div class="flex items-center justify-between pt-2"><label class="text-xs font-semibold text-on-surface">Batas Maks Sesi / Minggu</label><span class="text-xs font-bold text-primary" id="sessionVal">20 Sesi</span></div>
-          <input name="max_sessions" class="w-full accent-primary cursor-pointer" max="40" min="4" step="1" type="range" value="20" oninput="document.getElementById('sessionVal').textContent = this.value + ' Sesi'">
-          <p class="text-[12px] text-on-surface-variant">Rekomendasi: 16–20 sesi per tutor agar kualitas terjaga.</p>
+          <label class="text-xs font-semibold text-slate-800">Wilayah Jangkauan</label>
+          <input name="area" maxlength="255" class="w-full h-10 px-3.5 rounded-lg bg-slate-50 border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/30" placeholder="Tebet, Pancoran, Online" type="text">
+          <div class="flex items-center justify-between pt-2"><label class="text-xs font-semibold text-slate-800">Batas Maks Sesi / Minggu</label><span class="text-xs font-bold text-blue-700" id="sessionVal">20 Sesi</span></div>
+          <input name="max_sessions" class="w-full accent-blue-600 cursor-pointer" max="40" min="4" step="1" type="range" value="20" oninput="document.getElementById('sessionVal').textContent = this.value + ' Sesi'">
+          <p class="text-[12px] text-slate-500">Rekomendasi: 16–20 sesi per tutor agar kualitas terjaga.</p>
         </div>
       </div>
 
-      <div class="flex items-center justify-end gap-3 pt-6 border-t border-surface-container">
-        <button class="h-10 px-5 rounded-lg bg-surface-container-low hover:bg-surface-container text-sm font-semibold" onclick="closeTutorForm()" type="button">Batal</button>
-        <button id="mSubmit" class="h-10 px-6 rounded-lg bg-primary-container hover:bg-primary text-white text-sm font-semibold flex items-center gap-2 shadow-sm disabled:opacity-60" type="submit"><span class="material-symbols-outlined text-[18px]">check</span><span>Simpan Data Tutor</span></button>
+      <div class="flex items-center justify-end gap-3 pt-6 border-t border-slate-200">
+        <button class="h-10 px-5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-semibold" onclick="closeTutorForm()" type="button">Batal</button>
+        <button id="mSubmit" class="h-10 px-6 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold flex items-center gap-2 shadow-sm disabled:opacity-60" type="submit"><span class="material-symbols-outlined text-[18px]">check</span><span>Simpan Data Tutor</span></button>
       </div>
     </form>
   </div>
@@ -293,11 +293,11 @@
 @endsection
 
 @push('scripts')
+{{-- Penting: CDN Tailwind harus dimuat DULU, baru config-nya di-set --}}
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script>
-window.tailwind = window.tailwind || {};
 tailwind.config={"darkMode":"class","corePlugins":{"preflight":false},"theme":{"extend":{"colors":{"on-primary-fixed-variant":"#003ea8","surface-container-highest":"#dae2fd","on-primary-container":"#eeefff","on-tertiary":"#ffffff","on-tertiary-container":"#f1eeff","primary-fixed-dim":"#b4c5ff","surface-container-lowest":"#ffffff","surface-container":"#eaedff","surface-dim":"#d2d9f4","tertiary":"#3e3fcc","secondary-fixed-dim":"#6bd8cb","inverse-primary":"#b4c5ff","on-primary-fixed":"#00174b","on-secondary":"#ffffff","background":"#faf8ff","on-background":"#131b2e","primary":"#004ac6","error":"#ba1a1a","on-tertiary-fixed-variant":"#2f2ebe","surface":"#faf8ff","tertiary-fixed":"#e1e0ff","on-surface-variant":"#434655","error-container":"#ffdad6","on-secondary-fixed":"#00201d","on-surface":"#131b2e","on-error-container":"#93000a","secondary":"#006a61","surface-container-low":"#f2f3ff","surface-bright":"#faf8ff","on-primary":"#ffffff","surface-container-high":"#e2e7ff","surface-variant":"#dae2fd","inverse-surface":"#283044","outline":"#737686","surface-tint":"#0053db","on-secondary-fixed-variant":"#005049","inverse-on-surface":"#eef0ff","on-secondary-container":"#006f66","tertiary-fixed-dim":"#c0c1ff","tertiary-container":"#585be6","outline-variant":"#c3c6d7","secondary-fixed":"#89f5e7","primary-fixed":"#dbe1ff","primary-container":"#2563eb","secondary-container":"#86f2e4","on-error":"#ffffff","on-tertiary-fixed":"#07006c"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"space-xl":"2rem","gutter-mobile":"1rem","margin-mobile":"1rem","gutter":"1.5rem","space-xs":"0.25rem","space-sm":"0.5rem","space-md":"1rem","space-lg":"1.5rem","margin":"2rem"},"fontFamily":{"sans":["Plus Jakarta Sans","sans-serif"],"headline-xl":["Plus Jakarta Sans"],"label-lg":["Plus Jakarta Sans"],"body-md":["Plus Jakarta Sans"],"label-sm":["Plus Jakarta Sans"],"label-md":["Plus Jakarta Sans"],"body-sm":["Plus Jakarta Sans"],"headline-xl-mobile":["Plus Jakarta Sans"],"headline-sm":["Plus Jakarta Sans"],"display-lg-mobile":["Plus Jakarta Sans"],"headline-lg":["Plus Jakarta Sans"],"display-lg":["Plus Jakarta Sans"],"body-lg":["Plus Jakarta Sans"],"headline-md":["Plus Jakarta Sans"]},"fontSize":{"headline-xl":["32px",{"lineHeight":"40px","letterSpacing":"-0.015em","fontWeight":"700"}],"label-lg":["14px",{"lineHeight":"20px","letterSpacing":"0.01em","fontWeight":"600"}],"body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.03em","fontWeight":"600"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"600"}],"body-sm":["13px",{"lineHeight":"18px","fontWeight":"400"}],"headline-xl-mobile":["24px",{"lineHeight":"32px","letterSpacing":"-0.015em","fontWeight":"700"}],"headline-sm":["18px",{"lineHeight":"26px","fontWeight":"600"}],"display-lg-mobile":["30px",{"lineHeight":"38px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-lg":["24px",{"lineHeight":"32px","letterSpacing":"-0.01em","fontWeight":"600"}],"display-lg":["40px",{"lineHeight":"48px","letterSpacing":"-0.02em","fontWeight":"700"}],"body-lg":["16px",{"lineHeight":"24px","fontWeight":"400"}],"headline-md":["20px",{"lineHeight":"28px","fontWeight":"600"}]}}}};
 </script>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script src="{{ asset('js/opc.js') }}"></script>
 <script>
 OPC.userLogout({!! json_encode(auth()->user()->name) !!});
@@ -340,18 +340,18 @@ function renderDrawer(t) {
   $('dEmail').textContent = t.email || '-';
   $('dWa').href = t.wa;
   $('dSubjects').innerHTML = t.subjects.length
-    ? t.subjects.map(s => '<span class="px-3 py-1.5 rounded-lg bg-surface-container-high text-on-surface text-xs font-medium">' + esc(s) + '</span>').join('')
+    ? t.subjects.map(s => '<span class="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-800 text-xs font-medium">' + esc(s) + '</span>').join('')
     : '<span class="text-xs text-slate-400">Belum diisi</span>';
   $('dMethods').innerHTML = t.method_labels.map(m => '<span class="px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-semibold">' + esc(m) + '</span>').join('');
   $('dArea').textContent = t.area || 'Wilayah belum diisi';
   $('dLoadText').textContent = t.load + '/' + t.max_sessions + ' sesi (' + t.load_pct + '%)';
   $('dLoadBar').style.width = Math.min(100, t.load_pct) + '%';
   $('dAgenda').innerHTML = t.agenda.length ? t.agenda.map(a =>
-    '<div class="p-3 rounded-lg bg-surface-container-low flex items-center justify-between gap-3"><div class="flex flex-col min-w-0"><span class="text-xs font-bold text-on-surface">' + esc(a.when) + '</span><span class="text-xs text-on-surface-variant truncate">' + esc(a.who) + '</span></div><span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-white text-primary shrink-0">' + esc(a.method) + '</span></div>'
+    '<div class="p-3 rounded-lg bg-slate-50 flex items-center justify-between gap-3"><div class="flex flex-col min-w-0"><span class="text-xs font-bold text-slate-900">' + esc(a.when) + '</span><span class="text-xs text-slate-500 truncate">' + esc(a.who) + '</span></div><span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-white text-blue-700 shrink-0">' + esc(a.method) + '</span></div>'
   ).join('') : '<div class="text-xs text-slate-400 p-2">Belum ada sesi terjadwal.</div>';
   $('dStudentTitle').textContent = 'Siswa Aktif Bimbingan (' + t.students.length + ' Siswa)';
   $('dStudents').innerHTML = t.students.length ? t.students.map(s =>
-    '<div class="p-3 bg-white rounded-xl border border-slate-100 flex items-center justify-between gap-3"><div class="flex items-center gap-3 min-w-0"><div class="w-8 h-8 rounded-full bg-primary-container/10 text-primary flex items-center justify-center font-bold text-[12px] shrink-0">' + esc(s.initials) + '</div><div class="flex flex-col min-w-0"><span class="text-xs font-semibold text-on-surface truncate">' + esc(s.name) + '</span><span class="text-[12px] text-on-surface-variant truncate">' + esc(s.info) + '</span></div></div><span class="px-2.5 py-1 rounded-full bg-surface-container-low text-[11px] font-semibold shrink-0">' + esc(s.freq) + '</span></div>'
+    '<div class="p-3 bg-white rounded-xl border border-slate-100 flex items-center justify-between gap-3"><div class="flex items-center gap-3 min-w-0"><div class="w-8 h-8 rounded-full bg-blue-50 text-blue-700 flex items-center justify-center font-bold text-[12px] shrink-0">' + esc(s.initials) + '</div><div class="flex flex-col min-w-0"><span class="text-xs font-semibold text-slate-900 truncate">' + esc(s.name) + '</span><span class="text-[12px] text-slate-500 truncate">' + esc(s.info) + '</span></div></div><span class="px-2.5 py-1 rounded-full bg-slate-100 text-[11px] font-semibold shrink-0">' + esc(s.freq) + '</span></div>'
   ).join('') : '<div class="text-xs text-slate-400 p-2">Belum ada siswa.</div>';
   $('drawerBody').scrollTop = 0;
 }

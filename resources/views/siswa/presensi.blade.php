@@ -92,12 +92,8 @@
 </button>
 </div>
 <div class="flex items-center gap-4">
-<!-- Notification Bell -->
-<button aria-label="Notifikasi" class="relative w-9 h-9 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" type="button">
-<span class="material-symbols-outlined text-[20px]">notifications</span>
-<span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-error ring-2 ring-surface-container-lowest"></span>
-</button>
-<div class="h-5 w-px bg-outline-variant"></div>
+
+
 <!-- User Profile Pill -->
 <div class="flex items-center gap-3">
 <div class="flex flex-col text-right leading-tight">
@@ -181,28 +177,20 @@
 <span class=""><strong class="font-semibold text-white">Fokus Materi:</strong> {{ $live->topic ?? ($live->subject ?? "-") }}</span>
 </div>
 </div>
-<!-- Tutor Info Pill -->
+
+<!-- Info Tutor -->
 <div class="flex flex-wrap items-center justify-between gap-3 p-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/15">
-<div class="flex items-center gap-3">
-<div class="relative">
-<img class="w-11 h-11 rounded-full object-cover ring-2 ring-white/50" data-alt="Portrait of Kak Rina M.Pd tutor with pastel hijab and friendly smile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4QsYlO7pln4n2Uj1NWUKBhMin7XJ2ICKNQopAPBpDuWzpmbUfRimL2E1oEIw_yqatE0N5sN-_E9Huo2pRs2KP7OBTMs8P8izFWNaiLQFSqn7dBwMrQIzPHnVnMszOt297tgl8rkCtYpeqxUccz_ccSuCugAnHj61sC24mUTAlKJv1iv3_P86masGNeecjeILEYJKhQ649SLvQM_5J18GRYrSBJUFQuoqtzzUWueUFpEd56BCEPYu_hg">
-<span class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-400 rounded-full ring-2 ring-blue-700" title="Tutor Sedang di Lokasi"></span>
+    <div class="flex flex-col leading-tight gap-0.5">
+        <span class="text-[10px] text-white/70 font-bold uppercase tracking-wider">Tutor Pengajar</span>
+        <span class="font-bold text-[14px] text-white">{{ $live->tutor->name ?? "-" }}</span>
+        <span class="text-[12px] text-white/80">{{ $live->tutor->headline ?? "-" }}</span>
+    </div>
+    <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/15 text-[11px] font-semibold text-white/90">
+        <span class="material-symbols-outlined text-[15px]">home_pin</span>
+        <span>{{ $live ? \App\Support\Fmt::method($live->method) . ($live->location ? " (" . $live->location . ")" : "") : "-" }}</span>
+    </div>
 </div>
-<div class="flex flex-col leading-tight">
-<div class="flex items-center gap-1.5">
-<span class="font-bold text-[14px] text-white">{{ $live->tutor->name ?? "-" }}</span>
-<span class="inline-flex items-center gap-0.5 px-1.5 py-0.2 rounded bg-amber-400/20 text-amber-300 text-[11px] font-bold">
-<span class="material-symbols-outlined text-[13px]" style="font-variation-settings: 'FILL' 1;">star</span> 4.9
-                      </span>
-</div>
-<span class="text-[12px] text-white/80">{{ $live->tutor->headline ?? "-" }}</span>
-</div>
-</div>
-<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/15 text-[11px] font-semibold text-white/90">
-<span class="material-symbols-outlined text-[15px]">home_pin</span>
-<span class="">{{ $live ? \App\Support\Fmt::method($live->method) . ($live->location ? " (" . $live->location . ")" : "") : "-" }}</span>
-</div>
-</div>
+
 <!-- Buttons Bar -->
 <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
 <div class="flex items-center gap-2.5">
@@ -495,58 +483,7 @@
 </div>
 <!-- RIGHT SIDEBAR COLUMN (~32% width / 4 cols) -->
 <div class="lg:col-span-4 flex flex-col gap-6">
-<!-- WIDGET 1: RINGKASAN STATISTIK PRESENSI -->
-<div class="rounded-2xl bg-surface-container-lowest border border-outline-variant/60 p-6 shadow-sm flex flex-col gap-4">
-<div class="flex items-center justify-between">
-<h3 class="text-[16px] font-bold text-on-surface">Statistik Presensi</h3>
-<span class="text-[11px] font-bold text-primary bg-primary-fixed px-2.5 py-0.5 rounded-full">{{ mb_substr(\App\Support\Fmt::period(), 0, 3) }} {{ now()->year }}</span>
-</div>
-<!-- Donut / Circular Gauge Visual -->
-<div class="flex items-center gap-4 p-4 bg-surface-container-low/60 rounded-xl border border-outline-variant/50">
-<div class="relative w-20 h-20 shrink-0 flex items-center justify-center">
-<svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
-<path class="text-surface-container-high" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3.5"></path>
-<path class="text-secondary" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="{{ $stat["pct"] }}, 100" stroke-linecap="round" stroke-width="3.5"></path>
-</svg>
-<div class="absolute flex flex-col items-center">
-<span class="text-[18px] font-extrabold text-on-surface leading-none">{{ $stat["pct"] }}%</span>
-<span class="text-[9px] font-bold text-on-surface-variant uppercase mt-0.5">Hadir</span>
-</div>
-</div>
-<div class="flex flex-col gap-1">
-<span class="inline-flex items-center gap-1.5 text-[11px] font-bold text-secondary bg-secondary-container/60 px-2 py-0.5 rounded w-fit">
-<span class="material-symbols-outlined text-[13px]">check_circle</span>
-<span class="">{{ $stat["pct"] >= 85 ? "Sangat Baik" : "Perlu Ditingkatkan" }}</span>
-</span>
-<p class="text-[12px] text-on-surface-variant leading-snug">
-                  Tingkat kehadiran di atas ambang batas standar (85%).
-                </p>
-</div>
-</div>
-<!-- Detailed Grid Counters -->
-<div class="grid grid-cols-3 gap-2 text-center">
-<div class="p-3 rounded-xl bg-surface-container-low/70 border border-outline-variant/40">
-<span class="text-[20px] font-extrabold text-secondary block leading-none mb-1">{{ $stat["hadir"] }}</span>
-<span class="text-[11px] font-semibold text-on-surface-variant">Sesi Hadir</span>
-</div>
-<div class="p-3 rounded-xl bg-surface-container-low/70 border border-outline-variant/40">
-<span class="text-[20px] font-extrabold text-amber-600 block leading-none mb-1">{{ $stat["izin"] }}</span>
-<span class="text-[11px] font-semibold text-on-surface-variant">Izin Sakit</span>
-</div>
-<div class="p-3 rounded-xl bg-surface-container-low/70 border border-outline-variant/40">
-<span class="text-[20px] font-extrabold text-primary block leading-none mb-1">1</span>
-<span class="text-[11px] font-semibold text-on-surface-variant">Reschedule</span>
-</div>
-</div>
-<!-- Academic Note -->
-<div class="flex items-center gap-3 p-3 rounded-xl bg-primary-fixed/40 border border-primary-fixed">
-<span class="material-symbols-outlined text-primary text-[22px] shrink-0">workspace_premium</span>
-<div class="flex flex-col">
-<span class="text-[12px] font-bold text-on-primary-fixed">Konsistensi Tinggi</span>
-<span class="text-[11px] text-on-surface-variant">Target hafalan juz 30 sesuai rencana kurikulum.</span>
-</div>
-</div>
-</div>
+
 <!-- WIDGET 2: PANDUAN PRESENSI (SOP) -->
 <div class="rounded-2xl bg-surface-container-lowest border border-outline-variant/60 p-6 shadow-sm flex flex-col gap-4">
 <div class="flex items-center gap-2 text-on-surface">

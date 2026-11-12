@@ -71,7 +71,8 @@
 <span class="px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-[10px] font-semibold">SOP Cabang</span>
 </div>
 <p class="font-body-md text-body-md text-on-surface-variant mt-1 leading-normal">
-          Seluruh tagihan les diterbitkan resmi melalui WhatsApp Admin Cabang ke nomor wali murid tiap tanggal <span class="font-semibold text-on-surface">25–28</span> setiap bulannya. Formulir di halaman ini digunakan admin untuk memvalidasi bukti transfer masuk (BCA/Mandiri/BNI) atau pembayaran tunai langsung di meja administrasi cabang.
+          Seluruh tagihan les diterbitkan resmi melalui WhatsApp Admin Cabang ke nomor wli murid tiap tanggal <span class="font-semibold text-on-surface">25–28</span> setiap bulannya. Formulir di halaman ini digunakan admin untuk memvalidasi bukti transfer masuk (BCA/Mandiri/BNI) 
+          
         </p>
 </div>
 </div>
