@@ -11,7 +11,7 @@
 @section('topbar-right')
     @php $namaAdmin = auth()->user()->name; @endphp
     <div class="userbox">
-        <div class="who"><b>{{ $namaAdmin }}</b><small>{{ auth()->user()->email }}</small></div>
+        <div class="who"><b>{{ $namaAdmin }}</b><small>Admin Cabang</small></div>
         <div class="avatar-c">{{ collect(explode(' ', $namaAdmin))->map(fn($w) => strtoupper(substr($w, 0, 1)))->take(2)->join('') }}</div>
     </div>
 @endsection

@@ -1,4 +1,3 @@
-
 @php
     // Menu aktif
     $active = $active ?? 'beranda';
@@ -14,7 +13,6 @@
     // Inisialisasi badge
     $nSesi = 0;
     $nTagihan = 0;
-    $nNotif = 0;
 
     // Menghitung badge berdasarkan siswa aktif
     if (isset($child) && $child) {
@@ -26,12 +24,6 @@
 
         $nTagihan = $child->payments()
             ->where('status', 'belum')
-            ->count();
-
-        $nNotif = \App\Models\LessonSession::where('student_id', $child->id)
-            ->whereDate('date', '>=', today())
-            ->where('status', '!=', 'batal')
-            ->where('parent_confirmed', false)
             ->count();
     }
 
@@ -69,8 +61,9 @@
             'key' => 'profil',
             'label' => 'Profil Siswa',
             'icon' => 'badge',
-            'url' => '#',
+            'url' => \Illuminate\Support\Facades\Route::has('portal.profil') ? route('portal.profil') : '#',
             'badge' => null,
+            'path' => 'profil-siswa',
         ],
     ];
 @endphp
@@ -127,6 +120,7 @@
 
                 <a
                     href="{{ $item['url'] }}"
+                    @if (!empty($item['path'])) data-path="{{ $item['path'] }}" @endif
                     class="flex items-center justify-between px-3 py-2.5 rounded-xl transition-colors
                     {{ $isActive
                         ? 'bg-blue-50 text-blue-700 font-semibold'
@@ -176,71 +170,22 @@
                 @endif
             </a>
 
-            {{-- NOTIFIKASI MASUK --}}
-            <a
-                href="{{ route('portal.jadwal') }}"
-                class="flex items-center justify-between px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors"
-            >
-                <span class="flex items-center gap-3">
-                    <span class="material-symbols-outlined text-[20px] text-blue-500">
-                        notifications
-                    </span>
-
-                    Notifikasi Masuk
-                </span>
-
-                @if ($nNotif > 0)
-                    <span class="w-6 h-6 rounded-full bg-blue-50 text-blue-600 border border-blue-200/60 text-[11px] font-bold flex items-center justify-center">
-                        {{ $nNotif }}
-                    </span>
-                @endif
-            </a>
-
         </nav>
     </div>
 
-    {{-- BAGIAN BAWAH SIDEBAR --}}
-    <div class="flex flex-col gap-2 mt-6">
+    {{-- TOMBOL KELUAR --}}
+    <form method="POST" action="{{ route('logout') }}" class="mt-4">
+        @csrf
 
-        {{-- BANTUAN CABANG --}}
-        <a
-            href="https://wa.me/{{ $wa }}"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="p-3 bg-slate-50 rounded-xl border border-slate-200/60 flex items-center gap-3 hover:bg-slate-100 transition-colors"
+        <button
+            type="submit"
+            class="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 text-xs font-semibold transition-colors"
         >
-            <div class="w-8 h-8 rounded-lg bg-blue-100/70 text-blue-600 flex items-center justify-center shrink-0">
-                <span class="material-symbols-outlined text-[18px]">
-                    support_agent
-                </span>
-            </div>
+            <span class="material-symbols-outlined text-[18px]">
+                logout
+            </span>
 
-            <div class="flex flex-col min-w-0">
-                <span class="text-[11px] font-semibold text-slate-800 truncate">
-                    Bantuan Cabang
-                </span>
-
-                <span class="text-[10px] text-blue-600">
-                    WhatsApp Admin
-                </span>
-            </div>
-        </a>
-
-        {{-- TOMBOL KELUAR --}}
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
-
-            <button
-                type="submit"
-                class="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 text-xs font-semibold transition-colors"
-            >
-                <span class="material-symbols-outlined text-[18px]">
-                    logout
-                </span>
-
-                Keluar
-            </button>
-        </form>
-
-    </div>
+            Keluar
+        </button>
+    </form>
 </aside>
