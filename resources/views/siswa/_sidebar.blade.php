@@ -10,21 +10,15 @@
 
     $waUrl = fn ($message) => 'https://wa.me/' . $wa . '?text=' . rawurlencode($message);
 
-    // Inisialisasi badge
+    // Badge jumlah sesi berdasarkan siswa aktif
     $nSesi = 0;
-    $nTagihan = 0;
 
-    // Menghitung badge berdasarkan siswa aktif
     if (isset($child) && $child) {
         $nSesi = \App\Models\Attendance::whereHas('session', function ($query) use ($child) {
             $query->where('student_id', $child->id);
         })
         ->where('status', '!=', 'belum')
         ->count();
-
-        $nTagihan = $child->payments()
-            ->where('status', 'belum')
-            ->count();
     }
 
     // Konfigurasi menu sidebar
@@ -56,14 +50,6 @@
             'icon' => 'receipt_long',
             'url' => route('portal.tagihan'),
             'badge' => null,
-        ],
-        [
-            'key' => 'profil',
-            'label' => 'Profil Siswa',
-            'icon' => 'badge',
-            'url' => \Illuminate\Support\Facades\Route::has('portal.profil') ? route('portal.profil') : '#',
-            'badge' => null,
-            'path' => 'profil-siswa',
         ],
     ];
 @endphp
@@ -120,7 +106,6 @@
 
                 <a
                     href="{{ $item['url'] }}"
-                    @if (!empty($item['path'])) data-path="{{ $item['path'] }}" @endif
                     class="flex items-center justify-between px-3 py-2.5 rounded-xl transition-colors
                     {{ $isActive
                         ? 'bg-blue-50 text-blue-700 font-semibold'
@@ -147,27 +132,19 @@
                 </a>
             @endforeach
 
-            {{-- PEMISAH MENU --}}
-            <div class="border-t border-slate-100 my-2 mx-1"></div>
-
-            {{-- TAGIHAN BERJALAN --}}
+            {{-- PROFIL SISWA (membuka popup, tidak pindah halaman) --}}
             <a
-                href="{{ route('portal.tagihan') }}"
-                class="flex items-center justify-between px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors"
+                href="#"
+                id="btn-profil-siswa"
+                class="flex items-center justify-between px-3 py-2.5 rounded-xl transition-colors text-slate-600 hover:bg-slate-50 hover:text-slate-900"
             >
                 <span class="flex items-center gap-3">
-                    <span class="material-symbols-outlined text-[20px] text-amber-500">
-                        pending_actions
+                    <span class="material-symbols-outlined text-[20px] text-slate-400">
+                        badge
                     </span>
 
-                    Tagihan Berjalan
+                    Profil Siswa
                 </span>
-
-                @if ($nTagihan > 0)
-                    <span class="w-6 h-6 rounded-full bg-amber-50 text-amber-600 border border-amber-200/60 text-[11px] font-bold flex items-center justify-center">
-                        {{ $nTagihan }}
-                    </span>
-                @endif
             </a>
 
         </nav>
@@ -189,3 +166,81 @@
         </button>
     </form>
 </aside>
+
+{{-- POPUP PROFIL SISWA --}}
+@if (isset($child) && $child)
+<div id="profil-siswa-modal" class="hidden fixed inset-0 z-[70] items-center justify-center bg-slate-900/40 p-4">
+    <div class="w-full max-w-md bg-white rounded-2xl shadow-xl overflow-hidden max-h-[90vh] flex flex-col">
+
+        <div class="px-6 py-4 flex items-center justify-between border-b border-slate-100 shrink-0">
+            <div>
+                <div class="text-sm font-bold text-slate-900">Profil Siswa</div>
+                <div class="text-[11px] text-slate-400">Data tercatat di administrasi cabang.</div>
+            </div>
+
+            <button type="button" id="btn-profil-tutup" class="w-8 h-8 rounded-lg hover:bg-slate-100 text-slate-500 flex items-center justify-center" aria-label="Tutup">
+                <span class="material-symbols-outlined text-[20px]">close</span>
+            </button>
+        </div>
+
+        <div class="px-6 py-5 overflow-y-auto space-y-4">
+
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-2xl bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-lg shrink-0">
+                    {{ mb_strtoupper(mb_substr($child->name, 0, 1)) }}
+                </div>
+
+                <div class="min-w-0">
+                    <div class="text-sm font-bold text-slate-900 truncate">{{ $child->name }}</div>
+                    <div class="text-xs text-slate-500">{{ $child->grade ?: '-' }}</div>
+                </div>
+            </div>
+
+            <dl class="grid grid-cols-3 gap-y-3 text-xs">
+                <dt class="text-slate-400">Sekolah</dt>
+                <dd class="col-span-2 font-semibold text-slate-800">{{ $child->school ?: '-' }}</dd>
+
+                <dt class="text-slate-400">Program</dt>
+                <dd class="col-span-2 font-semibold text-slate-800">{{ $child->program ?: '-' }}</dd>
+
+                <dt class="text-slate-400">Tutor</dt>
+                <dd class="col-span-2 font-semibold text-slate-800">{{ $child->tutor->name ?? '-' }}</dd>
+
+                <dt class="text-slate-400">Paket</dt>
+                <dd class="col-span-2 font-semibold text-slate-800">{{ $child->package ?: '-' }}</dd>
+
+                <dt class="text-slate-400">Alamat</dt>
+                <dd class="col-span-2 font-semibold text-slate-800">{{ $child->address ?: '-' }}</dd>
+            </dl>
+        </div>
+
+        <div class="px-6 py-4 border-t border-slate-100 flex justify-end shrink-0">
+            <button type="button" id="btn-profil-selesai" class="h-9 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold">
+                Tutup
+            </button>
+        </div>
+    </div>
+</div>
+@endif
+
+<script>
+(function () {
+    var link = document.getElementById('btn-profil-siswa');
+    var modal = document.getElementById('profil-siswa-modal');
+    if (!link) return;
+
+    function open() { if (modal) { modal.classList.remove('hidden'); modal.classList.add('flex'); } }
+    function close() { if (modal) { modal.classList.add('hidden'); modal.classList.remove('flex'); } }
+
+    link.addEventListener('click', function (e) { e.preventDefault(); open(); });
+
+    if (modal) {
+        modal.addEventListener('click', function (e) { if (e.target === modal) close(); });
+        ['btn-profil-tutup', 'btn-profil-selesai'].forEach(function (id) {
+            var b = document.getElementById(id);
+            if (b) b.addEventListener('click', close);
+        });
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+    }
+})();
+</script>
