@@ -1,9 +1,9 @@
-
 <?php
 
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Portal\PortalController;
+use App\Http\Controllers\Siswa\SiswaJadwalController;
 use App\Http\Middleware\RoleMiddleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -333,5 +333,28 @@ Route::prefix('portal')
         Route::get('/kuitansi/{payment}', [PortalController::class, 'kuitansi'])
             ->whereNumber('payment')
             ->name('kuitansi');
+
+    });
+
+
+// ======================================================
+// 6. PORTAL SISWA
+// ======================================================
+// Route name: siswa.jadwal, siswa.jadwal.confirm, siswa.jadwal.reschedule
+// (jangan tambahkan ->whereNumber('id'): view memakai placeholder __ID__ saat membuat URL)
+
+Route::prefix('siswa')
+    ->name('siswa.')
+    ->middleware(['auth', 'role:siswa'])
+    ->group(function () {
+
+        Route::get('/jadwal', [SiswaJadwalController::class, 'index'])
+            ->name('jadwal');
+
+        Route::post('/jadwal/{id}/konfirmasi', [SiswaJadwalController::class, 'confirm'])
+            ->name('jadwal.confirm');
+
+        Route::post('/jadwal/{id}/ganti-waktu', [SiswaJadwalController::class, 'reschedule'])
+            ->name('jadwal.reschedule');
 
     });
