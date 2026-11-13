@@ -555,34 +555,10 @@
 </div>
 </div>
 </div>
-<!-- WIDGET 3: KOORDINATOR CABANG / BANTUAN -->
-<div class="rounded-2xl bg-surface-container-lowest border border-outline-variant/60 p-6 shadow-sm flex flex-col gap-4">
-<div class="flex items-center gap-3">
-<div class="w-10 h-10 rounded-xl bg-secondary-container text-secondary flex items-center justify-center shrink-0">
-<span class="material-symbols-outlined text-[22px]">contact_support</span>
+
+
 </div>
-<div class="flex flex-col">
-<span class="text-[14px] font-bold text-on-surface">Koordinator Cabang</span>
-<span class="text-[11px] text-on-surface-variant">Cabang {{ auth()->user()->branch }}</span>
-</div>
-</div>
-<p class="text-[12px] text-on-surface-variant leading-relaxed">
-              Ada kendala perubahan jadwal tutor atau ingin reschedule sesi manual? Tim cabang siap membantu.
-            </p>
-<div class="flex items-center gap-3 p-3 rounded-xl bg-surface-container-low/70 border border-outline-variant/50">
-<div class="relative">
-<img class="w-10 h-10 rounded-full object-cover" data-alt="Portrait of Kak Arya Pratama, academic coordinator" src="https://lh3.googleusercontent.com/aida-public/AB6AXuALt81C0vDxCCnXJfp5bkTZUv2qFLmRfYkNVE-yFff6ny80YiiDiSF0fyZAu-Np7PXlSBexWE-Ilserlmy6B0bgnAtgmUlF7o_ahOq3xRT8FmIHy1bBmD5P89cVd3xMIwy_HZgJwHRM2LIJSjMoKVZcDfOAVsGfkO1W2XZVjrkYGiL-CYfEOe2rkwNH28s0V44w75Lp4dhygrCgNmpIz7GQo5h1Xn8KvEwVLrYiB8meMew6yAsXh9TYgg">
-<span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 rounded-full ring-2 ring-white"></span>
-</div>
-<div class="flex flex-col min-w-0 flex-1">
-<span class="text-[13px] font-bold text-on-surface truncate">Kak Arya Pratama</span>
-<span class="text-[11px] text-secondary font-semibold">Online • Respon Cepat &lt;5 Menit</span>
-</div>
-</div>
-<a class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600 text-white text-[13px] font-bold shadow-md hover:bg-emerald-700 transition-all" href="https://wa.me/62895376551818" target="_blank">
-<span class="material-symbols-outlined text-[17px]">chat</span>
-<span class="">WhatsApp Kak Arya</span>
-</a>
+
 </div>
 </div>
 </div>
