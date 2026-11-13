@@ -568,7 +568,7 @@ const CHILDREN = {!! json_encode($childrenJson) !!}, CUR = {{ $child->id }};
   const btns = [...document.querySelectorAll('button')].filter(b => /\(Kelas|Kelas \d+ (SMP|SMA|SD)/.test(b.textContent) && b.querySelector('div, span') && /Aisyah|Farhan|Kevin|Nabila|Bilqis|Rayhan/.test(b.textContent));
   const kids = btns.slice(0, 2);
   kids.forEach((b, i) => b.addEventListener('click', () => { const c = CHILDREN[i]; if (!c) return OPC.toast('Anak kedua belum terdaftar. Hubungi admin cabang.', false); const u = new URL(location.href); u.searchParams.set('anak', c.id); location.href = u.toString(); }));
-  OPC.on('Tambah Anak', () => window.open('https://wa.me/62895376551818?text=' + encodeURIComponent('Halo Admin, saya ingin menambahkan data anak ke akun portal saya.'), '_blank'), {sel: 'button', exact: false});
+  OPC.on('Tambah Anak', () => window.open('https://wa.me/6285868046255?text=' + encodeURIComponent('Halo Admin, saya ingin menambahkan data anak ke akun portal saya.'), '_blank'), {sel: 'button', exact: false});
   document.querySelectorAll('button[aria-label="Pemberitahuan"]').forEach(b => b.addEventListener('click', () => OPC.toast({!! json_encode($notifText ?? 'Tidak ada pemberitahuan baru.') !!}, true)));
   document.querySelectorAll('a[data-path="profil-siswa"]').forEach(a => a.addEventListener('click', e => { e.preventDefault();
     OPC.dialog({title: 'Profil Siswa', desc: 'Data tercatat di administrasi cabang.', fields: [
