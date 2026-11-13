@@ -21,6 +21,11 @@
     ::-webkit-scrollbar {
       display: none;
     }
+    .opt:has(input:checked) { border-color: var(--c) !important; background-color: var(--bg) !important; }
+    .opt:has(input:checked) .dot { background: var(--c); border-color: var(--c); color: #fff; }
+    .opt-hadir { --c: #0d9488; --bg: rgba(204,251,241,.3); }
+    .opt-izin  { --c: #fbbf24; --bg: #fffbeb; }
+    .opt-sakit { --c: #4f46e5; --bg: rgba(224,231,255,.4); }
   </style>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script id="tailwind-config">
@@ -87,7 +92,7 @@
 <!-- Profile Active Dropdown Badge -->
 <button class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-secondary-container/60 text-on-secondary-container text-[12px] font-bold border border-secondary/20 hover:bg-secondary-container transition-colors" type="button">
 <span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
-<span class="">Profil Aktif: Aisyah Putri (Kelas 8 SMP)</span>
+<span class="">Profil Aktif: {{ $child->name }} ({{ $child->grade }})</span>
 <span class="material-symbols-outlined text-[16px] -mr-0.5">arrow_drop_down</span>
 </button>
 </div>
@@ -125,16 +130,20 @@
             Verifikasi kehadiran siswa dan pantau catatan progres belajar tiap sesi secara transparan dan terintegrasi langsung dengan tutor.
           </p>
 </div>
-<!-- Child Switcher Pills -->
+<!-- Child Switcher Pills (dari data anak di database) -->
 <div class="flex items-center gap-2 self-start md:self-auto flex-wrap">
-<button class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-primary text-white font-bold text-[12px] shadow-sm shadow-primary/20 hover:opacity-95 transition-opacity" type="button">
-<span class="">🌟</span>
-<span class="">Aisyah Putri (Kelas 8 SMP • Reguler)</span>
-</button>
-<button class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface-container-lowest text-on-surface-variant font-semibold text-[12px] border border-outline-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" type="button">
-<span class="">👦</span>
-<span class="">Farhan Nugraha (Kelas 12 SMA • UTBK)</span>
-</button>
+@foreach(($childrenJson ?? []) as $c)
+@php
+  $c = (array) $c;
+  $isCur = ($c['id'] ?? null) == $child->id;
+  $cName = $isCur ? $child->name : ($c['name'] ?? '-');
+  $cGrade = $isCur ? $child->grade : ($c['grade'] ?? '');
+  $cProg = $isCur ? $child->program : ($c['program'] ?? '');
+@endphp
+<a href="?anak={{ $c['id'] }}" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[12px] transition-colors {{ $isCur ? 'bg-primary text-white font-bold shadow-sm shadow-primary/20 hover:opacity-95 transition-opacity' : 'bg-surface-container-lowest text-on-surface-variant font-semibold border border-outline-variant hover:bg-surface-container-low hover:text-on-surface' }}">
+<span class="">{{ $cName }} ({{ $cGrade }}{{ $cProg ? ' • ' . $cProg : '' }})</span>
+</a>
+@endforeach
 <button class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-surface-container-low text-primary font-bold text-[12px] hover:bg-primary-fixed transition-colors" type="button">
 <span class="material-symbols-outlined text-[15px]">add</span>
 <span class="">Tambah Anak</span>
@@ -227,13 +236,13 @@
 <label class="text-[13px] font-bold text-on-surface">Pilih Status Kehadiran Ananda:</label>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
 <!-- HADIR TUNTAS -->
-<label class="relative flex flex-col p-4 rounded-xl border-2 border-secondary bg-secondary-container/20 cursor-pointer transition-all hover:bg-secondary-container/30">
-<input checked="" class="peer sr-only" name="attendance_status" type="radio" value="hadir">
+<label class="opt opt-hadir relative flex flex-col p-4 rounded-xl border-2 border-outline-variant bg-surface-container-low/50 cursor-pointer transition-all hover:bg-secondary-container/30">
+<input checked class="peer sr-only" name="attendance_status" type="radio" value="hadir">
 <div class="flex items-center justify-between mb-2">
 <div class="w-8 h-8 rounded-lg bg-secondary text-white flex items-center justify-center">
 <span class="material-symbols-outlined text-[18px]">check_circle</span>
 </div>
-<div class="w-5 h-5 rounded-full bg-secondary text-white flex items-center justify-center text-[12px]">
+<div class="dot w-5 h-5 rounded-full border-2 border-outline-variant text-transparent flex items-center justify-center">
 <span class="material-symbols-outlined text-[13px] font-bold">check</span>
 </div>
 </div>
@@ -241,25 +250,29 @@
 <span class="text-[11px] text-on-surface-variant mt-1 leading-snug">Siswa mengikuti sesi belajar dari awal sampai selesai tepat waktu.</span>
 </label>
 <!-- IZIN BERHALANGAN -->
-<label class="relative flex flex-col p-4 rounded-xl border border-outline-variant bg-surface-container-low/50 cursor-pointer transition-all hover:border-amber-400 hover:bg-amber-50/50">
+<label class="opt opt-izin relative flex flex-col p-4 rounded-xl border-2 border-outline-variant bg-surface-container-low/50 cursor-pointer transition-all hover:border-amber-400 hover:bg-amber-50/50">
 <input class="peer sr-only" name="attendance_status" type="radio" value="izin">
 <div class="flex items-center justify-between mb-2">
 <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-800 flex items-center justify-center">
 <span class="material-symbols-outlined text-[18px]">event_busy</span>
 </div>
-<div class="w-5 h-5 rounded-full border-2 border-outline-variant flex items-center justify-center"></div>
+<div class="dot w-5 h-5 rounded-full border-2 border-outline-variant text-transparent flex items-center justify-center">
+<span class="material-symbols-outlined text-[13px] font-bold">check</span>
+</div>
 </div>
 <span class="text-[14px] font-bold text-on-surface">Izin Berhalangan</span>
 <span class="text-[11px] text-on-surface-variant mt-1 leading-snug">Ada keperluan mendadak, diajukan reschedule sesi pengganti.</span>
 </label>
 <!-- SAKIT -->
-<label class="relative flex flex-col p-4 rounded-xl border border-outline-variant bg-surface-container-low/50 cursor-pointer transition-all hover:border-tertiary hover:bg-tertiary-fixed/30">
+<label class="opt opt-sakit relative flex flex-col p-4 rounded-xl border-2 border-outline-variant bg-surface-container-low/50 cursor-pointer transition-all hover:border-tertiary hover:bg-tertiary-fixed/30">
 <input class="peer sr-only" name="attendance_status" type="radio" value="sakit">
 <div class="flex items-center justify-between mb-2">
 <div class="w-8 h-8 rounded-lg bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center">
 <span class="material-symbols-outlined text-[18px]">medical_services</span>
 </div>
-<div class="w-5 h-5 rounded-full border-2 border-outline-variant flex items-center justify-center"></div>
+<div class="dot w-5 h-5 rounded-full border-2 border-outline-variant text-transparent flex items-center justify-center">
+<span class="material-symbols-outlined text-[13px] font-bold">check</span>
+</div>
 </div>
 <span class="text-[14px] font-bold text-on-surface">Sakit</span>
 <span class="text-[11px] text-on-surface-variant mt-1 leading-snug">Kondisi siswa kurang fit untuk belajar hari ini.</span>
@@ -292,7 +305,7 @@
 </label>
 <span class="text-on-surface-variant">Maksimal 300 karakter</span>
 </div>
-<textarea class="w-full bg-surface-container-low/50 border border-outline-variant rounded-xl p-3 text-[13px] text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" placeholder="Contoh: Ananda Aisyah sangat antusias hari ini. Mohon Kak Rina memperbanyak latihan makhraj huruf 'Ain dan Ha untuk persiapan ujian..." rows="3"></textarea>
+<textarea class="w-full bg-surface-container-low/50 border border-outline-variant rounded-xl p-3 text-[13px] text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" maxlength="300" placeholder="Contoh: Ananda {{ \Illuminate\Support\Str::before($child->name, ' ') }} sangat antusias hari ini. Mohon {{ $live->tutor->name ?? 'tutor' }} memperbanyak latihan untuk persiapan ujian..." rows="3"></textarea>
 </div>
 <!-- Form Buttons -->
 <div class="flex items-center justify-end gap-3 pt-1">
@@ -306,7 +319,12 @@
 </div>
 </form>
 </div>
-<!-- 3. SUCCESS NOTIFICATION BANNER (Showcased State) -->
+<!-- 3. SUCCESS NOTIFICATION BANNER (presensi terakhir yang tercatat di database) -->
+@php
+  $last = $history->first();
+  $lastAt = $last ? ($last->updated_at ?? $last->created_at ?? null) : null;
+@endphp
+@if($last)
 <div class="rounded-2xl bg-secondary-container/30 border border-secondary/30 p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4" id="success-state-banner">
 <div class="flex items-start gap-3.5">
 <div class="w-10 h-10 rounded-xl bg-secondary text-white flex items-center justify-center shrink-0 shadow-sm">
@@ -315,13 +333,13 @@
 <div class="flex flex-col gap-0.5">
 <div class="flex items-center gap-2">
 <span class="px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-container text-[11px] font-bold">
-                    Hadir Terverifikasi
+                    {{ $last->label }} Terverifikasi
                   </span>
 <span class="text-[11px] text-secondary font-semibold">Tercatat di Sistem</span>
 </div>
 <h4 class="text-[15px] font-bold text-on-surface">Presensi Berhasil Disimpan &amp; Diverifikasi</h4>
 <p class="text-[12px] text-on-surface-variant">
-                  Tercatat pada <strong class="text-on-surface font-semibold">Rabu, 22 Okt 2026 • 17:15 WIB</strong> oleh <span class="text-primary font-bold">Ibu Nabila (Wali Murid)</span>. Catatan evaluasi telah dikirim ke tutor.
+                  Tercatat pada <strong class="text-on-surface font-semibold">{{ $lastAt ? \Carbon\Carbon::parse($lastAt)->locale('id')->translatedFormat('l, d M Y • H:i') : '-' }} WIB</strong> oleh <span class="text-primary font-bold">{{ auth()->user()->name }} (Wali Murid)</span>. Catatan evaluasi telah dikirim ke tutor.
                 </p>
 </div>
 </div>
@@ -330,7 +348,17 @@
 <span class="">Unduh Ringkasan Sesi</span>
 </button>
 </div>
+@endif
 <!-- 4. RIWAYAT PERTEMUAN & CATATAN BELAJAR -->
+@php
+  $months = $history->map(fn($a) => \Carbon\Carbon::parse($a->session->date)->format('Y-m'))->unique()->sortDesc()->values();
+  $pk = \Illuminate\Support\Facades\DB::table('lesson_sessions')
+        ->where('student_id', $child->id)->where('status', '!=', 'batal')
+        ->whereDate('date', '>=', now()->toDateString())
+        ->selectRaw('count(*) as c, max("date") as m')->first();
+  $remaining = (int) ($pk->c ?? 0);
+  $validUntil = $pk->m ?? null;
+@endphp
 <div class="rounded-2xl bg-surface-container-lowest border border-outline-variant/60 p-6 shadow-sm flex flex-col gap-5">
 <!-- Header & Filter Bar -->
 <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
@@ -344,18 +372,19 @@
 <!-- Month & Tab Filters -->
 <div class="flex flex-wrap items-center gap-2">
 <div class="relative">
-<select class="appearance-none bg-surface-container-low text-on-surface text-[12px] font-bold px-3 py-1.5 pr-7 rounded-lg border border-outline-variant cursor-pointer focus:outline-none">
-<option selected="">Oktober 2026</option>
-<option>September 2026</option>
-<option>Agustus 2026</option>
+<select id="month-filter" class="appearance-none bg-surface-container-low text-on-surface text-[12px] font-bold px-3 py-1.5 pr-7 rounded-lg border border-outline-variant cursor-pointer focus:outline-none">
+<option value="" selected>Semua Bulan</option>
+@foreach($months as $m)
+<option value="{{ $m }}">{{ \Carbon\Carbon::createFromFormat('Y-m-d', $m . '-01')->locale('id')->translatedFormat('F Y') }}</option>
+@endforeach
 </select>
 <span class="material-symbols-outlined text-[16px] text-on-surface-variant absolute right-1.5 top-2 pointer-events-none">expand_more</span>
 </div>
 <div class="flex items-center p-0.5 rounded-lg bg-surface-container-low border border-outline-variant/60">
-<button class="px-2.5 py-1 rounded-md bg-surface-container-lowest text-primary text-[11px] font-bold shadow-sm">Semua</button>
-<button class="px-2.5 py-1 rounded-md text-on-surface-variant hover:text-on-surface text-[11px] font-semibold">Hadir ({{ $stat["hadir"] }})</button>
-<button class="px-2.5 py-1 rounded-md text-on-surface-variant hover:text-on-surface text-[11px] font-semibold">Izin ({{ $stat["izin"] }})</button>
-<button class="px-2.5 py-1 rounded-md text-on-surface-variant hover:text-on-surface text-[11px] font-semibold">Sakit ({{ $stat["sakit"] }})</button>
+<button class="tab-btn px-2.5 py-1 rounded-md bg-surface-container-lowest text-primary text-[11px] font-bold shadow-sm" data-filter="semua" type="button">Semua</button>
+<button class="tab-btn px-2.5 py-1 rounded-md text-on-surface-variant hover:text-on-surface text-[11px] font-semibold" data-filter="hadir" type="button">Hadir ({{ $stat["hadir"] }})</button>
+<button class="tab-btn px-2.5 py-1 rounded-md text-on-surface-variant hover:text-on-surface text-[11px] font-semibold" data-filter="izin" type="button">Izin ({{ $stat["izin"] }})</button>
+<button class="tab-btn px-2.5 py-1 rounded-md text-on-surface-variant hover:text-on-surface text-[11px] font-semibold" data-filter="sakit" type="button">Sakit ({{ $stat["sakit"] }})</button>
 </div>
 </div>
 </div>
@@ -372,24 +401,24 @@
 </div>
 <div class="flex items-center gap-5 text-[12px] text-on-surface-variant">
 <div class="flex flex-col">
-<span class="text-on-surface font-bold text-[13px]">2 Sesi Tersisa</span>
-<span class="text-[11px]">Berlaku s/d 31 Okt 2026</span>
+<span class="text-on-surface font-bold text-[13px]">{{ $remaining }} Sesi Tersisa</span>
+<span class="text-[11px]">{{ $validUntil ? 'Berlaku s/d ' . \App\Support\Fmt::dateShort(\Carbon\Carbon::parse($validUntil)) : 'Belum ada jadwal' }}</span>
 </div>
 <div class="h-7 w-px bg-outline-variant"></div>
 <div class="flex flex-col">
-<span class="text-primary font-bold text-[13px]">1 Sesi Pengganti</span>
-<span class="text-[11px]">Status: Dijadwalkan</span>
+<span class="text-primary font-bold text-[13px]">{{ $stat["izin"] }} Sesi Pengganti</span>
+<span class="text-[11px]">Status: {{ $stat["izin"] > 0 ? ($remaining > 0 ? 'Dijadwalkan' : 'Belum dijadwalkan') : '-' }}</span>
 </div>
 </div>
 </div>
 <!-- Sessions List -->
-<div class="flex flex-col gap-3">
+<div class="flex flex-col gap-3" id="history-list">
 
 @forelse($history as $a)
 
 @if($a->status === 'hadir')
-<!-- Item 1: Hadir Tahsin -->
-<div class="flex flex-col md:flex-row items-start md:items-center justify-between p-3.5 rounded-xl border border-outline-variant/60 bg-surface-container-lowest hover:bg-surface-container-low/50 transition-colors gap-3">
+<!-- Hadir -->
+<div class="flex flex-col md:flex-row items-start md:items-center justify-between p-3.5 rounded-xl border border-outline-variant/60 bg-surface-container-lowest hover:bg-surface-container-low/50 transition-colors gap-3" data-status="hadir" data-month="{{ \Carbon\Carbon::parse($a->session->date)->format('Y-m') }}">
 <div class="flex items-start gap-3">
 <div class="w-10 h-10 rounded-xl bg-secondary-container/70 text-secondary flex items-center justify-center shrink-0">
 <span class="material-symbols-outlined text-[20px]">menu_book</span>
@@ -419,11 +448,11 @@
 </div>
 
 @else
-<!-- Item 3: Izin Bahasa Inggris -->
-<div class="flex flex-col md:flex-row items-start md:items-center justify-between p-3.5 rounded-xl border border-amber-200 bg-amber-50/50 hover:bg-amber-50 transition-colors gap-3">
+<!-- Izin / Sakit -->
+<div class="flex flex-col md:flex-row items-start md:items-center justify-between p-3.5 rounded-xl border border-amber-200 bg-amber-50/50 hover:bg-amber-50 transition-colors gap-3" data-status="{{ $a->status }}" data-month="{{ \Carbon\Carbon::parse($a->session->date)->format('Y-m') }}">
 <div class="flex items-start gap-3">
 <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center shrink-0">
-<span class="material-symbols-outlined text-[20px]">event_repeat</span>
+<span class="material-symbols-outlined text-[20px]">{{ $a->status === 'sakit' ? 'medical_services' : 'event_repeat' }}</span>
 </div>
 <div class="flex flex-col gap-0.5">
 <div class="flex flex-wrap items-center gap-2">
@@ -438,7 +467,7 @@
 </div>
 </div>
 <div class="flex items-center gap-3 shrink-0 self-end md:self-center">
-<span class="px-2.5 py-1 rounded-md bg-white border border-amber-300 text-amber-800 text-[11px] font-bold">Rescheduled</span>
+<span class="px-2.5 py-1 rounded-md bg-white border border-amber-300 text-amber-800 text-[11px] font-bold">{{ $a->status === 'sakit' ? 'Sakit' : 'Rescheduled' }}</span>
 <button class="inline-flex items-center gap-1 text-[11px] font-bold text-amber-900 hover:underline px-2.5 py-1.5 rounded-lg hover:bg-amber-100 transition-colors" type="button">
 <span class="">Detail</span>
 <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
@@ -455,13 +484,13 @@
 <!-- Pagination Bar -->
 <div class="flex items-center justify-between pt-2 border-t border-outline-variant/40 text-on-surface-variant text-[12px]">
 <span class="">Menampilkan {{ $history->count() }} dari {{ $stat["total"] }} sesi terlaksana</span>
+@if($history instanceof \Illuminate\Contracts\Pagination\Paginator && $history->hasPages())
+<div>{{ $history->withQueryString()->links() }}</div>
+@else
 <div class="flex items-center gap-1">
-<button class="w-8 h-8 rounded-lg bg-primary text-white font-bold text-[12px]">{{ $stat["sakit"] }}</button>
-<button class="w-8 h-8 rounded-lg bg-surface-container-low text-on-surface hover:bg-surface-container font-semibold text-[12px]">2</button>
-<button class="w-8 h-8 rounded-lg bg-surface-container-low text-on-surface hover:bg-surface-container flex items-center justify-center text-[12px]">
-<span class="material-symbols-outlined text-[16px]">chevron_right</span>
-</button>
+<button class="w-8 h-8 rounded-lg bg-primary text-white font-bold text-[12px]" type="button">1</button>
 </div>
+@endif
 </div>
 </div>
 <!-- 5. SUBTLE NEXT SESSION NOTIFICATION CARD -->
@@ -534,7 +563,7 @@
 </div>
 <div class="flex flex-col">
 <span class="text-[14px] font-bold text-on-surface">Koordinator Cabang</span>
-<span class="text-[11px] text-on-surface-variant">Cabang Tebet &amp; Pancoran</span>
+<span class="text-[11px] text-on-surface-variant">Cabang {{ auth()->user()->branch }}</span>
 </div>
 </div>
 <p class="text-[12px] text-on-surface-variant leading-relaxed">
@@ -550,7 +579,7 @@
 <span class="text-[11px] text-secondary font-semibold">Online • Respon Cepat &lt;5 Menit</span>
 </div>
 </div>
-<a class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600 text-white text-[13px] font-bold shadow-md hover:bg-emerald-700 transition-all" href="https://wa.me/6281234567890" target="_blank">
+<a class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600 text-white text-[13px] font-bold shadow-md hover:bg-emerald-700 transition-all" href="https://wa.me/62895376551818" target="_blank">
 <span class="material-symbols-outlined text-[17px]">chat</span>
 <span class="">WhatsApp Kak Arya</span>
 </a>
@@ -563,11 +592,7 @@
 
 <script src="{{ asset('js/opc.js') }}"></script><script>
 OPC.userLogout({!! json_encode(auth()->user()->name) !!});
-const CHILDREN = {!! json_encode($childrenJson) !!}, CUR = {{ $child->id }};
 (function () {
-  const btns = [...document.querySelectorAll('button')].filter(b => /\(Kelas|Kelas \d+ (SMP|SMA|SD)/.test(b.textContent) && b.querySelector('div, span') && /Aisyah|Farhan|Kevin|Nabila|Bilqis|Rayhan/.test(b.textContent));
-  const kids = btns.slice(0, 2);
-  kids.forEach((b, i) => b.addEventListener('click', () => { const c = CHILDREN[i]; if (!c) return OPC.toast('Anak kedua belum terdaftar. Hubungi admin cabang.', false); const u = new URL(location.href); u.searchParams.set('anak', c.id); location.href = u.toString(); }));
   OPC.on('Tambah Anak', () => window.open('https://wa.me/6285868046255?text=' + encodeURIComponent('Halo Admin, saya ingin menambahkan data anak ke akun portal saya.'), '_blank'), {sel: 'button', exact: false});
   document.querySelectorAll('button[aria-label="Pemberitahuan"]').forEach(b => b.addEventListener('click', () => OPC.toast({!! json_encode($notifText ?? 'Tidak ada pemberitahuan baru.') !!}, true)));
   document.querySelectorAll('a[data-path="profil-siswa"]').forEach(a => a.addEventListener('click', e => { e.preventDefault();
@@ -586,15 +611,26 @@ if (form) {
   form.addEventListener('submit', async e => { e.preventDefault(); if (!LIVE) return OPC.toast('Belum ada sesi yang bisa diisi.', false);
     const st = (form.querySelector('input[name=attendance_status]:checked') || {}).value;
     try { const j = await OPC.post({!! json_encode(url('/portal/presensi')) !!} + '/' + LIVE.id, {status: st, understanding: stars, note: form.querySelector('textarea').value});
-      const b = document.getElementById('success-state-banner'); if (b) b.classList.remove('hidden'); OPC.toast(j.message, true); setTimeout(() => location.reload(), 1500); } catch (err) {} });
+      OPC.toast(j.message, true); setTimeout(() => location.reload(), 1500); } catch (err) {} });
   OPC.find('Batal / Nanti Saja', {sel: 'button'}).forEach(b => b.addEventListener('click', () => OPC.go({!! json_encode(route('portal.beranda')) !!})));
 }
 OPC.on('Unduh Ringkasan Sesi', () => window.print(), {sel: 'button'});
-document.querySelectorAll('[data-detail]').forEach(() => {});
 document.querySelectorAll('button').forEach(b => { const t = OPC.label(b); if (t === 'Lihat Jurnal' || t === 'Detail') b.addEventListener('click', () => { const it = b.closest('div[class*="border"]'); const jr = it ? [...it.querySelectorAll('span')].find(s => s.textContent.startsWith('"') || s.textContent.startsWith('“')) : null; OPC.dialog({title: 'Jurnal Pertemuan', fields: [{name: 'j', label: 'Catatan tutor', type: 'textarea', value: jr ? jr.textContent : 'Belum ada jurnal.'}], submit: 'Tutup', onSubmit: async () => {}}); }); });
-document.querySelectorAll('a').forEach(a => { if (a.href.includes('wa.me/6281234567890')) a.href = 'https://wa.me/62895376551818'; });
 OPC.on('Hubungi Tutor via WhatsApp', () => {}, {sel: 'a', exact: false});
-const fl = [...document.querySelectorAll('select')][0]; if (fl) fl.addEventListener('change', () => OPC.toast('Menampilkan riwayat ' + fl.value, true));
-const hs = ['Semua', 'Hadir', 'Izin', 'Sakit']; const items = [...document.querySelectorAll('[class*="border"]')].filter(d => d.textContent.includes('Tutor:') && d.querySelector('button'));
-hs.forEach(h => OPC.find(h, {sel: 'button', exact: false}).filter(b => b.parentElement.children.length >= 3 && /Semua|Hadir|Izin|Sakit/.test(b.parentElement.textContent)).forEach(b => b.addEventListener('click', () => items.forEach(i => { i.style.display = (h === 'Semua' || i.textContent.includes(h)) ? '' : 'none'; }))));
+
+// Filter riwayat (bulan + status) berdasarkan data-status / data-month
+(function () {
+  const rows = [...document.querySelectorAll('#history-list [data-status]')];
+  const tabs = [...document.querySelectorAll('.tab-btn')];
+  const sel = document.getElementById('month-filter');
+  const on = ['bg-surface-container-lowest', 'text-primary', 'font-bold', 'shadow-sm'];
+  const off = ['text-on-surface-variant', 'hover:text-on-surface', 'font-semibold'];
+  let fs = 'semua', fm = '';
+  const apply = () => {
+    rows.forEach(r => { r.style.display = ((fs === 'semua' || r.dataset.status === fs) && (!fm || r.dataset.month === fm)) ? '' : 'none'; });
+    tabs.forEach(t => { const a = t.dataset.filter === fs; t.classList.remove(...on, ...off); t.classList.add(...(a ? on : off)); });
+  };
+  tabs.forEach(t => t.addEventListener('click', () => { fs = t.dataset.filter; apply(); }));
+  if (sel) sel.addEventListener('change', () => { fm = sel.value; apply(); });
+})();
 </script></body></html>
