@@ -412,7 +412,7 @@ class PortalController extends Controller
 
         // Data yang dibutuhkan oleh beranda.blade.php.
         return view('siswa.beranda', $d + [
-            'greet' => auth()->user()->name ?? 'Pengguna',
+           'greet' => $child->name,
 
             'next' => $next,
             'pendingCount' => $pending->count(),
