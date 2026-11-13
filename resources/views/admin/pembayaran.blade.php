@@ -27,6 +27,12 @@
     :where(.jb) table { border-collapse: collapse; border-color: inherit; }
     .jb { font-family: 'Plus Jakarta Sans', sans-serif; }
     .material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400;}
+    /* Hilangkan border/panah bawaan plugin forms Tailwind CDN di input, dropdown & textarea */
+    .jb :is(input,select,textarea):not([type=checkbox]):not([type=radio]) { border-width: 0; box-shadow: none; }
+    .jb select { background-image: none; padding-right: 2.25rem; }
+    .jb :is(input,select,textarea):not([type=checkbox]):not([type=radio]):focus { border-width: 0; }
+    #payment-modal :is(input,select,textarea):not([type=checkbox]):not([type=radio]) { border-width: 0; background-image: none; }
+    #payment-modal select { padding-right: 2.25rem; }
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
@@ -66,13 +72,12 @@
 <span class="material-symbols-outlined text-[24px]">verified_user</span>
 </div>
 <div class="flex flex-col min-w-0 pr-6">
-<div class="flex items-center gap-2">
+<div class="flex flex-wrap items-center gap-2">
 <span class="font-label-lg text-label-lg font-bold text-on-surface">Pemberitahuan Sistem &amp; Kebijakan Pembayaran Cabang</span>
 <span class="px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-[10px] font-semibold">SOP Cabang</span>
 </div>
 <p class="font-body-md text-body-md text-on-surface-variant mt-1 leading-normal">
-          Seluruh tagihan les diterbitkan resmi melalui WhatsApp Admin Cabang ke nomor wli murid tiap tanggal <span class="font-semibold text-on-surface">25–28</span> setiap bulannya. Formulir di halaman ini digunakan admin untuk memvalidasi bukti transfer masuk (BCA/Mandiri/BNI) 
-          
+          Seluruh tagihan les diterbitkan resmi melalui WhatsApp Admin Cabang ke nomor wali murid tiap tanggal <span class="font-semibold text-on-surface">25–28</span> setiap bulannya. Formulir di halaman ini digunakan admin untuk memvalidasi bukti transfer masuk (BCA/Mandiri/BNI) atau pembayaran tunai di kasir cabang.
         </p>
 </div>
 </div>
@@ -92,42 +97,42 @@
 </div>
 </div>
 <div class="mt-4 pt-3 flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm">
-<span class="w-2 h-2 rounded-full bg-outline"></span>
+<span class="w-2 h-2 rounded-full bg-outline shrink-0"></span>
 <span class="">Terdaftar aktif periode {{ \App\Support\Fmt::period() }}</span>
 </div>
 </div>
 <!-- KPI 2: Sudah Membayar -->
 <div class="bg-surface-container-lowest rounded-2xl p-6 shadow-xs flex flex-col justify-between relative overflow-hidden">
-<div class="absolute top-0 right-0 w-24 h-24 bg-secondary-container/20 rounded-bl-full pointer-events-none"></div>
+<div class="absolute top-0 right-0 w-20 h-20 bg-secondary-container/20 rounded-bl-full pointer-events-none"></div>
 <div class="flex items-start justify-between">
 <div>
-<div class="flex items-center gap-2 whitespace-nowrap"><span class="font-label-md text-label-md text-secondary uppercase tracking-wider font-semibold shrink-0">Sudah Membayar</span><span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-[11px] font-bold shrink-0 whitespace-nowrap">Lunas</span></div>
+<div class="flex flex-wrap items-center gap-x-2 gap-y-1"><span class="font-label-md text-label-md text-secondary uppercase tracking-wider font-semibold shrink-0">Sudah Membayar</span><span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-[11px] font-bold shrink-0 whitespace-nowrap">Lunas</span></div>
 <div class="font-headline-xl text-[38px] text-secondary font-extrabold tracking-tight mt-1 leading-none">{{ $k['paid'] }} <span class="font-label-lg text-label-lg font-semibold text-on-surface-variant">Siswa</span></div>
 </div>
-<div class="w-12 h-12 rounded-xl bg-secondary-container/30 text-secondary flex items-center justify-center">
+<div class="relative z-10 w-12 h-12 rounded-xl bg-secondary-container text-secondary flex items-center justify-center shrink-0">
 <span class="material-symbols-outlined text-[26px]">check_circle</span>
 </div>
 </div>
-<div class="mt-4 pt-3 flex items-center justify-between font-body-sm text-body-sm">
+<div class="mt-4 pt-3 flex items-center justify-between gap-3 font-body-sm text-body-sm">
 <span class="text-secondary font-semibold">{{ $k['paidPct'] }}% telah terverifikasi lunas</span>
-<span class="font-label-md text-label-md font-bold text-on-surface">{{ \App\Support\Fmt::rupiah($k['paidAmt']) }}</span>
+<span class="font-label-md text-label-md font-bold text-on-surface whitespace-nowrap shrink-0">{{ \App\Support\Fmt::rupiah($k['paidAmt']) }}</span>
 </div>
 </div>
 <!-- KPI 3: Belum Membayar -->
 <div class="bg-surface-container-lowest rounded-2xl p-6 shadow-xs flex flex-col justify-between relative overflow-hidden">
-<div class="absolute top-0 right-0 w-24 h-24 bg-error-container/30 rounded-bl-full pointer-events-none"></div>
+<div class="absolute top-0 right-0 w-20 h-20 bg-error-container/30 rounded-bl-full pointer-events-none"></div>
 <div class="flex items-start justify-between">
 <div>
-<div class="flex items-center gap-2 whitespace-nowrap"><span class="font-label-md text-label-md text-error uppercase tracking-wider font-semibold shrink-0">Belum Membayar</span><span class="px-2 py-0.5 rounded-full bg-error-container text-error font-label-sm text-[11px] font-bold shrink-0 whitespace-nowrap">! {{ $k['unpaid'] }} Tertunda</span></div>
+<div class="flex flex-wrap items-center gap-x-2 gap-y-1"><span class="font-label-md text-label-md text-error uppercase tracking-wider font-semibold shrink-0">Belum Membayar</span><span class="px-2 py-0.5 rounded-full bg-error-container text-error font-label-sm text-[11px] font-bold shrink-0 whitespace-nowrap">! {{ $k['unpaid'] }} Tertunda</span></div>
 <div class="font-headline-xl text-[38px] text-error font-extrabold tracking-tight mt-1 leading-none">{{ $k['unpaid'] }} <span class="font-label-lg text-label-lg font-semibold text-on-surface-variant">Siswa</span></div>
 </div>
-<div class="w-12 h-12 rounded-xl bg-error-container text-error flex items-center justify-center">
+<div class="relative z-10 w-12 h-12 rounded-xl bg-error-container text-error flex items-center justify-center shrink-0">
 <span class="material-symbols-outlined text-[26px]">pending</span>
 </div>
 </div>
-<div class="mt-4 pt-3 flex items-center justify-between font-body-sm text-body-sm">
+<div class="mt-4 pt-3 flex items-center justify-between gap-3 font-body-sm text-body-sm">
 <span class="text-error font-semibold">Perlu follow-up WhatsApp</span>
-<span class="font-label-md text-label-md font-bold text-error">{{ \App\Support\Fmt::rupiah($k['unpaidAmt']) }}</span>
+<span class="font-label-md text-label-md font-bold text-error whitespace-nowrap shrink-0">{{ \App\Support\Fmt::rupiah($k['unpaidAmt']) }}</span>
 </div>
 </div>
 </div>
@@ -150,8 +155,8 @@
 <div class="h-full bg-secondary rounded-full transition-all duration-700" style="width: {{ $k['paidPct'] }}%;"></div>
 <div class="h-full bg-error-container rounded-r-full transition-all duration-700 ml-1" style="width: {{ 100 - $k['paidPct'] }}%;"></div>
 </div>
-<div class="flex items-center justify-between text-[11px] font-label-sm text-on-surface-variant pt-0.5">
-<div class="flex items-center gap-4">
+<div class="flex flex-wrap items-center justify-between gap-2 text-[11px] font-label-sm text-on-surface-variant pt-0.5">
+<div class="flex flex-wrap items-center gap-x-4 gap-y-1">
 <span class="flex items-center gap-1.5">
 <span class="w-2 h-2 rounded-full bg-secondary"></span>
 <span class="">{{ $k['paid'] }} Siswa Telah Lunas (BCA, Mandiri, Cash)</span>
@@ -166,13 +171,13 @@
 </div>
 </div>
 <!-- Navigasi Tab & Filter Bar -->
-<div class="bg-surface-container-lowest rounded-2xl p-4 mb-6 shadow-xs flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+<div class="bg-surface-container-lowest rounded-2xl p-4 mb-6 shadow-xs flex flex-col gap-4">
 <!-- Tabs -->
-<div class="inline-flex p-1 bg-surface-container-low rounded-xl gap-1" id="payment-tabs"><button class="filter-tab-btn active px-4 py-2 rounded-lg font-label-lg text-label-lg font-bold bg-surface-container-lowest text-primary-container shadow-xs flex items-center gap-2 transition-all whitespace-nowrap shrink-0" data-filter="all" type="button"><span class="whitespace-nowrap">Semua Siswa</span><span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface font-label-sm text-[11px] font-semibold shrink-0">{{ $k['students'] }}</span></button><button class="filter-tab-btn px-4 py-2 rounded-lg font-label-lg text-label-lg font-medium text-on-surface-variant hover:text-on-surface flex items-center gap-2 transition-all whitespace-nowrap shrink-0" data-filter="pending" type="button"><span class="whitespace-nowrap">Belum Membayar</span><span class="px-2 py-0.5 rounded-full bg-error-container text-error font-label-sm text-[11px] font-bold shrink-0">{{ $k['unpaid'] }}</span></button><button class="filter-tab-btn px-4 py-2 rounded-lg font-label-lg text-label-lg font-medium text-on-surface-variant hover:text-on-surface flex items-center gap-2 transition-all whitespace-nowrap shrink-0" data-filter="paid" type="button"><span class="whitespace-nowrap">Sudah Membayar</span><span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-[11px] font-bold shrink-0">{{ $k['paid'] }}</span></button></div>
+<div class="inline-flex self-start max-w-full overflow-x-auto p-1 bg-surface-container-low rounded-xl gap-1" id="payment-tabs"><button class="filter-tab-btn active px-4 py-2 rounded-lg font-label-lg text-label-lg font-bold bg-surface-container-lowest text-primary-container shadow-xs flex items-center gap-2 transition-all whitespace-nowrap shrink-0" data-filter="all" type="button"><span class="whitespace-nowrap">Semua Siswa</span><span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface font-label-sm text-[11px] font-semibold shrink-0">{{ $k['students'] }}</span></button><button class="filter-tab-btn px-4 py-2 rounded-lg font-label-lg text-label-lg font-medium text-on-surface-variant hover:text-on-surface flex items-center gap-2 transition-all whitespace-nowrap shrink-0" data-filter="pending" type="button"><span class="whitespace-nowrap">Belum Membayar</span><span class="px-2 py-0.5 rounded-full bg-error-container text-error font-label-sm text-[11px] font-bold shrink-0">{{ $k['unpaid'] }}</span></button><button class="filter-tab-btn px-4 py-2 rounded-lg font-label-lg text-label-lg font-medium text-on-surface-variant hover:text-on-surface flex items-center gap-2 transition-all whitespace-nowrap shrink-0" data-filter="paid" type="button"><span class="whitespace-nowrap">Sudah Membayar</span><span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-[11px] font-bold shrink-0">{{ $k['paid'] }}</span></button></div>
 <!-- Filters & Search -->
-<div class="flex flex-wrap items-center gap-3">
+<div class="flex flex-wrap items-center gap-3 w-full">
 <!-- Search -->
-<div class="relative flex-1 sm:w-72">
+<div class="relative flex-1 min-w-[240px]">
 <span class="material-symbols-outlined text-[19px] text-outline absolute left-3.5 top-1/2 -translate-y-1/2">search</span>
 <input class="w-full h-10 pl-10 pr-4 bg-surface-container-low rounded-xl font-body-md text-body-md text-on-surface placeholder:text-outline focus:outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary-container/30 transition-all" placeholder="Cari siswa, wali murid, program..." type="text">
 </div>
@@ -210,10 +215,15 @@
 <tbody class="divide-y divide-outline-variant/20 font-body-md text-body-md text-on-surface" id="payment-table-body">
 @forelse($payments as $pay)
 
+@php
+    $rowSearch = mb_strtolower($pay->student->name . ' ' . $pay->student->guardian_name . ' ' . $pay->student->program . ' ' . $pay->student->grade);
+    $rowBilling = $pay->student->billing_scheme === 'monthly' ? 'monthly' : 'per_session';
+@endphp
+
 @if($pay->status === 'lunas')
-<tr class="hover:bg-surface-container-low/50 transition-colors" data-status="paid"><td class="py-4 px-6"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-bold font-label-lg shrink-0 shadow-xs">{{ \App\Support\Fmt::initials($pay->student->name) }}</div><div class="flex flex-col min-w-0"><span class="font-label-lg text-label-lg font-bold text-on-surface truncate">{{ $pay->student->name }}</span><span class="font-body-sm text-[12px] text-on-surface-variant">{{ $pay->student->grade }} • Wali: {{ $pay->student->guardian_name }} (<span class="font-mono">{{ $pay->student->guardian_phone }}</span>)</span></div></div></td><td class="py-4 px-4 font-medium"><span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-surface-container text-on-surface text-label-md font-semibold whitespace-nowrap"><span class="w-2 h-2 rounded-full bg-tertiary shrink-0"></span><span class="truncate">{{ $pay->student->program }}</span></span></td><td class="py-4 px-4"><span class="font-label-md text-label-md text-on-surface-variant font-medium whitespace-nowrap">{{ $pay->student->billing_scheme === 'monthly' ? 'Bulanan (Paket 8 Sesi)' : 'Per Pertemuan (Pay per Session)' }}</span></td><td class="py-4 px-4"><span class="font-label-md text-label-md font-semibold text-on-surface whitespace-nowrap">{{ $pay->sessions_label }}</span></td><td class="py-4 px-4"><span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-md text-label-md font-bold whitespace-nowrap shrink-0"><span class="material-symbols-outlined text-[15px]">check_circle</span>Lunas</span></td><td class="py-4 px-5"><div class="flex flex-col whitespace-nowrap"><span class="text-on-surface font-semibold font-label-md text-label-md">{{ $pay->paid_at ? \App\Support\Fmt::dateShort($pay->paid_at) : "-" }}</span><span class="text-on-surface-variant text-[11px] font-body-sm">{{ $pay->method ?: "-" }} • {{ \App\Support\Fmt::rupiah($pay->amount) }}</span></div></td><td class="py-4 px-6 text-right"><button class="px-3 py-1.5 bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md rounded-lg inline-flex items-center gap-1.5 transition-colors whitespace-nowrap" type="button"><span class="material-symbols-outlined text-[16px] text-on-surface-variant">receipt_long</span><span class="">{{ $pay->receipt_no ?: "Kuitansi" }}</span></button></td></tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors" data-status="paid" data-search="{{ $rowSearch }}" data-billing="{{ $rowBilling }}"><td class="py-4 px-6"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-bold font-label-lg shrink-0 shadow-xs">{{ \App\Support\Fmt::initials($pay->student->name) }}</div><div class="flex flex-col min-w-0"><span class="font-label-lg text-label-lg font-bold text-on-surface truncate">{{ $pay->student->name }}</span><span class="font-body-sm text-[12px] text-on-surface-variant">{{ $pay->student->grade }} • Wali: {{ $pay->student->guardian_name }} (<span class="font-mono">{{ $pay->student->guardian_phone }}</span>)</span></div></div></td><td class="py-4 px-4 font-medium"><span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-surface-container text-on-surface text-label-md font-semibold whitespace-nowrap"><span class="w-2 h-2 rounded-full bg-tertiary shrink-0"></span><span class="truncate">{{ $pay->student->program }}</span></span></td><td class="py-4 px-4"><span class="font-label-md text-label-md text-on-surface-variant font-medium whitespace-nowrap">{{ $pay->student->billing_scheme === 'monthly' ? 'Bulanan (Paket 8 Sesi)' : 'Per Pertemuan (Pay per Session)' }}</span></td><td class="py-4 px-4"><span class="font-label-md text-label-md font-semibold text-on-surface whitespace-nowrap">{{ $pay->sessions_label }}</span></td><td class="py-4 px-4"><span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-md text-label-md font-bold whitespace-nowrap shrink-0"><span class="material-symbols-outlined text-[15px]">check_circle</span>Lunas</span></td><td class="py-4 px-5"><div class="flex flex-col whitespace-nowrap"><span class="text-on-surface font-semibold font-label-md text-label-md">{{ $pay->paid_at ? \App\Support\Fmt::dateShort($pay->paid_at) : "-" }}</span><span class="text-on-surface-variant text-[11px] font-body-sm">{{ $pay->method ?: "-" }} • {{ \App\Support\Fmt::rupiah($pay->amount) }}</span></div></td><td class="py-4 px-6 text-right"><button data-receipt="{{ $pay->id }}" class="px-3 py-1.5 bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md rounded-lg inline-flex items-center gap-1.5 transition-colors whitespace-nowrap" type="button"><span class="material-symbols-outlined text-[16px] text-on-surface-variant">receipt_long</span><span class="">{{ $pay->receipt_no ?: "Kuitansi" }}</span></button></td></tr>
 @else
-<tr class="hover:bg-surface-container-low/50 transition-colors" data-status="pending"><td class="py-4 px-6"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-bold font-label-lg shrink-0 shadow-xs">{{ \App\Support\Fmt::initials($pay->student->name) }}</div><div class="flex flex-col min-w-0"><span class="font-label-lg text-label-lg font-bold text-on-surface truncate">{{ $pay->student->name }}</span><span class="font-body-sm text-[12px] text-on-surface-variant">{{ $pay->student->grade }} • Wali: {{ $pay->student->guardian_name }} (<span class="font-mono">{{ $pay->student->guardian_phone }}</span>)</span></div></div></td><td class="py-4 px-4 font-medium"><span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-surface-container text-on-surface text-label-md font-semibold whitespace-nowrap"><span class="w-2 h-2 rounded-full bg-primary-container shrink-0"></span><span class="truncate">{{ $pay->student->program }}</span></span></td><td class="py-4 px-4"><span class="font-label-md text-label-md text-on-surface-variant font-medium whitespace-nowrap">{{ $pay->student->billing_scheme === 'monthly' ? 'Bulanan (Paket 8 Sesi)' : 'Per Pertemuan (Pay per Session)' }}</span></td><td class="py-4 px-4"><div class="flex items-center gap-1.5 font-label-md text-label-md font-semibold text-on-surface whitespace-nowrap"><span class="">{{ $pay->sessions_label }}</span><span class="material-symbols-outlined text-secondary text-[16px]">check</span></div></td><td class="py-4 px-4"><span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-error-container text-error font-label-md text-label-md font-bold whitespace-nowrap shrink-0"><span class="material-symbols-outlined text-[15px]">schedule</span>Belum Bayar</span></td><td class="py-4 px-5"><div class="flex flex-col whitespace-nowrap"><span class="text-error font-semibold font-label-md text-label-md">Tenggat: {{ \App\Support\Fmt::dateShort($pay->due_date) }}</span><span class="text-on-surface-variant text-[11px] font-body-sm">Tagihan: {{ \App\Support\Fmt::rupiah($pay->amount) }}</span></div></td><td class="py-4 px-6 text-right"><div class="flex items-center justify-end gap-2"><button class="btn-quick-pay px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg flex items-center gap-1.5 shadow-sm transition-colors whitespace-nowrap" data-amount="{{ number_format($pay->amount, 0, ',', '.') }}" data-pid="{{ $pay->id }}" data-grade="{{ $pay->student->grade }}" data-id="{{ $pay->student->code }}" data-name="{{ $pay->student->name }}" type="button"><span class="material-symbols-outlined text-[15px]">check</span><span class="">Catat</span></button><button class="p-1.5 rounded-lg text-secondary hover:bg-secondary-container/30 transition-colors" title="Kirim Reminder WhatsApp" data-wa="{{ \App\Support\Fmt::waLink($pay->student->guardian_phone, "Halo, mengingatkan tagihan les " . $pay->student->name . " periode " . $pay->period . " sebesar " . \App\Support\Fmt::rupiah($pay->amount) . ".") }}" type="button"><span class="material-symbols-outlined text-[20px]">chat</span></button></div></td></tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors" data-status="pending" data-search="{{ $rowSearch }}" data-billing="{{ $rowBilling }}"><td class="py-4 px-6"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-bold font-label-lg shrink-0 shadow-xs">{{ \App\Support\Fmt::initials($pay->student->name) }}</div><div class="flex flex-col min-w-0"><span class="font-label-lg text-label-lg font-bold text-on-surface truncate">{{ $pay->student->name }}</span><span class="font-body-sm text-[12px] text-on-surface-variant">{{ $pay->student->grade }} • Wali: {{ $pay->student->guardian_name }} (<span class="font-mono">{{ $pay->student->guardian_phone }}</span>)</span></div></div></td><td class="py-4 px-4 font-medium"><span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-surface-container text-on-surface text-label-md font-semibold whitespace-nowrap"><span class="w-2 h-2 rounded-full bg-primary-container shrink-0"></span><span class="truncate">{{ $pay->student->program }}</span></span></td><td class="py-4 px-4"><span class="font-label-md text-label-md text-on-surface-variant font-medium whitespace-nowrap">{{ $pay->student->billing_scheme === 'monthly' ? 'Bulanan (Paket 8 Sesi)' : 'Per Pertemuan (Pay per Session)' }}</span></td><td class="py-4 px-4"><div class="flex items-center gap-1.5 font-label-md text-label-md font-semibold text-on-surface whitespace-nowrap"><span class="">{{ $pay->sessions_label }}</span><span class="material-symbols-outlined text-secondary text-[16px]">check</span></div></td><td class="py-4 px-4"><span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-error-container text-error font-label-md text-label-md font-bold whitespace-nowrap shrink-0"><span class="material-symbols-outlined text-[15px]">schedule</span>Belum Bayar</span></td><td class="py-4 px-5"><div class="flex flex-col whitespace-nowrap"><span class="text-error font-semibold font-label-md text-label-md">Tenggat: {{ \App\Support\Fmt::dateShort($pay->due_date) }}</span><span class="text-on-surface-variant text-[11px] font-body-sm">Tagihan: {{ \App\Support\Fmt::rupiah($pay->amount) }}</span></div></td><td class="py-4 px-6 text-right"><div class="flex items-center justify-end gap-2"><button class="btn-quick-pay px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg flex items-center gap-1.5 shadow-sm transition-colors whitespace-nowrap" data-amount="{{ number_format($pay->amount, 0, ',', '.') }}" data-pid="{{ $pay->id }}" data-grade="{{ $pay->student->grade }}" data-id="{{ $pay->student->code }}" data-name="{{ $pay->student->name }}" type="button"><span class="material-symbols-outlined text-[15px]">check</span><span class="">Catat</span></button><button class="p-1.5 rounded-lg text-secondary hover:bg-secondary-container/30 transition-colors" title="Kirim Reminder WhatsApp" data-wa="{{ \App\Support\Fmt::waLink($pay->student->guardian_phone, "Halo, mengingatkan tagihan les " . $pay->student->name . " periode " . $pay->period . " sebesar " . \App\Support\Fmt::rupiah($pay->amount) . ".") }}" type="button"><span class="material-symbols-outlined text-[20px]">chat</span></button></div></td></tr>
 @endif
 
 @empty
@@ -228,7 +238,7 @@
         Menampilkan <span class="font-semibold text-on-surface">{{ $payments->firstItem() ?? 0 }}–{{ $payments->lastItem() ?? 0 }}</span> dari <span class="font-semibold text-on-surface">{{ $payments->total() }}</span> data pembayaran
       </span>
 <div class="flex items-center gap-1.5">
-<button {{ $payments->onFirstPage() ? "disabled" : "" }} data-go="{{ $payments->previousPageUrl() }}" class="h-8 px-3 rounded-lg bg-surface-container-lowest text-outline font-label-sm text-label-sm font-semibold opacity-60 cursor-not-allowed flex items-center gap-1" type="button">
+<button {{ $payments->onFirstPage() ? "disabled" : "" }} data-go="{{ $payments->previousPageUrl() }}" class="h-8 px-3 rounded-lg bg-surface-container-lowest font-label-sm text-label-sm font-semibold flex items-center gap-1 {{ $payments->onFirstPage() ? 'text-outline opacity-60 cursor-not-allowed' : 'text-on-surface hover:bg-surface-container' }}" type="button">
 <span class="material-symbols-outlined text-[16px]">chevron_left</span>
 <span class="">Sebelumnya</span>
 </button>
@@ -239,27 +249,17 @@
 <button data-go="{{ $payments->url($pg) }}" class="w-8 h-8 rounded-lg bg-surface-container-lowest hover:bg-surface-container text-on-surface font-label-sm text-label-sm font-semibold flex items-center justify-center" type="button">{{ $pg }}</button>
 @endif
 @endforeach
-<button {{ $payments->hasMorePages() ? "" : "disabled" }} data-go="{{ $payments->nextPageUrl() }}" class="h-8 px-3 rounded-lg bg-surface-container-lowest hover:bg-surface-container text-on-surface font-label-sm text-label-sm font-semibold flex items-center gap-1" type="button">
+<button {{ $payments->hasMorePages() ? "" : "disabled" }} data-go="{{ $payments->nextPageUrl() }}" class="h-8 px-3 rounded-lg bg-surface-container-lowest font-label-sm text-label-sm font-semibold flex items-center gap-1 {{ $payments->hasMorePages() ? 'text-on-surface hover:bg-surface-container' : 'text-outline opacity-60 cursor-not-allowed' }}" type="button">
 <span class="">Berikutnya</span>
 <span class="material-symbols-outlined text-[16px]">chevron_right</span>
 </button>
 </div>
 </div>
 </div>
-<!-- Visual State Feedback Simulation Section -->
-<div class="bg-surface-container-lowest rounded-2xl p-6 shadow-xs flex flex-col gap-4">
-<div class="flex items-center justify-between">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-primary-container text-[22px]">sync_alt</span>
-<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Simulasi Live State Status Pelunasan</h3>
-</div>
-<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Otomatisasi Sistem Pembayaran Cabang</span>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 rounded-xl bg-surface-container-low"><!-- State 1: Sebelum Tercatat --><div class="p-4 rounded-xl bg-surface-container-lowest flex flex-col gap-3 shadow-xs min-w-0"><div class="flex items-center justify-between gap-3 whitespace-nowrap"><span class="font-label-md text-label-md font-bold text-on-surface-variant uppercase tracking-wider shrink-0 whitespace-nowrap">Status Awal (Tertunda)</span><span class="px-2.5 py-0.5 rounded-full bg-error-container text-error font-label-sm text-label-sm font-bold inline-flex items-center gap-1 shrink-0 whitespace-nowrap"><span class="material-symbols-outlined text-[14px]">schedule</span> Belum Bayar</span></div><div class="flex items-center gap-3 min-w-0"><div class="w-9 h-9 rounded-full bg-surface-container text-on-surface flex items-center justify-center font-bold font-label-md shrink-0">KP</div><div class="min-w-0 flex-1"><div class="font-label-lg text-label-lg font-bold text-on-surface truncate">Kevin Pratama (Kelas 10 SMA)</div><div class="text-error font-body-sm text-[12px] font-semibold truncate">Sisa Tagihan Periode: Rp 750.000</div></div></div><div class="text-[12px] font-body-sm text-on-surface-variant leading-relaxed">Status sistem menandai wali murid belum melampirkan slip validasi BCA/Mandiri atau kwitansi tunai.</div></div><!-- State 2: Sesudah Validasi Form --><div class="p-4 rounded-xl bg-surface-container-lowest flex flex-col gap-3 shadow-xs min-w-0"><div class="flex items-center justify-between gap-3 whitespace-nowrap"><span class="font-label-md text-label-md font-bold text-secondary uppercase tracking-wider shrink-0 whitespace-nowrap">Status Validasi (Terbaru)</span><span class="px-2.5 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-bold inline-flex items-center gap-1 shrink-0 whitespace-nowrap"><span class="material-symbols-outlined text-[14px]">check_circle</span> Lunas</span></div><div class="flex items-center gap-3 min-w-0"><div class="w-9 h-9 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center font-bold font-label-md shrink-0">KP</div><div class="min-w-0 flex-1"><div class="font-label-lg text-label-lg font-bold text-on-surface truncate">Kevin Pratama • Validasi Berhasil</div><div class="text-secondary font-body-sm text-[12px] font-semibold truncate">Tercatat 06 Okt 2026 • Kuitansi #KW-2026-1048</div></div></div><div class="text-[12px] font-body-sm text-on-surface-variant leading-relaxed">Kuitansi digital otomatis dibuatkan, status tagihan nol (lunas), dan notifikasi terima kasih terkirim ke WhatsApp wali.</div></div></div>
-</div>
+
 <!-- Modal Dialog: Catat Pembayaran Siswa -->
 <div class="fixed inset-0 z-50 flex items-center justify-center bg-inverse-surface/40 backdrop-blur-xs p-4 hidden" id="payment-modal">
-<div class="w-full max-w-xl bg-surface-container-lowest rounded-2xl shadow-xl flex flex-col overflow-hidden max-h-[942px] animate-in fade-in zoom-in-95 duration-200">
+<div class="w-full max-w-xl bg-surface-container-lowest rounded-2xl shadow-xl flex flex-col overflow-hidden max-h-[90vh] animate-in fade-in zoom-in-95 duration-200">
 <!-- Modal Header -->
 <div class="px-6 py-5 bg-surface-container-low flex items-center justify-between shrink-0">
 <div class="flex items-center gap-3">
@@ -276,7 +276,7 @@
 </button>
 </div>
 <!-- Modal Body (Form) -->
-<div class="px-6 py-5 overflow-y-auto flex flex-col gap-5">
+<div class="px-6 py-5 overflow-y-auto flex flex-col gap-5 flex-1 min-h-0">
 <!-- Field 1: Pilih Siswa -->
 <div class="flex flex-col gap-1.5">
 <label class="font-label-md text-label-md font-bold text-on-surface">Pilih Siswa &amp; Rekening Tagihan <span class="text-error">*</span></label>
@@ -291,16 +291,16 @@
 <!-- Field 2: Periode Pembayaran -->
 <div class="flex flex-col gap-1.5">
 <label class="font-label-md text-label-md font-bold text-on-surface">Periode Les</label>
-<input class="w-full h-11 px-3.5 bg-surface-container rounded-xl font-label-md text-label-md text-on-surface font-semibold focus:outline-none cursor-default" readonly="" type="text" value="Oktober 2026">
+<input class="w-full h-11 px-3.5 bg-surface-container rounded-xl font-label-md text-label-md text-on-surface font-semibold focus:outline-none cursor-default" readonly="" type="text" value="{{ \App\Support\Fmt::period() }}">
 </div>
 <!-- Field 3: Nominal Pembayaran -->
 <div class="flex flex-col gap-1.5">
 <label class="font-label-md text-label-md font-bold text-on-surface">Nominal Bayar (Rp) <span class="text-error">*</span></label>
 <div class="relative">
 <span class="absolute left-3.5 top-1/2 -translate-y-1/2 font-label-md text-label-md font-bold text-on-surface-variant">Rp</span>
-<input class="w-full h-11 pl-11 pr-3.5 bg-surface-container-low rounded-xl font-label-lg text-label-lg font-bold text-on-surface focus:outline-none focus:ring-2 focus:ring-primary-container/30 transition-all" id="modal-input-amount" type="text" value="750.000">
+<input class="w-full h-11 pl-11 pr-3.5 bg-surface-container-low rounded-xl font-label-lg text-label-lg font-bold text-on-surface focus:outline-none focus:ring-2 focus:ring-primary-container/30 transition-all" id="modal-input-amount" type="text" value="">
 </div>
-<span class="text-[11px] font-body-sm text-secondary font-medium">Tagihan otomatis 8 sesi les bulanan</span>
+<span class="text-[11px] font-body-sm text-secondary font-medium">Nominal otomatis mengikuti tagihan siswa</span>
 </div>
 </div>
 <!-- Field 4: Tanggal Bayar -->
@@ -308,7 +308,7 @@
 <label class="font-label-md text-label-md font-bold text-on-surface">Tanggal Diterima / Bayar <span class="text-error">*</span></label>
 <div class="relative">
 <span class="material-symbols-outlined text-[19px] text-outline absolute left-3.5 top-1/2 -translate-y-1/2">event</span>
-<input class="w-full h-11 pl-11 pr-3.5 bg-surface-container-low rounded-xl font-body-md text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary-container/30 transition-all" type="date" value="2026-10-06">
+<input class="w-full h-11 pl-11 pr-3.5 bg-surface-container-low rounded-xl font-body-md text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary-container/30 transition-all" type="date" value="{{ now()->toDateString() }}">
 </div>
 </div>
 <!-- Field 5: Metode Pembayaran (Radio Cards) -->
@@ -334,12 +334,12 @@
 <!-- Field 6: Nomor Referensi / Bukti Transfer -->
 <div class="flex flex-col gap-1.5">
 <label class="font-label-md text-label-md font-bold text-on-surface">Nomor Referensi Transaksi (Opsional)</label>
-<input class="w-full h-11 px-3.5 bg-surface-container-low rounded-xl font-body-md text-body-md text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary-container/30 transition-all" placeholder="e.g. TRX-BCA-98124482 atau Nomor Resi" type="text" value="TRX-BCA-98124482">
+<input class="w-full h-11 px-3.5 bg-surface-container-low rounded-xl font-body-md text-body-md text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary-container/30 transition-all" placeholder="e.g. TRX-BCA-98124482 atau Nomor Resi" type="text" value="">
 </div>
 <!-- Field 7: Catatan Tambahan -->
 <div class="flex flex-col gap-1.5">
 <label class="font-label-md text-label-md font-bold text-on-surface">Catatan Admin Cabang</label>
-<textarea class="w-full p-3.5 bg-surface-container-low rounded-xl font-body-md text-body-md text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary-container/30 transition-all" rows="2">Konfirmasi via WhatsApp orang tua Ibu Melani pada 06 Okt 2026 14:20 WIB</textarea>
+<textarea class="w-full p-3.5 bg-surface-container-low rounded-xl font-body-md text-body-md text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary-container/30 transition-all" rows="2" placeholder="Catatan tambahan (opsional)"></textarea>
 </div>
 <!-- Kotak Info Notifikasi -->
 <div class="p-3.5 rounded-xl bg-surface-container text-on-surface font-body-sm text-[12px] flex items-start gap-2.5">
@@ -378,18 +378,10 @@ window.__twcfg = tailwind.config={"darkMode":"class","corePlugins":{"preflight":
     const openBtn = document.getElementById('btn-open-payment-modal');
     const closeBtn = document.getElementById('btn-close-modal');
     const cancelBtn = document.getElementById('btn-cancel-modal');
-    const submitBtn = document.getElementById('btn-submit-payment');
-    const selectStudent = document.getElementById('modal-select-student');
-    const inputAmount = document.getElementById('modal-input-amount');
     const quickPayBtns = document.querySelectorAll('.btn-quick-pay');
 
-    function showModal() {
-      if (modal) modal.classList.remove('hidden');
-    }
-
-    function hideModal() {
-      if (modal) modal.classList.add('hidden');
-    }
+    function showModal() { if (modal) modal.classList.remove('hidden'); }
+    function hideModal() { if (modal) modal.classList.add('hidden'); }
 
     if (openBtn) openBtn.addEventListener('click', showModal);
     if (closeBtn) closeBtn.addEventListener('click', hideModal);
@@ -399,51 +391,18 @@ window.__twcfg = tailwind.config={"darkMode":"class","corePlugins":{"preflight":
       if (e.target === modal) hideModal();
     });
 
-    quickPayBtns.forEach(btn => {
-      btn.addEventListener('click', function () {
-        const studentName = this.getAttribute('data-name');
-        const studentAmount = this.getAttribute('data-amount');
-        if (inputAmount) inputAmount.value = studentAmount;
-        showModal();
-      });
-    });
+    quickPayBtns.forEach(btn => btn.addEventListener('click', showModal));
 
-    if (submitBtn) {
-      submitBtn.addEventListener('click', function () {
-        this.innerHTML = '<span class="material-symbols-outlined text-[19px] animate-spin">refresh</span> Menyimpan...';
-        setTimeout(() => {
-          this.innerHTML = '<span class="material-symbols-outlined text-[19px]">check</span> Tersimpan!';
-          setTimeout(() => {
-            hideModal();
-            this.innerHTML = '<span class="material-symbols-outlined text-[19px]">check_circle</span> <span>+ Simpan &amp; Terbitkan Kuitansi</span>';
-          }, 600);
-        }, 800);
-      });
-    }
-
-    // Segmented tab logic
+    // Segmented tab logic (gaya tombol aktif)
     const tabBtns = document.querySelectorAll('.filter-tab-btn');
-    const rows = document.querySelectorAll('#payment-table-body tr');
-
     tabBtns.forEach(btn => {
       btn.addEventListener('click', function () {
         tabBtns.forEach(b => {
           b.classList.remove('bg-surface-container-lowest', 'text-primary-container', 'shadow-xs', 'font-bold');
           b.classList.add('font-medium', 'text-on-surface-variant');
         });
-
         this.classList.add('bg-surface-container-lowest', 'text-primary-container', 'shadow-xs', 'font-bold');
         this.classList.remove('font-medium', 'text-on-surface-variant');
-
-        const filter = this.getAttribute('data-filter');
-        rows.forEach(row => {
-          const rowStatus = row.getAttribute('data-status');
-          if (filter === 'all' || rowStatus === filter) {
-            row.style.display = '';
-          } else {
-            row.style.display = 'none';
-          }
-        });
       });
     });
   })();
@@ -455,6 +414,7 @@ const API = {!! json_encode(url('/admin/pembayaran')) !!}; const PP = {!! json_e
 const Q = new URLSearchParams(location.search);
 const modal = document.getElementById('payment-modal'), selS = document.getElementById('modal-select-student'), amt = document.getElementById('modal-input-amount');
 const dateIn = modal.querySelector('input[type=date]'); const refIn = modal.querySelector('input[placeholder^="e.g. TRX"]'); if (refIn) refIn.value = '';
+const noteIn = modal.querySelector('textarea'); if (noteIn) noteIn.value = '';
 dateIn.value = {!! json_encode(now()->toDateString()) !!};
 function fill(id) { const d = PP[id]; if (!d) return; selS.value = id; amt.value = d.amount_fmt; }
 selS.addEventListener('change', () => fill(selS.value)); if (selS.value) fill(selS.value);
@@ -464,7 +424,7 @@ document.getElementById('btn-submit-payment').addEventListener('click', async e 
   e.stopImmediatePropagation();
   if (!selS.value) return OPC.toast('Tidak ada tagihan yang perlu dicatat.', false);
   const meth = (modal.querySelector('input[name=payment_method]:checked') || {}).value;
-  try { const j = await OPC.post(API + '/' + selS.value + '/lunas', {amount: amt.value.replace(/\D/g, ''), paid_at: dateIn.value, method: meth, ref: refIn ? refIn.value : ''}); modal.classList.add('hidden'); OPC.done(j, 'reload'); } catch (err) {}
+  try { const j = await OPC.post(API + '/' + selS.value + '/lunas', {amount: amt.value.replace(/\D/g, ''), paid_at: dateIn.value, method: meth, ref: refIn ? refIn.value : '', note: noteIn ? noteIn.value : ''}); modal.classList.add('hidden'); OPC.done(j, 'reload'); } catch (err) {}
 }, true);
 OPC.on('Ekspor Laporan', () => OPC.go({!! json_encode(route('admin.export', 'pembayaran')) !!}));
 document.querySelectorAll('button[data-wa]').forEach(b => b.addEventListener('click', () => window.open(b.dataset.wa, '_blank')));
@@ -472,11 +432,18 @@ document.querySelectorAll('button[data-receipt]').forEach(b => b.addEventListene
 // filter
 const rows = [...document.querySelectorAll('#payment-table-body tr[data-status]')]; const qi = document.querySelector('input[placeholder^="Cari siswa"]'); const sels = [...document.querySelectorAll('select')].filter(s => s.id !== 'modal-select-student');
 qi.value = Q.get('q') || '';
-function run() { const v = qi.value.toLowerCase(); const tab = (document.querySelector('.filter-tab-btn.font-bold') || {dataset: {filter: 'all'}}).dataset.filter; const sys = sels[0] ? sels[0].selectedIndex : 0, prog = sels[1] ? sels[1].value : '';
-  rows.forEach(r => { let ok = (!v || r.dataset.search.includes(v)) && (tab === 'all' || r.dataset.status === tab);
-    if (sys === 1) ok = ok && r.dataset.billing === 'monthly'; if (sys === 2) ok = ok && r.dataset.billing === 'per_session';
+function run() {
+  const v = qi.value.toLowerCase();
+  const tab = (document.querySelector('.filter-tab-btn.font-bold') || {dataset: {filter: 'all'}}).dataset.filter;
+  const sys = sels[0] ? sels[0].selectedIndex : 0;
+  rows.forEach(r => {
+    let ok = (!v || (r.dataset.search || '').includes(v)) && (tab === 'all' || r.dataset.status === tab);
+    if (sys === 1) ok = ok && r.dataset.billing === 'monthly';
+    if (sys === 2) ok = ok && r.dataset.billing === 'per_session';
     if (sels[1] && sels[1].selectedIndex > 0) ok = ok && r.textContent.toLowerCase().includes(sels[1].selectedOptions[0].textContent.toLowerCase().split(' &')[0].split(' ')[0]);
-    r.style.display = ok ? '' : 'none'; }); }
+    r.style.display = ok ? '' : 'none';
+  });
+}
 qi.addEventListener('input', run); sels.forEach(s => s.addEventListener('change', run)); document.querySelectorAll('.filter-tab-btn').forEach(b => b.addEventListener('click', () => setTimeout(run, 0)));
 if (Q.get('student')) { const n = {!! json_encode($studentFilterName ?? '') !!}; if (n) { qi.value = n; run(); } }
 document.querySelectorAll('div').forEach(d => { if (d.firstElementChild && d.firstElementChild.textContent.trim() === 'Periode Aktif') { d.closest('div[class*=cursor], div[class*=rounded]').addEventListener('click', () => OPC.toast('Periode aktif: ' + d.lastElementChild.textContent.trim(), true)); } });
