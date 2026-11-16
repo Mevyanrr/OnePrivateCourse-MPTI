@@ -108,9 +108,30 @@
 <div class="bg-surface-container-lowest p-3.5 rounded-2xl border border-outline-variant/40 shadow-xs flex flex-wrap items-center justify-between gap-3">
 <div class="flex flex-wrap items-center gap-2.5 w-full lg:w-auto">
 <div class="flex items-center bg-surface-container-low hover:bg-surface-container border border-outline-variant/30 rounded-xl px-3 py-1.5 text-on-surface gap-2 cursor-pointer transition-colors min-w-[170px]"><span class="material-symbols-outlined text-primary-container text-[18px]">calendar_month</span><div class="flex flex-col"><span class="font-label-sm text-[10px] text-on-surface-variant">Periode Belajar</span><span class="font-label-md text-label-md font-semibold text-on-surface">Oktober 2026</span></div><span class="material-symbols-outlined text-outline ml-auto text-[16px]">expand_more</span></div>
-<div class="flex items-center bg-surface-container-low hover:bg-surface-container border border-outline-variant/30 rounded-xl px-3 py-1.5 text-on-surface gap-2 cursor-pointer transition-colors min-w-[190px]"><span class="material-symbols-outlined text-on-surface-variant text-[18px]">school</span><div class="flex flex-col"><span class="font-label-sm text-[10px] text-on-surface-variant">Filter Siswa</span><span class="font-label-md text-label-md font-semibold text-on-surface">Semua Siswa ({{ $m['students'] }})</span></div><span class="material-symbols-outlined text-outline ml-auto text-[16px]">expand_more</span></div>
-<div class="flex items-center bg-surface-container-low hover:bg-surface-container border border-outline-variant/30 rounded-xl px-3 py-1.5 text-on-surface gap-2 cursor-pointer transition-colors min-w-[185px]"><span class="material-symbols-outlined text-on-surface-variant text-[18px]">person_celebrate</span><div class="flex flex-col"><span class="font-label-sm text-[10px] text-on-surface-variant">Filter Tutor</span><span class="font-label-md text-label-md font-semibold text-on-surface">Semua Tutor ({{ $m['tutors'] }})</span></div><span class="material-symbols-outlined text-outline ml-auto text-[16px]">expand_more</span></div>
-<div class="flex items-center bg-surface-container-low hover:bg-surface-container border border-outline-variant/30 rounded-xl px-3 py-1.5 text-on-surface gap-2 cursor-pointer transition-colors min-w-[160px]"><span class="material-symbols-outlined text-on-surface-variant text-[18px]">filter_list</span><div class="flex flex-col"><span class="font-label-sm text-[10px] text-on-surface-variant">Status Sesi</span><span class="font-label-md text-label-md font-semibold text-on-surface">Semua Status</span></div><span class="material-symbols-outlined text-outline ml-auto text-[16px]">expand_more</span></div>
+<div data-filter="student" class="flex items-center bg-surface-container-low hover:bg-surface-container border border-outline-variant/30 rounded-xl px-3 py-1.5 text-on-surface gap-2 cursor-pointer transition-colors min-w-[190px]">
+    <span class="material-symbols-outlined text-on-surface-variant text-[18px]">school</span>
+    <div class="flex flex-col">
+        <span class="font-label-sm text-[10px] text-on-surface-variant">Filter Siswa</span>
+        <span data-filter-value="student" class="font-label-md text-label-md font-semibold text-on-surface">Semua Siswa ({{ $m['students'] }})</span>
+    </div>
+    <span class="material-symbols-outlined text-outline ml-auto text-[16px]">expand_more</span>
+</div>
+<div data-filter="tutor" class="flex items-center bg-surface-container-low hover:bg-surface-container border border-outline-variant/30 rounded-xl px-3 py-1.5 text-on-surface gap-2 cursor-pointer transition-colors min-w-[185px]">
+    <span class="material-symbols-outlined text-on-surface-variant text-[18px]">person_celebrate</span>
+    <div class="flex flex-col">
+        <span class="font-label-sm text-[10px] text-on-surface-variant">Filter Tutor</span>
+        <span data-filter-value="tutor" class="font-label-md text-label-md font-semibold text-on-surface">Semua Tutor ({{ $m['tutors'] }})</span>
+    </div>
+    <span class="material-symbols-outlined text-outline ml-auto text-[16px]">expand_more</span>
+</div>
+<div data-filter="status" class="flex items-center bg-surface-container-low hover:bg-surface-container border border-outline-variant/30 rounded-xl px-3 py-1.5 text-on-surface gap-2 cursor-pointer transition-colors min-w-[160px]">
+    <span class="material-symbols-outlined text-on-surface-variant text-[18px]">filter_list</span>
+    <div class="flex flex-col">
+        <span class="font-label-sm text-[10px] text-on-surface-variant">Status Sesi</span>
+        <span data-filter-value="status" class="font-label-md text-label-md font-semibold text-on-surface">Semua Status</span>
+    </div>
+    <span class="material-symbols-outlined text-outline ml-auto text-[16px]">expand_more</span>
+</div>
 </div>
 <div class="flex items-center bg-surface-container-low border border-outline-variant/40 rounded-xl px-3 py-2 w-full lg:w-80 focus-within:border-primary-container focus-within:bg-surface-container-lowest transition-all"><span class="material-symbols-outlined text-outline text-[18px] mr-2">search</span><input class="bg-transparent font-body-sm text-[13px] text-on-surface placeholder:text-outline focus:outline-none focus:ring-0 border-0 p-0 w-full" placeholder="Cari materi, nama siswa, atau tutor..." type="text"><span class="font-label-sm text-[10px] bg-surface-container px-1.5 py-0.5 rounded text-on-surface-variant border border-outline-variant/30">⌘K</span></div>
 </div>
@@ -327,17 +348,33 @@ document.querySelectorAll('button[title="Ubah Catatan"]').forEach(b => b.addEven
 OPC.on('Surat Izin', () => OPC.toast('Surat izin dikirim via WhatsApp ke Admin Cabang.', true), {sel: 'button'});
 OPC.on('Lihat Detail', () => {}, {sel: 'button'});
 document.querySelectorAll('tbody button').forEach(b => { if (OPC.label(b) === 'Lihat Detail') b.addEventListener('click', () => { const tr = b.closest('tr'); OPC.toast(tr.querySelector('p') ? tr.querySelector('p').textContent.slice(0, 160) : 'Tidak ada jurnal.', true); }); });
+
 // pencarian
 const qi = document.querySelector('input[placeholder^="Cari materi"]'); const trs = [...document.querySelectorAll('#tabContentLog tbody tr[data-id], #tabContentRekap tbody tr')];
 const Q = new URLSearchParams(location.search); qi.value = Q.get('q') || '';
 qi.addEventListener('input', () => { const v = qi.value.toLowerCase(); trs.forEach(t => t.style.display = t.textContent.toLowerCase().includes(v) ? '' : 'none'); });
-// filter kartu (siswa / tutor / status) via dialog
-const filters = [...document.querySelectorAll('div')].filter(d => ['Filter Siswa', 'Filter Tutor', 'Status Sesi'].some(x => d.firstElementChild && d.firstElementChild.textContent.trim() === x));
+
+// filter siswa / tutor / status (pakai atribut data-filter & data-filter-value)
 function nav(k, v) { const u = new URL(location.href); u.searchParams.delete('page'); v ? u.searchParams.set(k, v) : u.searchParams.delete(k); location.href = u.toString(); }
 const FS = {!! json_encode($filterStudents) !!}, FT = {!! json_encode($filterTutors) !!};
-filters.forEach(f => { const box = f.closest('div[class*=cursor], div[class*=rounded]') || f.parentElement; box.style.cursor = 'pointer'; const t = f.firstElementChild.textContent.trim();
-  box.addEventListener('click', () => { if (t === 'Filter Siswa') OPC.dialog({title: 'Filter Siswa', fields: [{name: 'v', label: 'Siswa', type: 'select', value: Q.get('student') || '', options: [{v: '', t: 'Semua Siswa'}].concat(FS.map(s => ({v: s.id, t: s.name})))}], submit: 'Terapkan', onSubmit: async v => nav('student', v.v)});
-    if (t === 'Filter Tutor') OPC.dialog({title: 'Filter Tutor', fields: [{name: 'v', label: 'Tutor', type: 'select', value: Q.get('tutor') || '', options: [{v: '', t: 'Semua Tutor'}].concat(FT.map(s => ({v: s.id, t: s.name})))}], submit: 'Terapkan', onSubmit: async v => nav('tutor', v.v)});
-    if (t === 'Status Sesi') OPC.dialog({title: 'Status Sesi', fields: [{name: 'v', label: 'Status', type: 'select', value: Q.get('status') || '', options: [{v: '', t: 'Semua Status'}, {v: 'hadir', t: 'Hadir'}, {v: 'izin', t: 'Izin'}, {v: 'sakit', t: 'Sakit'}, {v: 'belum', t: 'Belum Diisi'}]}], submit: 'Terapkan', onSubmit: async v => nav('status', v.v)}); }); });
+const FILTERS = {
+  student: {title: 'Filter Siswa', label: 'Siswa', param: 'student', allText: 'Semua Siswa', options: [{v: '', t: 'Semua Siswa'}].concat(FS.map(s => ({v: String(s.id), t: s.name})))},
+  tutor:   {title: 'Filter Tutor', label: 'Tutor', param: 'tutor', allText: 'Semua Tutor', options: [{v: '', t: 'Semua Tutor'}].concat(FT.map(s => ({v: String(s.id), t: s.name})))},
+  status:  {title: 'Status Sesi', label: 'Status', param: 'status', allText: 'Semua Status', options: [{v: '', t: 'Semua Status'}, {v: 'hadir', t: 'Hadir'}, {v: 'izin', t: 'Izin'}, {v: 'sakit', t: 'Sakit'}, {v: 'belum', t: 'Belum Diisi'}]}
+};
+document.querySelectorAll('[data-filter]').forEach(box => {
+  const cfg = FILTERS[box.dataset.filter]; if (!cfg) return;
+  const current = Q.get(cfg.param) || '';
+  const valEl = box.querySelector('[data-filter-value]');
+  const active = cfg.options.find(o => o.v === current);
+  if (valEl && current && active) { valEl.textContent = active.t; valEl.classList.add('text-primary-container'); }
+  box.style.cursor = 'pointer';
+  box.addEventListener('click', () => OPC.dialog({
+    title: cfg.title,
+    fields: [{name: 'v', label: cfg.label, type: 'select', value: current, options: cfg.options}],
+    submit: 'Terapkan',
+    onSubmit: async v => nav(cfg.param, v.v)
+  }));
+});
 </script>
 @endpush
