@@ -335,8 +335,10 @@ function fillModal(id) { const d = PEND[id]; if (!d) return; document.getElement
 const selSesi = document.getElementById('modalSelectSesi'); const fm = document.getElementById('formCatatPertemuan');
 fm.querySelector('textarea').value = '';
 selSesi.addEventListener('change', () => fillModal(selSesi.value)); if (selSesi.value) fillModal(selSesi.value);
-document.querySelectorAll('[data-prefill]').forEach(b => b.addEventListener('click', () => { fillModal(b.dataset.prefill); }));
-document.getElementById('btnSubmitModal').addEventListener('click', async e => {
+document.querySelectorAll('[data-prefill]').forEach(b => b.addEventListener('click', () => {
+  fillModal(b.dataset.prefill);
+  openModal();
+}));document.getElementById('btnSubmitModal').addEventListener('click', async e => {
   e.stopImmediatePropagation();
   const st = (fm.querySelector('input[name=statusHadir]:checked') || {}).value, al = (fm.querySelector('input[name=alasanAdmin]:checked') || {}).value;
   if (!selSesi.value) return OPC.toast('Tidak ada sesi yang perlu dicatat.', false);
