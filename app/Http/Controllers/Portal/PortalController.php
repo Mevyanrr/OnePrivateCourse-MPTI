@@ -312,12 +312,8 @@ class PortalController extends Controller
             )
             ->values();
 
-        $monthAtt = $att->filter(
-            fn ($a) => $a->session->date->isSameMonth($today)
-        );
-
-        $mTotal = $monthAtt->count();
-        $mHadir = $monthAtt->where('status', 'hadir')->count();
+        $mTotal = $att->count();
+$mHadir = $att->where('status', 'hadir')->count();
 
         $pct = $mTotal
             ? (int) round(($mHadir / $mTotal) * 100)
