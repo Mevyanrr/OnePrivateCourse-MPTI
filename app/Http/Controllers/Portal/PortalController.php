@@ -840,36 +840,65 @@ class PortalController extends Controller
         ]);
     }
 
-    public function presensiStore(Request $r, LessonSession $session)
-    {
-        $this->own($session);
+    
+public function presensiStore(Request $r, LessonSession $session)
+{
+    $this->own($session);
 
-        $d = $r->validate([
-            'status' => 'required|in:hadir,izin,sakit',
-            'understanding' => 'nullable|integer|min:1|max:5',
-            'note' => 'nullable|string|max:300',
-        ]);
-
-        $session->update([
-            'status' => 'selesai',
-        ]);
-
-        Attendance::updateOrCreate(
-            ['lesson_session_id' => $session->id],
-            [
-                'status' => $d['status'],
-                'understanding' => $d['understanding'] ?? null,
-                'note' => $d['note'] ?? null,
-                'journal' => $d['note'] ?? null,
-                'submitted_by' => auth()->user()->name . ' (Wali Murid)',
-                'submitted_at' => now(),
-            ]
-        );
-
+    // Sesi yang dibatalkan tidak dapat diisi presensi.
+    if ($session->status === 'batal') {
         return response()->json([
-            'message' => 'Presensi berhasil disimpan & diverifikasi.',
-        ]);
+            'message' => 'Sesi yang dibatalkan tidak dapat diisi presensi.',
+        ], 422);
     }
+
+        // Gunakan zona waktu WIB secara eksplisit.
+    $timezone = 'Asia/Jakarta';
+
+    $startAt = Carbon::parse(
+        $session->date->toDateString() . ' ' . $session->start_time,
+        $timezone
+    );
+
+    $endAt = Carbon::parse(
+        $session->date->toDateString() . ' ' . $session->end_time,
+        $timezone
+    )->addHours(2);
+
+    $currentTime = now($timezone);
+
+    if ($currentTime->lt($startAt) || $currentTime->gt($endAt)) {
+        return response()->json([
+            'message' => 'Presensi hanya dapat diisi sejak sesi dimulai hingga 2 jam setelah sesi berakhir.',
+        ], 422);
+    }
+
+    $d = $r->validate([
+        'status' => 'required|in:hadir,izin,sakit',
+        'understanding' => 'nullable|integer|min:1|max:5',
+        'note' => 'nullable|string|max:300',
+    ]);
+
+    $session->update([
+        'status' => 'selesai',
+    ]);
+
+    Attendance::updateOrCreate(
+        ['lesson_session_id' => $session->id],
+        [
+            'status' => $d['status'],
+            'understanding' => $d['understanding'] ?? null,
+            'note' => $d['note'] ?? null,
+            'journal' => $d['note'] ?? null,
+            'submitted_by' => auth()->user()->name . ' (Wali Murid)',
+            'submitted_at' => now(),
+        ]
+    );
+
+    return response()->json([
+        'message' => 'Presensi berhasil disimpan & diverifikasi.',
+    ]);
+}
 
     public function kuitansi(Payment $payment)
     {
