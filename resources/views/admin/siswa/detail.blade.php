@@ -113,19 +113,6 @@ Tergabung sejak {{ \App\Support\Fmt::dateLong($student->joined_at ?? $student->c
 <span class="material-symbols-outlined text-[18px]">badge</span>
 <span>Profil Siswa</span>
 </button>
-<button class="px-5 py-2.5 rounded-xl font-label-lg text-label-lg font-semibold text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors flex items-center gap-2" type="button">
-<span class="material-symbols-outlined text-[18px]">calendar_month</span>
-<span>Jadwal &amp; Sesi Les</span>
-</button>
-<button class="px-5 py-2.5 rounded-xl font-label-lg text-label-lg font-semibold text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors flex items-center gap-2" type="button">
-<span class="material-symbols-outlined text-[18px]">assignment_turned_in</span>
-<span>Presensi &amp; Laporan</span>
-<span class="px-1.5 py-0.5 rounded-md bg-secondary-container text-on-secondary-container font-label-sm text-[10px]">{{ $st['attTotal'] }}</span>
-</button>
-<button class="px-5 py-2.5 rounded-xl font-label-lg text-label-lg font-semibold text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors flex items-center gap-2" type="button">
-<span class="material-symbols-outlined text-[18px]">receipt_long</span>
-<span>Riwayat Pembayaran</span>
-</button>
 </div>
 <div class="hidden xl:flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm bg-surface-container-low px-3 py-1.5 rounded-xl">
 <span class="w-2 h-2 rounded-full bg-secondary"></span>
@@ -367,16 +354,6 @@ Catatan Sesi Terakhir
 <span class="font-label-sm text-[11px] text-on-surface-variant">Pemahaman: {{ $st['last']->understanding ?? '-' }} / 5</span>
 </div>
 </div>
-<div class="flex flex-col gap-2.5 pt-2">
-<button class="w-full h-11 px-4 rounded-xl bg-primary-container hover:bg-primary text-on-primary font-label-lg text-label-lg font-semibold transition-all shadow-sm flex items-center justify-center gap-2" type="button">
-<span class="material-symbols-outlined text-[18px]">fact_check</span>
-<span>Lihat Seluruh Presensi</span>
-</button>
-<button class="w-full h-11 px-4 rounded-xl bg-surface-container hover:bg-surface-container-high text-on-surface font-label-lg text-label-lg font-semibold transition-colors flex items-center justify-center gap-2" type="button">
-<span class="material-symbols-outlined text-[18px] text-secondary">add_card</span>
-<span>Catat Pembayaran Baru</span>
-</button>
-</div>
 </div>
 <div class="bg-surface-container-lowest rounded-2xl p-5 shadow-sm flex items-center justify-between">
 <div class="flex items-center gap-3">
@@ -391,7 +368,6 @@ Catatan Sesi Terakhir
 <button class="p-2 rounded-lg hover:bg-surface-container-low text-on-surface-variant transition-colors" title="Buka panduan" type="button">
 <span class="material-symbols-outlined text-[20px]">chevron_right</span>
 </button>
-</div>
 </div>
 </div>
 
@@ -413,11 +389,6 @@ const sid = {{ $student->id }};
 OPC.on('Cetak Biodata', () => window.print());
 OPC.on('Tambah Jadwal Sesi', () => OPC.go({!! json_encode(route('admin.jadwal.baru')) !!} + '?student=' + sid));
 OPC.on('Ubah Data', () => OPC.go({!! json_encode(route('admin.siswa.ubah', $student)) !!}));
-OPC.on('Jadwal & Sesi Les', () => OPC.go({!! json_encode(route('admin.jadwal')) !!} + '?student=' + sid), {sel:'button'});
-OPC.on('Presensi & Laporan', () => OPC.go({!! json_encode(route('admin.presensi')) !!} + '?student=' + sid), {sel:'button', exact:false});
-OPC.on('Riwayat Pembayaran', () => OPC.go({!! json_encode(route('admin.pembayaran')) !!} + '?student=' + sid), {sel:'button'});
-OPC.on('Lihat Seluruh Presensi', () => OPC.go({!! json_encode(route('admin.presensi')) !!} + '?student=' + sid));
-OPC.on('Catat Pembayaran Baru', () => OPC.go({!! json_encode(route('admin.pembayaran')) !!} + '?student=' + sid + '&catat=1'));
 OPC.on('Pusat Bantuan Sesi', () => window.open('https://wa.me/62895376551818','_blank'), {sel:'div', exact:false});
 document.querySelectorAll('button[title="Buka panduan"]').forEach(b => b.addEventListener('click', () => window.open('https://wa.me/62895376551818','_blank')));
 </script></body></html>
