@@ -17,7 +17,7 @@
     $pkgExpired = $pkgEnd ? $pkgEnd->isPast() : false;
 @endphp
 
-@include('siswa._sidebar', ['active' => 'jadwal'])<div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40"><div class="h-16 w-full px-8 flex items-center justify-between border-b border-surface-container-high/60"><div class="flex items-center gap-space-md"><div class="font-headline-sm text-headline-sm text-on-surface font-semibold tracking-tight">Portal Orang Tua &amp; Siswa</div><span class="text-outline-variant">•</span><div class="flex items-center gap-2 px-3.5 py-1.5 bg-surface-container-low rounded-full shadow-xs"><span class="material-symbols-outlined text-primary text-[18px]">school</span><span class="font-label-md text-label-md text-on-surface">Profil Aktif: <strong class="text-primary font-bold">{{ $child->name }}</strong> ({{ $child->grade }})</span></div></div><div class="flex items-center gap-4"><button aria-label="Pemberitahuan" class="relative p-2.5 rounded-xl text-on-surface-variant bg-surface-container-low hover:bg-surface-container hover:text-on-surface transition-colors shadow-xs" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-error ring-2 ring-surface"></span></button><div class="flex items-center gap-space-sm pl-2 border-l border-surface-container-high"><div class="text-right hidden sm:block"><div class="font-label-lg text-label-lg text-on-surface font-semibold leading-none">{{ \App\Support\Fmt::shortName(auth()->user()->name) !== "" ? preg_replace("/\s+(Kusumawardhani|Syakieb)$/", "", auth()->user()->name) : "" }}</div><div class="font-label-sm text-label-sm text-on-surface-variant mt-1">Wali Murid • {{ auth()->user()->branch }}</div></div><div class="w-9 h-9 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-sm shadow-xs"><span class="material-symbols-outlined text-[20px]">person</span></div></div></div></div></header><main class="relative w-full pt-16 bg-surface min-h-screen"><div class="flex flex-col w-full">
+@include('siswa._sidebar', ['active' => 'jadwal'])<div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40"><div class="h-16 w-full px-8 flex items-center justify-between border-b border-surface-container-high/60"><div class="flex items-center gap-space-md"><div class="font-headline-sm text-headline-sm text-on-surface font-semibold tracking-tight">Portal Orang Tua &amp; Siswa</div><span class="text-outline-variant">•</span><div class="flex items-center gap-2 px-3.5 py-1.5 bg-surface-container-low rounded-full shadow-xs"><span class="font-label-md text-label-md text-on-surface">Profil Aktif: <strong class="text-primary font-bold">{{ $child->name }}</strong> ({{ $child->grade }})</span></div></div><div class="flex items-center gap-4"><button aria-label="Pemberitahuan" class="relative p-2.5 rounded-xl text-on-surface-variant bg-surface-container-low hover:bg-surface-container hover:text-on-surface transition-colors shadow-xs" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-error ring-2 ring-surface"></span></button><div class="flex items-center gap-space-sm pl-2 border-l border-surface-container-high"><div class="text-right hidden sm:block"><div class="font-label-lg text-label-lg text-on-surface font-semibold leading-none">{{ \App\Support\Fmt::shortName(auth()->user()->name) !== "" ? preg_replace("/\s+(Kusumawardhani|Syakieb)$/", "", auth()->user()->name) : "" }}</div><div class="font-label-sm text-label-sm text-on-surface-variant mt-1">Wali Murid • {{ auth()->user()->branch }}</div></div><div class="w-9 h-9 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-sm shadow-xs"><span class="material-symbols-outlined text-[20px]">person</span></div></div></div></div></header><main class="relative w-full pt-16 bg-surface min-h-screen"><div class="flex flex-col w-full">
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -95,16 +95,6 @@ Pantau kalender mingguan les {{ $child->name }}, konfirmasi pembaruan jadwal tut
 <span class="material-symbols-outlined text-[20px]">chevron_right</span>
 </button>
 </div>
-</div>
-<div class="flex items-center gap-1 bg-surface-container-low p-1 rounded-xl self-start md:self-auto">
-<button class="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-surface-container-lowest text-primary font-label-md text-label-md shadow-xs transition-colors" type="button">
-<span class="material-symbols-outlined text-[18px]">view_week</span>
-<span>Tampilan Mingguan</span>
-</button>
-<button class="flex items-center gap-2 px-3.5 py-2 rounded-lg text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-colors" type="button">
-<span class="material-symbols-outlined text-[18px]">view_agenda</span>
-<span>Daftar Hari</span>
-</button>
 </div>
 </div>
 
@@ -549,8 +539,6 @@ window.confirmSessionSchedule = async function (id) {
   const shift = n => () => { const u = new URL(location.href); u.searchParams.set('pekan', (parseInt(u.searchParams.get('pekan') || '0') + n)); u.searchParams.delete('tgl'); location.href = u.toString(); };
   document.querySelectorAll('button[title="Minggu Sebelumnya"]').forEach(b => b.addEventListener('click', shift(-1)));
   document.querySelectorAll('button[title="Minggu Berikutnya"]').forEach(b => b.addEventListener('click', shift(1)));
-  OPC.on('Daftar Hari', () => window.scrollTo({top: 400, behavior: 'smooth'}), {sel: 'button', exact: false});
-  OPC.on('Tampilan Mingguan', () => window.scrollTo({top: 0, behavior: 'smooth'}), {sel: 'button', exact: false});
 })();
 
 OPC.on('Perpanjang Sesi Les', () => window.open('https://wa.me/6285868046255?text=' + encodeURIComponent({!! json_encode('Halo Admin, saya ingin memperpanjang paket les ' . $child->name . '.') !!}), '_blank'), {sel: 'a', exact: false});
