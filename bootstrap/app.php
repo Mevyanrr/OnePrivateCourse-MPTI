@@ -16,6 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
         $middleware->redirectGuestsTo('/login');
         $middleware->redirectUsersTo(fn () => \App\Http\Middleware\RoleMiddleware::home());
+        $middleware->trustProxies(at: '*');
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

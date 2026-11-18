@@ -1,0 +1,26 @@
+{
+  "resources/css/app.css": {
+    "file": "assets/app-B3inU5vD.css",
+    "src": "resources/css/app.css",
+    "isEntry": true,
+    "name": "app",
+    "names": [
+      "app.css"
+    ]
+  },
+  "resources/css/portal.css": {
+    "file": "assets/portal-NQx1SHJm.css",
+    "src": "resources/css/portal.css",
+    "isEntry": true,
+    "name": "portal",
+    "names": [
+      "portal.css"
+    ]
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-Buj5iI_6.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true
+  }
+}
