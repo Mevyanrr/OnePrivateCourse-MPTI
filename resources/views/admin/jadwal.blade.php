@@ -26,6 +26,12 @@
     :where(.jb) a { color: inherit; text-decoration: inherit; }
     :where(.jb) table { border-collapse: collapse; border-color: inherit; }
     .jb { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .jb select {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    background-image: none !important;
+}
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
@@ -35,7 +41,6 @@
 <!-- Header Section -->
 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
 <div>
-<div class="flex items-center gap-2 text-xs font-medium text-slate-500 mb-1"><span>Operasional Cabang</span><span>&gt;</span><span>Penjadwalan &amp; Kalender</span><span>&gt;</span><span class="text-blue-600 font-semibold">Jadwal &amp; Sesi Les</span></div>
 <h1 class="text-2xl font-bold tracking-tight text-slate-900">Jadwal &amp; Sesi Les</h1>
 <p class="text-sm text-slate-500 mt-0.5">Kelola jadwal pembelajaran harian, sesi les privat aktif, dan penugasan tutor.</p>
 </div>

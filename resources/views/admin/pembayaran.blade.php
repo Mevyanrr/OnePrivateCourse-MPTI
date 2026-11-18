@@ -40,8 +40,7 @@
 <div class="jb flex flex-col w-full max-w-[1400px] mx-auto text-on-surface antialiased">
 <div class="flex flex-col w-full pb-16">
 <!-- Top Header & Breadcrumb Section -->
-<div class="flex flex-col gap-5 mb-8">
-<div class="flex items-center gap-2 text-xs font-medium text-slate-500"><span class="">Operasional Cabang</span><span class="text-slate-400">/</span><span class="">Administrasi &amp; Keuangan</span><span class="text-slate-400">/</span><span class="text-blue-600 font-semibold">Pembayaran</span></div>
+<div class="flex flex-col gap-3 mb-6">
 <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-5">
 <div class="max-w-3xl"><h1 class="text-2xl font-bold tracking-tight text-slate-900">Manajemen &amp; Rekap Pembayaran</h1><p class="text-xs text-slate-500 mt-1.5 leading-relaxed">Sistem pencatatan manual pembayaran les siswa. Pembayaran ditransfer/dibayar mandiri oleh orang tua via WhatsApp konfirmasi cabang, sistem bertindak mencatat validasi dan memperbarui status piutang operasional.</p></div>
 <div class="flex flex-wrap items-center gap-3 shrink-0">

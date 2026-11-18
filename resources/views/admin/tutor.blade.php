@@ -42,20 +42,30 @@
     ];
 @endphp
 
+
 <!-- Judul halaman -->
 <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
   <div class="flex flex-col gap-1">
-    <div class="flex items-center gap-2 text-xs font-medium text-slate-500"><span>Operasional Cabang</span><span class="text-slate-300">/</span><span>Database Pengajar</span><span class="text-slate-300">/</span><span class="text-blue-600 font-semibold">Tutor &amp; Guru Pengajar</span></div>
-    <div class="flex items-center gap-3 mt-0.5">
+    <div class="flex items-center gap-3">
       <h1 class="text-2xl font-bold tracking-tight text-slate-900">Tutor &amp; Guru Pengajar</h1>
-      <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span><span>{{ $stats['active'] }} Tutor Aktif</span></div>
+      <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+        <span>{{ $stats['active'] }} Tutor Aktif</span>
+      </div>
     </div>
-    <p class="text-xs text-slate-500 mt-0.5">Kelola data tutor, bidang ajar, beban mengajar, dan siswa bimbingan cabang. Tutor tidak memiliki akun login; jadwal dan presensi dikelola admin.</p>
+    <p class="text-xs text-slate-500 mt-0.5">
+      Kelola data tutor, bidang ajar, beban mengajar, dan siswa bimbingan cabang. Tutor tidak memiliki akun login; jadwal dan presensi dikelola admin.
+    </p>
   </div>
+
   <div class="flex items-center gap-2.5 shrink-0">
-    <button class="h-9 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold flex items-center gap-1.5 transition-colors shadow-sm" onclick="openTutorForm()" type="button"><span class="material-symbols-outlined text-[18px]">add</span><span>Tambah Tutor</span></button>
+    <button class="h-9 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold flex items-center gap-1.5 transition-colors shadow-sm" onclick="openTutorForm()" type="button">
+      <span class="material-symbols-outlined text-[18px]">add</span>
+      <span>Tambah Tutor</span>
+    </button>
   </div>
 </div>
+
 
 <!-- Ringkasan -->
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">

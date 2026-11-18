@@ -39,16 +39,41 @@
 <div class="jb flex flex-col w-full max-w-[1400px] mx-auto text-on-surface antialiased">
 <div class="flex flex-col w-full max-w-7xl mx-auto space-y-6">
 <!-- 1. HEADER -->
-<div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5 pt-6">
-<div class="flex flex-col min-w-0">
-<div class="flex items-center gap-2 text-xs font-medium text-on-surface-variant mb-1.5"><span class="text-primary-container font-medium">Operasional Cabang</span><span class="text-outline-variant">/</span><span class="text-on-surface font-semibold">Presensi &amp; Laporan</span></div>
-<div class="flex flex-wrap items-center gap-3"><h1 class="text-[24px] font-bold text-on-surface tracking-tight leading-tight">Presensi &amp; Laporan Pembelajaran</h1><span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary-fixed text-primary font-label-sm text-[11px] font-bold border border-primary/20"><span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span> Periode Aktif: {{ \App\Support\Fmt::period() }}</span></div>
-<p class="text-xs text-on-surface-variant mt-1.5 max-w-3xl leading-relaxed">Pantau rekapitulasi kehadiran dan catatan jurnal materi les siswa. Presensi diisi mandiri oleh orang tua/siswa, admin memantau dan mencatat manual bila ada keterlambatan.</p>
-</div>
-<div class="flex items-center gap-3 shrink-0 self-start lg:self-center">
-<button class="h-9 px-3.5 bg-surface-container-lowest hover:bg-surface-container-low text-on-surface border border-outline-variant/60 rounded-xl shadow-xs flex items-center gap-2 transition-all hover:border-outline text-xs font-medium whitespace-nowrap" type="button"><span class="material-symbols-outlined text-[18px] text-on-surface-variant">download</span><span>Ekspor Rekap (XLS/PDF)</span></button>
-<button class="h-9 px-4 bg-primary-container hover:bg-primary text-on-primary rounded-xl shadow-sm shadow-primary/25 flex items-center gap-2 transition-all text-xs font-semibold whitespace-nowrap" id="btnOpenModal" type="button"><span class="material-symbols-outlined text-[18px]">add_circle</span><span> Catat Pertemuan Manual</span></button>
-</div>
+<div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5 pt-1">
+
+    <div class="flex flex-col min-w-0">
+
+        <div class="flex flex-wrap items-center gap-3">
+            <h1 class="text-[24px] font-bold text-on-surface tracking-tight leading-tight">
+                Presensi &amp; Laporan Pembelajaran
+            </h1>
+
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary-fixed text-primary font-label-sm text-[11px] font-bold border border-primary/20">
+                <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                Periode Aktif: {{ \App\Support\Fmt::period() }}
+            </span>
+        </div>
+
+        <p class="text-xs text-on-surface-variant mt-1.5 max-w-3xl leading-relaxed">
+            Pantau rekapitulasi kehadiran dan catatan jurnal materi les siswa. Presensi diisi mandiri oleh orang tua/siswa, admin memantau dan mencatat manual bila ada keterlambatan.
+        </p>
+
+    </div>
+
+    <div class="flex items-center gap-3 shrink-0 self-start lg:self-center">
+
+        <button class="h-9 px-3.5 bg-surface-container-lowest hover:bg-surface-container-low text-on-surface border border-outline-variant/60 rounded-xl shadow-xs flex items-center gap-2 transition-all hover:border-outline text-xs font-medium whitespace-nowrap" type="button">
+            <span class="material-symbols-outlined text-[18px] text-on-surface-variant">download</span>
+            <span>Ekspor Rekap (XLS/PDF)</span>
+        </button>
+
+        <button class="h-9 px-4 bg-primary-container hover:bg-primary text-on-primary rounded-xl shadow-sm shadow-primary/25 flex items-center gap-2 transition-all text-xs font-semibold whitespace-nowrap" id="btnOpenModal" type="button">
+            <span class="material-symbols-outlined text-[18px]">add_circle</span>
+            <span>Catat Pertemuan Manual</span>
+        </button>
+
+    </div>
+
 </div>
 <!-- 2. METRIC CARDS -->
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
