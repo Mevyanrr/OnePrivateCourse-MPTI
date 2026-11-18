@@ -313,7 +313,7 @@ class PortalController extends Controller
             ->values();
 
         $mTotal = $att->count();
-$mHadir = $att->where('status', 'hadir')->count();
+        $mHadir = $att->where('status', 'hadir')->count();
 
         $pct = $mTotal
             ? (int) round(($mHadir / $mTotal) * 100)
@@ -408,7 +408,7 @@ $mHadir = $att->where('status', 'hadir')->count();
 
         // Data yang dibutuhkan oleh beranda.blade.php.
         return view('siswa.beranda', $d + [
-           'greet' => $child->name,
+            'greet' => $child->name,
 
             'next' => $next,
             'pendingCount' => $pending->count(),
@@ -562,21 +562,41 @@ $mHadir = $att->where('status', 'hadir')->count();
         $d = $this->base($r);
         $child = $d['child'];
 
-        $weekStart = now()->startOfWeek()->addWeeks((int) $r->input('pekan', 0));
+        $tz = 'Asia/Jakarta';
+        $today = Carbon::now($tz)->startOfDay();
+        $offset = (int) $r->input('pekan', 0);
 
-        $focus = $r->filled('tgl')
-            ? Carbon::parse($r->tgl)
-            : (($r->input('pekan', 0) == 0) ? today() : $weekStart->copy());
+        // ?tgl= yang valid -> pekan dihitung dari tanggal itu. Tidak valid -> diabaikan.
+        $focus = null;
+        if ($r->filled('tgl')) {
+            try {
+                $focus = Carbon::createFromFormat('Y-m-d', (string) $r->query('tgl'), $tz)->startOfDay();
+            } catch (\Throwable $e) {
+                $focus = null;
+            }
+        }
+        $tglValid = $focus !== null;
 
-        $sessions = LessonSession::with('tutor')
-            ->where('student_id', $child->id)
-            ->where('status', '!=', 'batal')
-            ->whereBetween('date', [
-                $weekStart->toDateString(),
-                $weekStart->copy()->endOfWeek()->toDateString(),
-            ])
-            ->orderBy('start_time')
-            ->get();
+        if ($tglValid) {
+            $weekStart = $focus->copy()->startOfWeek(Carbon::MONDAY);
+        } else {
+            $weekStart = $today->copy()->startOfWeek(Carbon::MONDAY)->addWeeks($offset);
+            $focus = $offset === 0 ? $today->copy() : $weekStart->copy();
+        }
+
+        $weekEnd = $weekStart->copy()->endOfWeek(Carbon::SUNDAY);
+
+        $loadWeek = function (Carbon $start, Carbon $end) use ($child) {
+            return LessonSession::with('tutor')
+                ->where('student_id', $child->id)
+                ->where('status', '!=', 'batal')
+                ->whereBetween('date', [$start->toDateString(), $end->toDateString()])
+                ->orderBy('date')
+                ->orderBy('start_time')
+                ->get();
+        };
+
+        $sessions = $loadWeek($weekStart, $weekEnd);
 
         $daySessions = $sessions
             ->filter(fn ($s) => $s->date->isSameDay($focus))
@@ -584,20 +604,25 @@ $mHadir = $att->where('status', 'hadir')->count();
 
         $pending = LessonSession::with('tutor')
             ->where('student_id', $child->id)
-            ->whereDate('date', '>=', today())
+            ->whereDate('date', '>=', $today->toDateString())
             ->where('status', '!=', 'batal')
             ->where('parent_confirmed', false)
             ->orderBy('date')
             ->orderBy('start_time')
             ->first();
 
+        // Lompat otomatis ke sesi yang butuh konfirmasi hanya saat halaman dibuka tanpa tgl/pekan.
         if (
             $pending
+            && ! $tglValid
+            && $offset === 0
             && ! $daySessions->contains('id', $pending->id)
-            && ! $r->filled('tgl')
-            && $r->input('pekan', 0) == 0
         ) {
-            $focus = $pending->date->copy();
+            $focus = $pending->date->copy()->startOfDay();
+            $weekStart = $focus->copy()->startOfWeek(Carbon::MONDAY);
+            $weekEnd = $weekStart->copy()->endOfWeek(Carbon::SUNDAY);
+
+            $sessions = $loadWeek($weekStart, $weekEnd);
 
             $daySessions = $sessions
                 ->filter(fn ($s) => $s->date->isSameDay($focus))
@@ -616,18 +641,20 @@ $mHadir = $att->where('status', 'hadir')->count();
 
         $dates = collect(range(0, 5))
             ->map(fn ($i) => [
-                'v' => today()->addDays($i)->toDateString(),
-                't' => Fmt::dateShort(today()->addDays($i))
+                'v' => $today->copy()->addDays($i)->toDateString(),
+                't' => Fmt::dateShort($today->copy()->addDays($i))
                     . ($i === 0 ? ' (Hari Ini)' : ''),
             ])
             ->values();
 
         return view('siswa.jadwal', $d + [
             'weekStart' => $weekStart,
+            'prevWeek' => $weekStart->copy()->subWeek()->toDateString(),
+            'nextWeek' => $weekStart->copy()->addWeek()->toDateString(),
             'pending' => $pending,
 
             'pendingCount' => LessonSession::where('student_id', $child->id)
-                ->whereDate('date', '>=', today())
+                ->whereDate('date', '>=', $today->toDateString())
                 ->where('status', '!=', 'batal')
                 ->where('parent_confirmed', false)
                 ->count(),
@@ -636,7 +663,7 @@ $mHadir = $att->where('status', 'hadir')->count();
             'daySessions' => $daySessions,
 
             'others' => $sessions
-                ->filter(fn ($s) => ! $s->date->isSameDay($focus) && $s->date->gte(today()))
+                ->filter(fn ($s) => ! $s->date->isSameDay($focus) && $s->date->gte($today))
                 ->values(),
 
             'quota' => $this->quota($child),
@@ -777,6 +804,12 @@ $mHadir = $att->where('status', 'hadir')->count();
     {
         $this->own($session);
 
+        if (in_array($session->status, ['batal', 'selesai'], true)) {
+            return response()->json([
+                'message' => 'Sesi ini tidak bisa dikonfirmasi.',
+            ], 422);
+        }
+
         $session->update([
             'parent_confirmed' => true,
         ]);
@@ -790,13 +823,21 @@ $mHadir = $att->where('status', 'hadir')->count();
     {
         $this->own($session);
 
+        $today = Carbon::now('Asia/Jakarta')->toDateString();
+
         $d = $r->validate([
-            'date' => 'required|date',
-            'start_time' => 'required',
-            'end_time' => 'required',
-            'reason' => 'nullable|string',
-            'note' => 'nullable|string',
+            'date' => 'required|date|after_or_equal:' . $today,
+            'start_time' => 'required|date_format:H:i',
+            'end_time' => 'required|date_format:H:i',
+            'reason' => 'nullable|string|max:500',
+            'note' => 'nullable|string|max:500',
         ]);
+
+        if (in_array($session->status, ['batal', 'selesai'], true)) {
+            return response()->json([
+                'message' => 'Sesi ini tidak bisa diajukan ganti waktu.',
+            ], 422);
+        }
 
         if (Fmt::minutes($d['start_time'], $d['end_time']) <= 0) {
             return response()->json([
@@ -836,65 +877,64 @@ $mHadir = $att->where('status', 'hadir')->count();
         ]);
     }
 
-    
-public function presensiStore(Request $r, LessonSession $session)
-{
-    $this->own($session);
+    public function presensiStore(Request $r, LessonSession $session)
+    {
+        $this->own($session);
 
-    // Sesi yang dibatalkan tidak dapat diisi presensi.
-    if ($session->status === 'batal') {
-        return response()->json([
-            'message' => 'Sesi yang dibatalkan tidak dapat diisi presensi.',
-        ], 422);
-    }
+        // Sesi yang dibatalkan tidak dapat diisi presensi.
+        if ($session->status === 'batal') {
+            return response()->json([
+                'message' => 'Sesi yang dibatalkan tidak dapat diisi presensi.',
+            ], 422);
+        }
 
         // Gunakan zona waktu WIB secara eksplisit.
-    $timezone = 'Asia/Jakarta';
+        $timezone = 'Asia/Jakarta';
 
-    $startAt = Carbon::parse(
-        $session->date->toDateString() . ' ' . $session->start_time,
-        $timezone
-    );
+        $startAt = Carbon::parse(
+            $session->date->toDateString() . ' ' . $session->start_time,
+            $timezone
+        );
 
-    $endAt = Carbon::parse(
-        $session->date->toDateString() . ' ' . $session->end_time,
-        $timezone
-    )->addHours(2);
+        $endAt = Carbon::parse(
+            $session->date->toDateString() . ' ' . $session->end_time,
+            $timezone
+        )->addHours(2);
 
-    $currentTime = now($timezone);
+        $currentTime = now($timezone);
 
-    if ($currentTime->lt($startAt) || $currentTime->gt($endAt)) {
+        if ($currentTime->lt($startAt) || $currentTime->gt($endAt)) {
+            return response()->json([
+                'message' => 'Presensi hanya dapat diisi sejak sesi dimulai hingga 2 jam setelah sesi berakhir.',
+            ], 422);
+        }
+
+        $d = $r->validate([
+            'status' => 'required|in:hadir,izin,sakit',
+            'understanding' => 'nullable|integer|min:1|max:5',
+            'note' => 'nullable|string|max:300',
+        ]);
+
+        $session->update([
+            'status' => 'selesai',
+        ]);
+
+        Attendance::updateOrCreate(
+            ['lesson_session_id' => $session->id],
+            [
+                'status' => $d['status'],
+                'understanding' => $d['understanding'] ?? null,
+                'note' => $d['note'] ?? null,
+                'journal' => $d['note'] ?? null,
+                'submitted_by' => auth()->user()->name . ' (Wali Murid)',
+                'submitted_at' => now(),
+            ]
+        );
+
         return response()->json([
-            'message' => 'Presensi hanya dapat diisi sejak sesi dimulai hingga 2 jam setelah sesi berakhir.',
-        ], 422);
+            'message' => 'Presensi berhasil disimpan & diverifikasi.',
+        ]);
     }
-
-    $d = $r->validate([
-        'status' => 'required|in:hadir,izin,sakit',
-        'understanding' => 'nullable|integer|min:1|max:5',
-        'note' => 'nullable|string|max:300',
-    ]);
-
-    $session->update([
-        'status' => 'selesai',
-    ]);
-
-    Attendance::updateOrCreate(
-        ['lesson_session_id' => $session->id],
-        [
-            'status' => $d['status'],
-            'understanding' => $d['understanding'] ?? null,
-            'note' => $d['note'] ?? null,
-            'journal' => $d['note'] ?? null,
-            'submitted_by' => auth()->user()->name . ' (Wali Murid)',
-            'submitted_at' => now(),
-        ]
-    );
-
-    return response()->json([
-        'message' => 'Presensi berhasil disimpan & diverifikasi.',
-    ]);
-}
 
     public function kuitansi(Payment $payment)
     {
