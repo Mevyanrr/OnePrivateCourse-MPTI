@@ -68,7 +68,28 @@
 <div class="flex items-center justify-between gap-4">
 <div class="flex items-center gap-3 flex-1 max-w-xl">
 <div class="relative flex-1"><span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[18px]">search</span><input class="w-full pl-9 pr-3 py-2 bg-white border border-slate-200 rounded-xl text-xs text-slate-700 placeholder:text-slate-400 focus:outline-none focus:border-blue-500 transition-colors" placeholder="Cari nama siswa..." type="text" id="q" value="{{ request('q') }}"></div>
-<div class="relative min-w-[150px]"><select id="statusSel" class="w-full appearance-none bg-white border border-slate-200 rounded-xl px-3 py-2 pr-8 text-xs text-slate-700 focus:outline-none focus:border-blue-500 cursor-pointer"><option value="">Semua Status</option><option value="aktif" {{ request('status') === 'aktif' ? 'selected' : '' }}>Aktif</option><option value="nonaktif" {{ request('status') === 'nonaktif' ? 'selected' : '' }}>Nonaktif</option></select><span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 text-[16px] pointer-events-none">expand_more</span></div>
+
+<div class="relative min-w-[150px]">
+    <select id="statusSel"
+        style="appearance: none; -webkit-appearance: none; -moz-appearance: none; background-image: none;"
+        class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 pr-8 text-xs text-slate-700 focus:outline-none focus:border-blue-500 cursor-pointer">
+
+        <option value="">Semua Status</option>
+
+        <option value="aktif" {{ request('status') === 'aktif' ? 'selected' : '' }}>
+            Aktif
+        </option>
+
+        <option value="nonaktif" {{ request('status') === 'nonaktif' ? 'selected' : '' }}>
+            Nonaktif
+        </option>
+    </select>
+
+    <span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 text-[16px] pointer-events-none">
+        expand_more
+    </span>
+</div>
+
 </div>
 <button class="bg-blue-600 hover:bg-blue-700 text-white rounded-xl px-4 py-2 text-xs font-semibold shadow-sm shadow-blue-500/20 flex items-center gap-1.5 transition-colors shrink-0" type="button"><span class="material-symbols-outlined text-[17px]">add</span><span>Tambah Siswa</span></button>
 </div>
