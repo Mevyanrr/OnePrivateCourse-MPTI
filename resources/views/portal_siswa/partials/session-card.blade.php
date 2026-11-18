@@ -15,6 +15,7 @@
         <span class="badge badge-{{ $s->state_class }}">{{ $s->state }}</span>
 
         @if($s->status === 'terjadwal')
+            @php $todayStr = $todayDate ?? now('Asia/Jakarta')->toDateString(); @endphp
             <div class="actions">
                 @unless($s->student_confirmed)
                     <form method="POST" action="{{ route('siswa.jadwal.confirm', $s->id) }}">
@@ -23,15 +24,13 @@
                     </form>
                 @endunless
 
-                @unless($s->has_pending)
-                    <button type="button" class="btn btn-ghost btn-sm"
-                            data-reschedule
-                            data-id="{{ $s->id }}"
-                            data-title="{{ $s->subject }} — {{ $s->date_label }}, {{ $s->time_label }}"
-                            data-date="{{ $s->date }}">
-                        Ajukan Ganti Waktu
-                    </button>
-                @endunless
+                <button type="button" class="btn btn-ghost btn-sm"
+                        data-reschedule
+                        data-id="{{ $s->id }}"
+                        data-title="{{ $s->subject }} — {{ $s->date_label }}, {{ $s->time_label }}"
+                        data-date="{{ $s->date < $todayStr ? $todayStr : $s->date }}">
+                    Ajukan Ganti Waktu
+                </button>
             </div>
         @endif
     </div>

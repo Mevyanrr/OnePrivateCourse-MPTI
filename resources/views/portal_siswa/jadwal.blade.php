@@ -40,9 +40,6 @@
         .ico{width:44px;height:44px;border-radius:12px;background:var(--brand-soft);display:grid;place-items:center;color:var(--brand)}
         .nav-week{display:flex;align-items:center;gap:6px;background:var(--bg);border-radius:12px;padding:6px}
         .nav-week a{padding:8px 14px;border-radius:10px;font-weight:600;font-size:14px}
-        .toggle{display:flex;background:var(--bg);border-radius:12px;padding:4px}
-        .toggle button{border:0;background:transparent;padding:10px 16px;border-radius:10px;font:inherit;font-weight:600;color:var(--mute);cursor:pointer}
-        .toggle button.on{background:#fff;color:var(--brand);box-shadow:0 1px 3px rgba(0,0,0,.08)}
         .week-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:14px;margin-bottom:30px}
         .day{background:#fff;border-radius:18px;padding:16px;border:2px solid transparent;position:relative;display:block}
         .day.today .tag{display:inline-block;font-size:11px;font-weight:700;color:var(--brand);margin-left:4px}
@@ -151,10 +148,6 @@
                     <a href="{{ route('siswa.jadwal', ['date' => $todayDate]) }}">Hari Ini</a>
                     <a href="{{ route('siswa.jadwal', ['date' => $nextWeek]) }}">›</a>
                 </div>
-                <div class="toggle">
-                    <button type="button" class="on" data-view="week">Tampilan Mingguan</button>
-                    <button type="button" data-view="list">Daftar Hari</button>
-                </div>
             </div>
 
             <div class="week-grid" id="weekGrid">
@@ -184,7 +177,7 @@
             @else
                 <div class="list" style="margin-bottom:30px">
                     @foreach($selectedSessions as $s)
-                        @include('portal_siswa.partials.session-card', ['s' => $s])
+                        @include('portal_siswa.partials.session-card', ['s' => $s, 'todayDate' => $todayDate])
                     @endforeach
                 </div>
             @endif
@@ -198,7 +191,7 @@
             @else
                 <div class="list">
                     @foreach($otherSessions as $s)
-                        @include('portal_siswa.partials.session-card', ['s' => $s])
+                        @include('portal_siswa.partials.session-card', ['s' => $s, 'todayDate' => $todayDate])
                     @endforeach
                 </div>
             @endif
@@ -253,13 +246,6 @@
     document.getElementById('reschedCancel').addEventListener('click', close);
     modal.addEventListener('click', e => { if (e.target === modal) close(); });
     document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
-
-    const grid = document.getElementById('weekGrid');
-    document.querySelectorAll('.toggle button').forEach(b => b.addEventListener('click', () => {
-        document.querySelectorAll('.toggle button').forEach(x => x.classList.remove('on'));
-        b.classList.add('on');
-        grid.style.display = b.dataset.view === 'list' ? 'none' : '';
-    }));
 </script>
 </body>
 </html>

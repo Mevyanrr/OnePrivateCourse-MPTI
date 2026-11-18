@@ -30,8 +30,16 @@ class SiswaJadwalController extends Controller
         $student = $this->student($request);
         $today   = Carbon::now(self::TZ)->startOfDay();
 
-        $request->validate(['date' => ['nullable', 'date']]);
-        $selected  = Carbon::parse($request->query('date', $today->toDateString()), self::TZ)->startOfDay();
+        // Parameter ?date= yang tidak valid diabaikan (tampil seperti default, tanpa error)
+        $raw = $request->query('date');
+        try {
+            $selected = (is_string($raw) && $raw !== '')
+                ? Carbon::createFromFormat('Y-m-d', $raw, self::TZ)->startOfDay()
+                : $today->copy();
+        } catch (\Throwable $e) {
+            $selected = $today->copy();
+        }
+
         $weekStart = $selected->copy()->startOfWeek(Carbon::MONDAY);
         $weekEnd   = $weekStart->copy()->endOfWeek(Carbon::SUNDAY);
 
@@ -47,6 +55,7 @@ class SiswaJadwalController extends Controller
             ->where('student_id', $student->id)
             ->where('status', 'menunggu')
             ->pluck('lesson_session_id')
+            ->map(fn ($v) => (int) $v)
             ->all();
 
         $sessions = $sessions->map(fn ($s) => $this->present($s, $pendingIds));
@@ -57,13 +66,13 @@ class SiswaJadwalController extends Controller
             $items = $byDate->get($d->toDateString(), collect());
 
             return [
-                'date'        => $d->toDateString(),
-                'day_name'    => $d->locale('id')->isoFormat('dddd'),
-                'day_number'  => $d->day,
-                'month_short' => $d->locale('id')->isoFormat('MMM'),
-                'is_today'    => $d->isSameDay($today),
-                'is_selected' => $d->isSameDay($selected),
-                'count'       => $items->count(),
+                'date'         => $d->toDateString(),
+                'day_name'     => $d->locale('id')->isoFormat('dddd'),
+                'day_number'   => $d->day,
+                'month_short'  => $d->locale('id')->isoFormat('MMM'),
+                'is_today'     => $d->isSameDay($today),
+                'is_selected'  => $d->isSameDay($selected),
+                'count'        => $items->count(),
                 'needs_action' => $items->contains(fn ($s) => $s->status === 'terjadwal' && !$s->student_confirmed),
             ];
         });
@@ -114,52 +123,66 @@ class SiswaJadwalController extends Controller
     public function reschedule(Request $request, int $id)
     {
         $student = $this->student($request);
-        $session = $this->ownSession($student->id, $id);
+        $this->ownSession($student->id, $id);
+
+        $today = Carbon::now(self::TZ)->toDateString();
 
         $data = $request->validate([
-            'date'   => ['required', 'date', 'after_or_equal:today'],
+            'date'   => ['required', 'date', 'after_or_equal:' . $today],
             'slot'   => ['required', 'in:' . implode(',', array_keys(self::SLOTS))],
             'reason' => ['nullable', 'string', 'max:500'],
         ]);
 
-        abort_if($session->status !== 'terjadwal', 422, 'Sesi ini tidak bisa diajukan ganti waktu.');
+        return DB::transaction(function () use ($request, $student, $id, $data) {
+            // Kunci baris sesi agar dua request bersamaan tidak lolos bersamaan
+            $session = DB::table('lesson_sessions')->where('id', $id)->lockForUpdate()->first();
 
-        $slot = self::SLOTS[$data['slot']];
+            abort_if(!$session || $session->status !== 'terjadwal', 422, 'Sesi ini tidak bisa diajukan ganti waktu.');
 
-        $bentrok = DB::table('lesson_sessions')
-            ->where('tutor_id', $session->tutor_id)
-            ->where('id', '!=', $session->id)
-            ->where('status', 'terjadwal')
-            ->where('date', $data['date'])
-            ->where('start_time', '<', $slot['end'])
-            ->where('end_time', '>', $slot['start'])
-            ->exists();
+            // Cek pengajuan ganda lebih dulu
+            $pending = DB::table('reschedule_requests')
+                ->where('lesson_session_id', $id)
+                ->where('status', 'menunggu')
+                ->exists();
 
-        if ($bentrok) {
-            return back()->withErrors(['slot' => 'Slot tersebut sudah terisi oleh tutor. Pilih waktu lain.'])->withInput();
-        }
+            if ($pending) {
+                return back()->withErrors([
+                    'slot' => 'Sudah ada pengajuan yang menunggu persetujuan untuk sesi ini.',
+                ]);
+            }
 
-        $pending = DB::table('reschedule_requests')
-            ->where('lesson_session_id', $id)->where('status', 'menunggu')->exists();
+            $slot = self::SLOTS[$data['slot']];
 
-        if ($pending) {
-            return back()->withErrors(['slot' => 'Sudah ada pengajuan yang menunggu persetujuan untuk sesi ini.']);
-        }
+            $bentrok = DB::table('lesson_sessions')
+                ->where('tutor_id', $session->tutor_id)
+                ->where('id', '!=', $session->id)
+                ->where('status', 'terjadwal')
+                ->where('date', $data['date'])
+                ->where('start_time', '<', $slot['end'])
+                ->where('end_time', '>', $slot['start'])
+                ->exists();
 
-        DB::table('reschedule_requests')->insert([
-            'lesson_session_id' => $id,
-            'student_id'        => $student->id,
-            'requested_by'      => $request->user()->id,
-            'requested_date'    => $data['date'],
-            'requested_start'   => $slot['start'],
-            'requested_end'     => $slot['end'],
-            'reason'            => $data['reason'] ?? null,
-            'status'            => 'menunggu',
-            'created_at'        => now(),
-            'updated_at'        => now(),
-        ]);
+            if ($bentrok) {
+                return back()->withErrors([
+                    'slot' => 'Slot tersebut sudah terisi oleh tutor. Pilih waktu lain.',
+                ])->withInput();
+            }
 
-        return back()->with('success', 'Pengajuan ganti waktu terkirim dan menunggu persetujuan.');
+            DB::table('reschedule_requests')->insert([
+                'lesson_session_id' => $id,
+                'student_id'        => $student->id,
+                'requested_by'      => $request->user()->id,
+                'requested_date'    => $data['date'],
+                'requested_start'   => $slot['start'],
+                'requested_end'     => $slot['end'],
+                'reason'            => $data['reason'] ?? null,
+                'status'            => 'menunggu',
+                'created_at'        => now(),
+                'updated_at'        => now(),
+            ]);
+
+            return back()->with('success', 'Pengajuan ganti waktu terkirim dan menunggu persetujuan.');
+        });
     }
 
     private function ownSession(int $studentId, int $id)
@@ -173,10 +196,12 @@ class SiswaJadwalController extends Controller
 
     private function present($s, array $pendingIds)
     {
+        // Normalisasi format tanggal agar cocok dengan key Y-m-d
+        $s->date         = substr((string) $s->date, 0, 10);
         $s->time_label   = substr($s->start_time, 0, 5) . ' – ' . substr($s->end_time, 0, 5) . ' WIB';
         $s->date_label   = Carbon::parse($s->date)->locale('id')->isoFormat('ddd, D MMM');
         $s->method_label = $s->method === 'online' ? 'Online' : 'Home Visit';
-        $s->has_pending  = in_array($s->id, $pendingIds, true);
+        $s->has_pending  = in_array((int) $s->id, $pendingIds, true);
 
         [$s->state, $s->state_class] = match (true) {
             $s->status === 'selesai'                     => ['Selesai', 'done'],
